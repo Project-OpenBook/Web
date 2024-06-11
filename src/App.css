@@ -39,7 +39,7 @@
 
 .embla {
   max-width: 48rem;
-  margin: auto;
+  margin: 0;
   --slide-height: 19rem;
   --slide-spacing: 1rem;
   --slide-size: 100%;
@@ -115,7 +115,7 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
-  margin-right: calc((2.6rem - 1.4rem) / 2 * -1);
+  margin-right: 5rem;
 }
 .embla__dot {
   -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
