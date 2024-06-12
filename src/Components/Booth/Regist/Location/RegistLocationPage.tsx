@@ -45,7 +45,7 @@ export default function RegistLocationPage({
   const getColorClass = (status: "EMPTY" | "WAITING" | "COMPLETE") => {
     switch (status) {
       case "EMPTY":
-        return "bg-yellow-400";
+        return "bg-yellow-400 hover:bg-yellow-500";
       case "WAITING":
         return "bg-red-400";
       case "COMPLETE":
@@ -64,7 +64,7 @@ export default function RegistLocationPage({
       } else if (prevSelectedSeatIds.length < maxSelectableSeats) {
         return [...prevSelectedSeatIds, seatId];
       } else {
-        alert(`You can select up to ${maxSelectableSeats} seats.`);
+        alert(`최대 ${maxSelectableSeats}자리까지 선택할 수 있습니다.`);
         return prevSelectedSeatIds;
       }
     });
@@ -100,9 +100,9 @@ export default function RegistLocationPage({
                 selectedSeatIds.includes(area.id)
                   ? "border-4 border-blue-500"
                   : ""
-              } ${area.status !== "COMPLETE" ? "cursor-pointer" : ""}`}
+              } ${area.status === "EMPTY" ? "cursor-pointer" : ""}`}
               onClick={() =>
-                area.status !== "COMPLETE" &&
+                area.status === "EMPTY" &&
                 handleSeatClick(area.id, seatNumber, row)
               }
             >
@@ -132,9 +132,9 @@ export default function RegistLocationPage({
                 selectedSeatIds.includes(area.id)
                   ? "border-4 border-blue-500"
                   : ""
-              } ${area.status !== "COMPLETE" ? "cursor-pointer" : ""}`}
+              } ${area.status === "EMPTY" ? "cursor-pointer" : ""}`}
               onClick={() =>
-                area.status !== "COMPLETE" &&
+                area.status === "EMPTY" &&
                 handleSeatClick(area.id, seatNumber, row)
               }
             >
