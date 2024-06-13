@@ -29,7 +29,6 @@ export default function RegistLocationPage({
   setSelectedSeatIds,
   setSelectedSeatNumbers,
   selectedSeatIds,
-  selectedSeatNumbers,
 }: Props) {
   const { isLoading, isError, data } = useGetLocation(eventId);
   const maxSelectableSeats = 3;

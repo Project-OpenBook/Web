@@ -12,6 +12,21 @@ import { useState } from "react";
 import { useRegisteBooth } from "../../../Hooks/Booth/useRegistBooth";
 import { useLocation } from "react-router-dom";
 import RegistLocationPage from "./Location/RegistLocationPage";
+import GoodsInfoInputPage from "./Goods/GoodsInfoInputPage";
+import GoodsManagementPage from "./Goods/GoodsMangementPage";
+import ServiceManagementPage from "./Service/ServiceManagementPage";
+import ServiceTimeAdd from "./Service/ServiceTimeAdd";
+import ServiceInfoInputPage from "./Service/ServiceInfoInputPage";
+
+type ModalState = {
+  state:
+    | "none"
+    | "goodsManage"
+    | "serviceManage"
+    | "goodsInput"
+    | "serviceInput"
+    | "serviceTime";
+};
 
 export default function BoothRegistPage() {
   const { state } = useLocation();
@@ -31,6 +46,7 @@ export default function BoothRegistPage() {
     setSelectedSeatIds,
   } = useRegisteBooth(state?.name);
   const [isOpen, setIsOpen] = useState(false);
+  const [modalState, setModalState] = useState<ModalState>({ state: "none" });
   const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);
 
@@ -163,6 +179,19 @@ export default function BoothRegistPage() {
             setSelectedSeatIds={setSelectedSeatIds}
             setSelectedSeatNumbers={setSelectedSeatNumbers}
           />
+        </Modal>
+        <Modal isOpen={false} switchModal={switchModal}>
+          <div>
+            <GoodsManagementPage />
+            <ServiceManagementPage />
+            <GoodsInfoInputPage />
+            <ServiceInfoInputPage />
+
+            <ServiceTimeAdd
+              startDate={new Date(2024, 5, 23)}
+              endDate={new Date(2024, 5, 30)}
+            />
+          </div>
         </Modal>
       </div>
     </div>
