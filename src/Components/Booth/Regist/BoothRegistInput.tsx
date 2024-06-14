@@ -23,6 +23,24 @@ export default function BoothRegistInput({
   value,
 }: Props) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
+  const banks = [
+    "국민은행",
+    "신한은행",
+    "하나은행",
+    "우리은행",
+    "기업은행",
+    "농협은행",
+    "산업은행",
+    "수출입은행",
+    "부산은행",
+    "대구은행",
+    "광주은행",
+    "전북은행",
+    "제주은행",
+    "SC제일은행",
+    "씨티은행",
+    "카카오뱅크",
+  ];
 
   const onCickImageUploadHandler = (): void => {
     imageInputRef.current?.click();
@@ -120,10 +138,9 @@ export default function BoothRegistInput({
               onChange={(e) => setValue(e.target.value)}
             />
             <select className="h-10 w-1/4 mb-4">
-              <option value={"카카오뱅크"}>카카오뱅크</option>
-              <option value={"신한은행"}>신한은행</option>
-              <option value={"우리은행"}>우리은행</option>
-              <option value={"국민은행"}>국민은행</option>
+              {banks.map((bank) => {
+                return <option value={bank}>{bank}</option>;
+              })}
             </select>
           </>
         )}

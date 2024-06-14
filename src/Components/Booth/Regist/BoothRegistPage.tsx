@@ -46,6 +46,7 @@ export default function BoothRegistPage() {
     setSelectedSeatIds,
   } = useRegisteBooth(state?.name);
   const [isOpen, setIsOpen] = useState(false);
+  //TODO: 추후 모달 창 변환을 위한 변수
   const [modalState, setModalState] = useState<ModalState>({ state: "none" });
   const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);
