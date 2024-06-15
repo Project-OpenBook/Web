@@ -147,6 +147,7 @@ export default function BoothRegistPage() {
           label="계좌번호"
           Icon={FaRegCreditCard}
           setValue={setAccountNumber}
+          setValue2={setAccountBankName}
           type="select"
         />
         <div className="flex gap-4 w-full justify-center">

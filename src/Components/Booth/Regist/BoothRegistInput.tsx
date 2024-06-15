@@ -137,7 +137,14 @@ export default function BoothRegistInput({
               className={INPUT_CLASSNAME}
               onChange={(e) => setValue(e.target.value)}
             />
-            <select className="h-10 w-1/4 mb-4">
+            <select
+              className="h-10 w-1/4 mb-4"
+              onChange={(e) => {
+                if (setValue2) {
+                  setValue2(e.target.value);
+                }
+              }}
+            >
               {banks.map((bank) => {
                 return <option value={bank}>{bank}</option>;
               })}
