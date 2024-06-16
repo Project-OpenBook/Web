@@ -17,6 +17,7 @@ import GoodsManagementPage from "./Goods/GoodsMangementPage";
 import ServiceManagementPage from "./Service/ServiceManagementPage";
 import ServiceTimeAdd from "./Service/ServiceTimeAdd";
 import ServiceInfoInputPage from "./Service/ServiceInfoInputPage";
+import AccountInput from "./Input/AccountInput";
 
 type ModalState = {
   state:
@@ -142,13 +143,12 @@ export default function BoothRegistPage() {
           setValue={() => {}}
           type="button"
         />
-        <BoothRegistInput
+        <AccountInput
           placeholder="사용하시는 은행 및 계좌번호를 입력해주세요"
           label="계좌번호"
           Icon={FaRegCreditCard}
-          setValue={setAccountNumber}
-          setValue2={setAccountBankName}
-          type="select"
+          setAccountNumber={setAccountNumber}
+          setAccountBankName={setAccountBankName}
         />
         <div className="flex gap-4 w-full justify-center">
           <button

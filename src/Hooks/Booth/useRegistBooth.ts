@@ -55,7 +55,7 @@ export const useRegisteBooth = (initBoothName?: string) => {
   const [name, setName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [selectedSeatIds, setSelectedSeatIds] = useState<number[]>([]);
-  const [accountBankName, setAccountBankName] = useState("국민은행");
+  const [accountBankName, setAccountBankName] = useState("");
   const [boothName, setBoothName] = useState(initBoothName ?? "");
 
   const { mutate } = useMutation({
