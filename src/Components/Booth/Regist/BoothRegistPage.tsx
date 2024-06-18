@@ -19,6 +19,7 @@ import ServiceTimeAdd from "./Service/ServiceTimeAdd";
 import ServiceInfoInputPage from "./Service/ServiceInfoInputPage";
 import AccountInput from "./Input/AccountInput";
 import ImageInput from "./Input/ImageInput";
+import TimeInput from "./Input/TimeInput";
 
 type ModalState = {
   state:
@@ -94,11 +95,11 @@ export default function BoothRegistPage() {
           value={boothName}
           type="text"
         />
-        <BoothRegistInput
+        <TimeInput
           label="부스 운영 시간"
           Icon={FaCalendarCheck}
-          setValue={setOpenTime}
-          setValue2={setEndTime}
+          setStartTime={setOpenTime}
+          setEndTime={setEndTime}
           type="time"
         />
         <div className="flex flex-col w-1/2 mb-5">

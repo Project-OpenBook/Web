@@ -18,12 +18,11 @@ export default function BoothRegistInput({
   type,
   setValue,
   Icon,
-  imageName,
   setValue2,
   value,
 }: Props) {
+  //TODO: 추후 삭제
   const imageInputRef = useRef<HTMLInputElement | null>(null);
-
   const onCickImageUploadHandler = (): void => {
     imageInputRef.current?.click();
   };
