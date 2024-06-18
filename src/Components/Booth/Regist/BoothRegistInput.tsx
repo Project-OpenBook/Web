@@ -23,24 +23,6 @@ export default function BoothRegistInput({
   value,
 }: Props) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
-  const banks = [
-    "국민은행",
-    "신한은행",
-    "하나은행",
-    "우리은행",
-    "기업은행",
-    "농협은행",
-    "산업은행",
-    "수출입은행",
-    "부산은행",
-    "대구은행",
-    "광주은행",
-    "전북은행",
-    "제주은행",
-    "SC제일은행",
-    "씨티은행",
-    "카카오뱅크",
-  ];
 
   const onCickImageUploadHandler = (): void => {
     imageInputRef.current?.click();
@@ -104,30 +86,6 @@ export default function BoothRegistInput({
               선택
             </button>
           </>
-        )}
-
-        {type === "image" && (
-          <div className="flex w-full justify-between items-center mb-4">
-            <div className="flex w-3/4 border-b-2 py-2 pl-1">
-              선택된 이미지 :
-              {imageName && <div className="font-bold ml-2">{imageName}</div>}
-            </div>
-            <button
-              onClick={() => {
-                onCickImageUploadHandler();
-              }}
-              className="border-none h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white"
-            >
-              이미지 등록
-            </button>
-            <input
-              type="file"
-              className="hidden"
-              onChange={setValue}
-              ref={imageInputRef}
-              accept="image/*"
-            />
-          </div>
         )}
       </div>
     </div>

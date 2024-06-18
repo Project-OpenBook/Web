@@ -18,6 +18,7 @@ import ServiceManagementPage from "./Service/ServiceManagementPage";
 import ServiceTimeAdd from "./Service/ServiceTimeAdd";
 import ServiceInfoInputPage from "./Service/ServiceInfoInputPage";
 import AccountInput from "./Input/AccountInput";
+import ImageInput from "./Input/ImageInput";
 
 type ModalState = {
   state:
@@ -121,12 +122,10 @@ export default function BoothRegistPage() {
             </button>
           </div>
         </div>
-        <BoothRegistInput
-          placeholder="부스를 대표할 이미지를 선택해주세요"
+        <ImageInput
           label="부스 대표이미지"
           Icon={FaRegImage}
-          setValue={handleFileChange}
-          type="image"
+          setImage={handleFileChange}
           imageName={imageName}
         />
         <BoothRegistInput

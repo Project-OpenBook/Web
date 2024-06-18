@@ -7,8 +7,6 @@ interface Props {
   setAccountNumber: (value: string) => void;
   setAccountBankName: (value: string) => void;
   Icon: IconType;
-  imageName?: string;
-  value?: string;
 }
 export default function AccountInput({
   label,
