@@ -20,6 +20,7 @@ import ServiceInfoInputPage from "./Service/ServiceInfoInputPage";
 import AccountInput from "./Input/AccountInput";
 import ImageInput from "./Input/ImageInput";
 import TimeInput from "./Input/TimeInput";
+import TextareaInput from "./Input/TextareaInput";
 
 type ModalState = {
   state:
@@ -100,7 +101,6 @@ export default function BoothRegistPage() {
           Icon={FaCalendarCheck}
           setStartTime={setOpenTime}
           setEndTime={setEndTime}
-          type="time"
         />
         <div className="flex flex-col w-1/2 mb-5">
           <div className="flex gap-2 items-center h-full mb-2">
@@ -129,15 +129,14 @@ export default function BoothRegistPage() {
           setImage={handleFileChange}
           imageName={imageName}
         />
-        <BoothRegistInput
-          placeholder="부스를 대한 간단한 설명을 입력해주세요"
+        <TextareaInput
+          placeholder="부스에 대한 간단한 설명을 입력해주세요"
           label="부스 설명"
           Icon={MdOutlineDescription}
           setValue={setDescription}
-          type="textarea"
         />
         <BoothRegistInput
-          placeholder="부스를 나타내는 태그를 설정해주세요"
+          placeholder="부스를 나타낼 수 있는 태그들을 설정해주세요"
           label="부스 태그"
           Icon={FaHashtag}
           setValue={() => {}}

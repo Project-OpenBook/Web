@@ -40,30 +40,6 @@ export default function BoothRegistInput({
         </label>
       </div>
       <div className="flex gap-2 items-center h-full">
-        {type === "textarea" && (
-          <textarea
-            placeholder={placeholder}
-            className={INPUT_CLASSNAME}
-            onChange={(e) => setValue(e.target.value)}
-          />
-        )}
-        {type === "time" && (
-          <div className="flex justify-between items-center w-3/4 gap-3">
-            <input
-              type="time"
-              className={INPUT_CLASSNAME}
-              onChange={(e) => setValue(`${e.target.value}:00`)}
-            />
-            <div className="pb-3 font-bold"> ~ </div>
-            {setValue2 && (
-              <input
-                type="time"
-                className={INPUT_CLASSNAME}
-                onChange={(e) => setValue2(`${e.target.value}:00`)}
-              />
-            )}
-          </div>
-        )}
         {type === "text" && (
           <input
             placeholder={placeholder}
