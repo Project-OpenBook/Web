@@ -1,14 +1,21 @@
 import { IconType } from "react-icons";
-import { useRef } from "react";
+import { SlLocationPin } from "react-icons/sl";
 
 interface Props {
   label: string;
-  placeholder?: string;
-  setAccountNumber: (value: string) => void;
+  placeholder: string;
+  selectedSeatNumbers: string[];
+  setModalState: (modalState: any) => void;
   Icon: IconType;
 }
 
-export default function LocationInput() {
+export default function LocationInput({
+  Icon,
+  label,
+  placeholder,
+  setModalState,
+  selectedSeatNumbers,
+}: Props) {
   return (
     <div className="flex flex-col w-1/2 mb-5">
       <div className="flex gap-2 items-center h-full mb-2">
@@ -25,7 +32,9 @@ export default function LocationInput() {
         />
         <button
           className="h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white"
-          onClick={switchModal}
+          onClick={() => {
+            setModalState({ state: "locationSelect" });
+          }}
         >
           선택
         </button>
