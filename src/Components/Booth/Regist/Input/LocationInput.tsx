@@ -1,3 +1,13 @@
+import { IconType } from "react-icons";
+import { useRef } from "react";
+
+interface Props {
+  label: string;
+  placeholder?: string;
+  setAccountNumber: (value: string) => void;
+  Icon: IconType;
+}
+
 export default function LocationInput() {
   return (
     <div className="flex flex-col w-1/2 mb-5">
