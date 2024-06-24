@@ -29,8 +29,8 @@ type ModalState = {
     | "serviceManage"
     | "goodsInput"
     | "serviceInput"
-    | "serviceTime";
-    | "locationSelect"
+    | "serviceTime"
+    | "locationSelect";
 };
 
 export default function BoothRegistPage() {
