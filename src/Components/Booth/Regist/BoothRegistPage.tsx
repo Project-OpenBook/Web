@@ -1,12 +1,16 @@
 import Modal from "../../Util/Modal";
 import BoothRegistInput from "./BoothRegistInput";
-import { MdStorefront } from "react-icons/md";
-import { FaHashtag } from "react-icons/fa";
-import { FaRegImage } from "react-icons/fa6";
-import { FaCalendarCheck } from "react-icons/fa";
-import { MdDriveFileRenameOutline } from "react-icons/md";
-import { FaRegCreditCard } from "react-icons/fa6";
-import { MdOutlineDescription } from "react-icons/md";
+import {
+  MdStorefront,
+  MdDriveFileRenameOutline,
+  MdOutlineDescription,
+} from "react-icons/md";
+import {
+  FaHashtag,
+  FaRegImage,
+  FaCalendarCheck,
+  FaRegCreditCard,
+} from "react-icons/fa";
 import { SlLocationPin } from "react-icons/sl";
 import { useState } from "react";
 import { useRegisteBooth } from "../../../Hooks/Booth/useRegistBooth";
@@ -22,16 +26,14 @@ import ImageInput from "./Input/ImageInput";
 import TimeInput from "./Input/TimeInput";
 import TextareaInput from "./Input/TextareaInput";
 
-type ModalState = {
-  state:
-    | "none"
-    | "goodsManage"
-    | "serviceManage"
-    | "goodsInput"
-    | "serviceInput"
-    | "serviceTime"
-    | "locationSelect";
-};
+type ModalState =
+  | "none"
+  | "goodsManage"
+  | "serviceManage"
+  | "goodsInput"
+  | "serviceInput"
+  | "serviceTime"
+  | "locationSelect";
 
 export default function BoothRegistPage() {
   const { state } = useLocation();
@@ -51,8 +53,7 @@ export default function BoothRegistPage() {
     setSelectedSeatIds,
   } = useRegisteBooth(state?.name);
   const [isOpen, setIsOpen] = useState(false);
-  //TODO: 추후 모달 창 변환을 위한 변수
-  const [modalState, setModalState] = useState<ModalState>({ state: "none" });
+  const [modalState, setModalState] = useState<ModalState>("none");
   const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);
 
@@ -69,15 +70,18 @@ export default function BoothRegistPage() {
     }
   };
 
-  function switchModal() {
+  const switchModal = () => {
     if (!isOpen) {
       setIsOpen(true);
-    } else {
-      if (window.confirm("저장하시겠습니까?")) {
-        setIsOpen(false);
-      }
+    } else if (window.confirm("저장하시겠습니까?")) {
+      setIsOpen(false);
     }
-  }
+  };
+
+  const handleBoothSubmission = () => {
+    setLinkedEvent(eventId);
+    mutate();
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -118,7 +122,7 @@ export default function BoothRegistPage() {
             />
             <button
               className="h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white"
-              onClick={switchModal}
+              onClick={() => setModalState("locationSelect")}
             >
               선택
             </button>
@@ -152,48 +156,46 @@ export default function BoothRegistPage() {
         />
         <div className="flex gap-4 w-full justify-center">
           <button
-            onClick={switchModal}
+            onClick={() => setModalState("goodsManage")}
             className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#5E1675] rounded-lg text-white mb-4"
           >
             물품 등록 및 관리
           </button>
           <button
-            onClick={switchModal}
+            onClick={() => setModalState("serviceManage")}
             className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#401F71] rounded-lg text-white mb-4"
           >
             서비스(예약) 등록 및 관리
           </button>
         </div>
         <button
-          onClick={() => {
-            setLinkedEvent(eventId);
-            mutate();
-          }}
+          onClick={handleBoothSubmission}
           className="py-1 font-bold w-1/3 h-10 hover:cursor-pointer bg-[#0064FF] rounded-md text-white mb-4"
         >
           부스 신청
         </button>
         <Modal isOpen={isOpen} switchModal={switchModal}>
-          <RegistLocationPage
-            selectedSeatIds={selectedSeatIds}
-            selectedSeatNumbers={selectedSeatNumbers}
-            eventId={eventId}
-            setSelectedSeatIds={setSelectedSeatIds}
-            setSelectedSeatNumbers={setSelectedSeatNumbers}
-          />
-        </Modal>
-        <Modal isOpen={false} switchModal={switchModal}>
-          <div>
-            <GoodsManagementPage />
-            <ServiceManagementPage />
-            <GoodsInfoInputPage />
-            <ServiceInfoInputPage />
-
-            <ServiceTimeAdd
-              startDate={new Date(2024, 5, 23)}
-              endDate={new Date(2024, 5, 30)}
-            />
-          </div>
+          <>
+            {modalState === "locationSelect" && (
+              <RegistLocationPage
+                selectedSeatIds={selectedSeatIds}
+                selectedSeatNumbers={selectedSeatNumbers}
+                eventId={eventId}
+                setSelectedSeatIds={setSelectedSeatIds}
+                setSelectedSeatNumbers={setSelectedSeatNumbers}
+              />
+            )}
+            {modalState === "goodsManage" && <GoodsManagementPage />}
+            {modalState === "serviceManage" && <ServiceManagementPage />}
+            {modalState === "goodsInput" && <GoodsInfoInputPage />}
+            {modalState === "serviceInput" && <ServiceInfoInputPage />}
+            {modalState === "serviceTime" && (
+              <ServiceTimeAdd
+                startDate={new Date(2024, 5, 23)}
+                endDate={new Date(2024, 5, 30)}
+              />
+            )}
+          </>
         </Modal>
       </div>
     </div>
