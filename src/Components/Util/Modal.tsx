@@ -5,9 +5,15 @@ interface Props {
   children: JSX.Element;
   switchModal: () => void;
   isOpen: boolean;
+  setModalState: () => void;
 }
 
-export default function Modal({ children, switchModal, isOpen }: Props) {
+export default function Modal({
+  children,
+  setModalState,
+  switchModal,
+  isOpen,
+}: Props) {
   return (
     <div className="flex flex-col items-center justify-center">
       <ReactModal

@@ -174,7 +174,11 @@ export default function BoothRegistPage() {
         >
           부스 신청
         </button>
-        <Modal isOpen={isOpen} switchModal={switchModal}>
+        <Modal
+          isOpen={isOpen}
+          switchModal={switchModal}
+          setModalState={setModalState}
+        >
           <>
             {modalState === "locationSelect" && (
               <RegistLocationPage
