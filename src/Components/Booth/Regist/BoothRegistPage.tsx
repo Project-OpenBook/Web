@@ -177,7 +177,9 @@ export default function BoothRegistPage() {
         <Modal
           isOpen={isOpen}
           switchModal={switchModal}
-          setModalState={setModalState}
+          setModalState={() => {
+            setModalState();
+          }}
         >
           <>
             {modalState === "locationSelect" && (
