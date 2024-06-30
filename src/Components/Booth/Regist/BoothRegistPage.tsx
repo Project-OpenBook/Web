@@ -178,6 +178,7 @@ export default function BoothRegistPage() {
           isOpen={isOpen}
           switchModal={switchModal}
           setModalState={() => {
+            //추후 변경
             setModalState();
           }}
         >
