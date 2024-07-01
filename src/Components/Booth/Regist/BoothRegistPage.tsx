@@ -178,7 +178,6 @@ export default function BoothRegistPage() {
           isOpen={isOpen}
           switchModal={switchModal}
           setModalState={() => {
-            //추후 변경
             setModalState();
           }}
         >
@@ -207,4 +206,7 @@ export default function BoothRegistPage() {
       </div>
     </div>
   );
+
+  //TODO: 노션 수정사항
+  //TODO: 부스 등록 완성하기
 }
