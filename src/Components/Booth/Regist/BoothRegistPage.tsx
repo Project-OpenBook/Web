@@ -206,7 +206,4 @@ export default function BoothRegistPage() {
       </div>
     </div>
   );
-
-  //TODO: 노션 수정사항
-  //TODO: 부스 등록 완성하기
 }
