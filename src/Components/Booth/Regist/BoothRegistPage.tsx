@@ -1,5 +1,7 @@
 import Modal from "../../Util/Modal";
 import BoothRegistInput from "./BoothRegistInput";
+import GoBackButton from "../../Util/GoBackButton";
+
 import {
   MdStorefront,
   MdDriveFileRenameOutline,
@@ -86,7 +88,11 @@ export default function BoothRegistPage() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col w-1/2 my-5 h-full justify-center items-center shadow-md border-b-2 border-r-2 p-5">
-        <h1 className="font-bold text-3xl mb-5">부스 등록</h1>
+        <div className="flex w-full justify-between items-center mb-5">
+          <GoBackButton />
+          <h1 className="font-bold text-3xl">부스 등록</h1>
+          <div className="w-16"></div> {/* 공간을 맞추기 위해 빈 div 추가 */}
+        </div>
         <BoothRegistInput
           placeholder="부스명을 입력해 주세요"
           label="부스명"
@@ -177,9 +183,7 @@ export default function BoothRegistPage() {
         <Modal
           isOpen={isOpen}
           switchModal={switchModal}
-          setModalState={() => {
-            setModalState();
-          }}
+          setModalState={() => {}}
         >
           <>
             {modalState === "locationSelect" && (
