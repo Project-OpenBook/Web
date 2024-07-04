@@ -5,7 +5,7 @@ interface Props {
   children: JSX.Element;
   switchModal: () => void;
   isOpen: boolean;
-  setModalState: () => void;
+  setModalState: (state: string) => void;
 }
 
 export default function Modal({
@@ -25,6 +25,13 @@ export default function Modal({
       >
         {children}
         <div className="flex justify-center gap-4 mt-4 w-full">
+          <ModalButton
+            action={() => {
+              switchModal();
+            }}
+            color="blue-500"
+            text="확인"
+          />
           <ModalButton
             action={() => {
               switchModal();
