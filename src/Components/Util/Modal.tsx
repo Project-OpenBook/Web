@@ -29,7 +29,7 @@ export default function Modal({
             action={() => {
               switchModal();
             }}
-            color="blue-500"
+            color="red-500"
             text="확인"
           />
           <ModalButton
