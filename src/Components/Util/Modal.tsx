@@ -29,15 +29,15 @@ export default function Modal({
             action={() => {
               switchModal();
             }}
-            color="red-500"
+            color="blue-500"
             text="확인"
           />
           <ModalButton
             action={() => {
               switchModal();
             }}
-            color="blue-500"
-            text="확인"
+            color="red-500"
+            text="취소"
           />
         </div>
       </ReactModal>
