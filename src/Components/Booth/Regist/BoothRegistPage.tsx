@@ -28,7 +28,7 @@ import ImageInput from "./Input/ImageInput";
 import TimeInput from "./Input/TimeInput";
 import TextareaInput from "./Input/TextareaInput";
 
-type ModalState =
+export type ModalState =
   | "none"
   | "goodsManage"
   | "serviceManage"
@@ -128,7 +128,10 @@ export default function BoothRegistPage() {
             />
             <button
               className="h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white"
-              onClick={() => setModalState("locationSelect")}
+              onClick={() => {
+                setModalState("locationSelect");
+                switchModal();
+              }}
             >
               선택
             </button>
@@ -162,13 +165,20 @@ export default function BoothRegistPage() {
         />
         <div className="flex gap-4 w-full justify-center">
           <button
-            onClick={() => setModalState("goodsManage")}
-            className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#5E1675] rounded-lg text-white mb-4"
+            onClick={() => {
+              setModalState("goodsManage");
+              switchModal();
+            }}
+            className="p-1 w-1/4 font-bold h-
+8 hover:cursor-pointer bg-[#5E1675] rounded-lg text-white mb-4"
           >
             물품 등록 및 관리
           </button>
           <button
-            onClick={() => setModalState("serviceManage")}
+            onClick={() => {
+              setModalState("serviceManage");
+              switchModal();
+            }}
             className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#401F71] rounded-lg text-white mb-4"
           >
             서비스(예약) 등록 및 관리
@@ -183,30 +193,9 @@ export default function BoothRegistPage() {
         <Modal
           isOpen={isOpen}
           switchModal={switchModal}
-          setModalState={() => {}}
-        >
-          <>
-            {modalState === "locationSelect" && (
-              <RegistLocationPage
-                selectedSeatIds={selectedSeatIds}
-                selectedSeatNumbers={selectedSeatNumbers}
-                eventId={eventId}
-                setSelectedSeatIds={setSelectedSeatIds}
-                setSelectedSeatNumbers={setSelectedSeatNumbers}
-              />
-            )}
-            {modalState === "goodsManage" && <GoodsManagementPage />}
-            {modalState === "serviceManage" && <ServiceManagementPage />}
-            {modalState === "goodsInput" && <GoodsInfoInputPage />}
-            {modalState === "serviceInput" && <ServiceInfoInputPage />}
-            {modalState === "serviceTime" && (
-              <ServiceTimeAdd
-                startDate={new Date(2024, 5, 23)}
-                endDate={new Date(2024, 5, 30)}
-              />
-            )}
-          </>
-        </Modal>
+          modalState={modalState}
+          setModalState={setModalState}
+        />
       </div>
     </div>
   );
