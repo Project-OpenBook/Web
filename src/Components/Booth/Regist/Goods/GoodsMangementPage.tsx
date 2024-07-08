@@ -1,5 +1,6 @@
 import GoodsInfoCard from "./GoodsInfoCard";
 import GoodsInfoCardAdd from "./GoodsInfoCardAdd";
+import ModalButton from "../Location/ModalButton";
 
 export default function GoodsManagementPage() {
   return (
@@ -23,6 +24,22 @@ export default function GoodsManagementPage() {
         <button className="mt-5 font-bold w-1/3 h-10 hover:cursor-pointer bg-[#0064FF] rounded-md text-white">
           확인
         </button>
+        <ModalButton
+          action={() => {
+            switchModal();
+            setModalState("none");
+          }}
+          color="blue-500"
+          text="확인"
+        />
+        <ModalButton
+          action={() => {
+            switchModal();
+            setModalState("none");
+          }}
+          color="red-500"
+          text="취소"
+        />
       </div>
     </div>
   );

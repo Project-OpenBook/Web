@@ -55,7 +55,7 @@ export default function Modal({
           <ModalButton
             action={() => {
               switchModal();
-              setModalState("none"); 
+              setModalState("none");
             }}
             color="blue-500"
             text="확인"
@@ -63,7 +63,7 @@ export default function Modal({
           <ModalButton
             action={() => {
               switchModal();
-              setModalState("none"); /
+              setModalState("none");
             }}
             color="red-500"
             text="취소"
