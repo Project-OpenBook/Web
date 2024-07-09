@@ -1,7 +1,5 @@
 import Modal from "../../Util/Modal";
 import BoothRegistInput from "./BoothRegistInput";
-import GoBackButton from "../../Util/GoBackButton";
-
 import {
   MdStorefront,
   MdDriveFileRenameOutline,
@@ -88,11 +86,7 @@ export default function BoothRegistPage() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col w-1/2 my-5 h-full justify-center items-center shadow-md border-b-2 border-r-2 p-5">
-        <div className="flex w-full justify-between items-center mb-5">
-          <GoBackButton />
-          <h1 className="font-bold text-3xl">부스 등록</h1>
-          <div className="w-16"></div> {/* 공간을 맞추기 위해 빈 div 추가 */}
-        </div>
+        <h1 className="font-bold text-3xl mb-5">부스 등록</h1>
         <BoothRegistInput
           placeholder="부스명을 입력해 주세요"
           label="부스명"
@@ -165,20 +159,13 @@ export default function BoothRegistPage() {
         />
         <div className="flex gap-4 w-full justify-center">
           <button
-            onClick={() => {
-              setModalState("goodsManage");
-              switchModal();
-            }}
-            className="p-1 w-1/4 font-bold h-
-8 hover:cursor-pointer bg-[#5E1675] rounded-lg text-white mb-4"
+            onClick={() => setModalState("goodsManage")}
+            className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#5E1675] rounded-lg text-white mb-4"
           >
             물품 등록 및 관리
           </button>
           <button
-            onClick={() => {
-              setModalState("serviceManage");
-              switchModal();
-            }}
+            onClick={() => setModalState("serviceManage")}
             className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#401F71] rounded-lg text-white mb-4"
           >
             서비스(예약) 등록 및 관리
@@ -190,12 +177,27 @@ export default function BoothRegistPage() {
         >
           부스 신청
         </button>
-        <Modal
-          isOpen={isOpen}
-          switchModal={switchModal}
-          modalState={modalState}
-          setModalState={setModalState}
-        />
+        <Modal isOpen={isOpen} switchModal={switchModal}>
+          {modalState === "locationSelect" && (
+            <RegistLocationPage
+              selectedSeatIds={selectedSeatIds}
+              selectedSeatNumbers={selectedSeatNumbers}
+              eventId={eventId}
+              setSelectedSeatIds={setSelectedSeatIds}
+              setSelectedSeatNumbers={setSelectedSeatNumbers}
+            />
+          )}
+          {modalState === "goodsManage" && <GoodsManagementPage />}
+          {modalState === "serviceManage" && <ServiceManagementPage />}
+          {modalState === "goodsInput" && <GoodsInfoInputPage />}
+          {modalState === "serviceInput" && <ServiceInfoInputPage />}
+          {modalState === "serviceTime" && (
+            <ServiceTimeAdd
+              startDate={new Date(2024, 5, 23)}
+              endDate={new Date(2024, 5, 30)}
+            />
+          )}
+        </Modal>
       </div>
     </div>
   );
