@@ -2,11 +2,10 @@ import ReactModal from "react-modal";
 import ModalButton from "../Booth/Regist/Location/ModalButton";
 interface Props {
   children?: React.ReactNode;
-  switchModal: () => void;
   isOpen: boolean;
 }
 
-export default function Modal({ switchModal, isOpen, children }: Props) {
+export default function Modal({ isOpen, children }: Props) {
   return (
     <div className="flex flex-col items-center justify-center">
       <ReactModal
@@ -17,22 +16,7 @@ export default function Modal({ switchModal, isOpen, children }: Props) {
         overlayClassName="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center"
       >
         {children}
-        <div className="flex justify-center gap-4 mt-4 w-full">
-          <ModalButton
-            action={() => {
-              switchModal();
-            }}
-            color="blue-500"
-            text="확인"
-          />
-          <ModalButton
-            action={() => {
-              switchModal();
-            }}
-            color="red-500"
-            text="취소"
-          />
-        </div>
+        <div className="flex justify-center gap-4 mt-4 w-full"></div>
       </ReactModal>
     </div>
   );

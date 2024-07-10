@@ -70,14 +70,6 @@ export default function BoothRegistPage() {
     }
   };
 
-  const switchModal = () => {
-    if (!isOpen) {
-      setIsOpen(true);
-    } else if (window.confirm("저장하시겠습니까?")) {
-      setIsOpen(false);
-    }
-  };
-
   const handleBoothSubmission = () => {
     setLinkedEvent(eventId);
     mutate();
@@ -124,7 +116,6 @@ export default function BoothRegistPage() {
               className="h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white"
               onClick={() => {
                 setModalState("locationSelect");
-                switchModal();
               }}
             >
               선택
@@ -177,27 +168,30 @@ export default function BoothRegistPage() {
         >
           부스 신청
         </button>
-        <Modal isOpen={isOpen} switchModal={switchModal}>
-          {modalState === "locationSelect" && (
-            <RegistLocationPage
-              selectedSeatIds={selectedSeatIds}
-              selectedSeatNumbers={selectedSeatNumbers}
-              eventId={eventId}
-              setSelectedSeatIds={setSelectedSeatIds}
-              setSelectedSeatNumbers={setSelectedSeatNumbers}
-            />
-          )}
-          {modalState === "goodsManage" && <GoodsManagementPage />}
-          {modalState === "serviceManage" && <ServiceManagementPage />}
-          {modalState === "goodsInput" && <GoodsInfoInputPage />}
-          {modalState === "serviceInput" && <ServiceInfoInputPage />}
-          {modalState === "serviceTime" && (
-            <ServiceTimeAdd
-              startDate={new Date(2024, 5, 23)}
-              endDate={new Date(2024, 5, 30)}
-            />
-          )}
-        </Modal>
+        {modalState !== "none" && (
+          <Modal isOpen={isOpen}>
+            {modalState === "locationSelect" && (
+              <RegistLocationPage
+                selectedSeatIds={selectedSeatIds}
+                selectedSeatNumbers={selectedSeatNumbers}
+                eventId={eventId}
+                setSelectedSeatIds={setSelectedSeatIds}
+                setSelectedSeatNumbers={setSelectedSeatNumbers}
+                setModalState={setModalState}
+              />
+            )}
+            {modalState === "goodsManage" && <GoodsManagementPage />}
+            {modalState === "serviceManage" && <ServiceManagementPage />}
+            {modalState === "goodsInput" && <GoodsInfoInputPage />}
+            {modalState === "serviceInput" && <ServiceInfoInputPage />}
+            {modalState === "serviceTime" && (
+              <ServiceTimeAdd
+                startDate={new Date(2024, 5, 23)}
+                endDate={new Date(2024, 5, 30)}
+              />
+            )}
+          </Modal>
+        )}
       </div>
     </div>
   );

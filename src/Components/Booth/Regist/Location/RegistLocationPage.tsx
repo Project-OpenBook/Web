@@ -1,6 +1,8 @@
 import "../../../../index.css"; // 사용자 정의 CSS 파일 포함
 import { useGetLocation } from "../../../../Hooks/Event/useGetLocation";
 import LocationStateInfo from "./LocationStateInfo";
+import { useState, useEffect } from "react";
+import { ModalState } from "../BoothRegistPage";
 
 interface Props {
   eventId: string;
@@ -10,6 +12,7 @@ interface Props {
   setSelectedSeatNumbers: (
     numbers: string[] | ((prev: string[]) => string[])
   ) => void;
+  setModalState: (state: ModalState) => void;
 }
 
 interface Area {
@@ -26,12 +29,31 @@ interface Data {
 
 export default function RegistLocationPage({
   eventId,
+  selectedSeatIds,
+  selectedSeatNumbers,
   setSelectedSeatIds,
   setSelectedSeatNumbers,
-  selectedSeatIds,
+  setModalState,
 }: Props) {
   const { isLoading, isError, data } = useGetLocation(eventId);
   const maxSelectableSeats = 3;
+  const [tempSeatIds, setTempSeatIds] = useState<number[]>([]);
+  const [tempSeatNumbers, setTempSeatNumbers] = useState<string[]>([]);
+
+  useEffect(() => {
+    setTempSeatIds(selectedSeatIds);
+    setTempSeatNumbers(selectedSeatNumbers);
+  }, [selectedSeatIds, selectedSeatNumbers]);
+
+  console.log(
+    "선택된 좌석 ID들 :" +
+      selectedSeatIds +
+      "선택된 좌석 번호들" +
+      selectedSeatNumbers
+  );
+  console.log(
+    "임시 좌석 ID들 :" + tempSeatIds + "임시 좌석 번호들 :" + tempSeatNumbers
+  );
 
   if (isLoading) {
     return <div>로딩중입니다...</div>;
@@ -57,28 +79,40 @@ export default function RegistLocationPage({
   const handleSeatClick = (seatId: number, seatNumber: string, row: string) => {
     const uniqueSeatNumber = `${row}-${seatNumber}`;
 
-    setSelectedSeatIds((prevSelectedSeatIds: number[]) => {
-      if (prevSelectedSeatIds.includes(seatId)) {
-        return prevSelectedSeatIds.filter((id) => id !== seatId);
-      } else if (prevSelectedSeatIds.length < maxSelectableSeats) {
-        return [...prevSelectedSeatIds, seatId];
+    setTempSeatIds((prevTempSeatIds: number[]) => {
+      if (prevTempSeatIds.includes(seatId)) {
+        return prevTempSeatIds.filter((id) => id !== seatId);
+      } else if (prevTempSeatIds.length < maxSelectableSeats) {
+        return [...prevTempSeatIds, seatId];
       } else {
         alert(`최대 ${maxSelectableSeats}자리까지 선택할 수 있습니다.`);
-        return prevSelectedSeatIds;
+        return prevTempSeatIds;
       }
     });
 
-    setSelectedSeatNumbers((prevSelectedSeatNumbers: string[]) => {
-      if (prevSelectedSeatNumbers.includes(uniqueSeatNumber)) {
-        return prevSelectedSeatNumbers.filter(
+    setTempSeatNumbers((prevTempSeatNumbers: string[]) => {
+      if (prevTempSeatNumbers.includes(uniqueSeatNumber)) {
+        return prevTempSeatNumbers.filter(
           (number) => number !== uniqueSeatNumber
         );
-      } else if (prevSelectedSeatNumbers.length < maxSelectableSeats) {
-        return [...prevSelectedSeatNumbers, uniqueSeatNumber];
+      } else if (prevTempSeatNumbers.length < maxSelectableSeats) {
+        return [...prevTempSeatNumbers, uniqueSeatNumber];
       } else {
-        return prevSelectedSeatNumbers;
+        return prevTempSeatNumbers;
       }
     });
+  };
+
+  const handleConfirm = () => {
+    setSelectedSeatIds(tempSeatIds);
+    setSelectedSeatNumbers(tempSeatNumbers);
+    setModalState("none");
+  };
+
+  const handleCancel = () => {
+    setTempSeatIds(selectedSeatIds);
+    setTempSeatNumbers(selectedSeatNumbers);
+    setModalState("none");
   };
 
   const renderSeats = () => {
@@ -96,9 +130,7 @@ export default function RegistLocationPage({
               className={`w-16 h-16 ${getColorClass(
                 area.status
               )} m-1 flex items-center justify-center text-center text-sm font-mono ${
-                selectedSeatIds.includes(area.id)
-                  ? "border-4 border-blue-500"
-                  : ""
+                tempSeatIds.includes(area.id) ? "border-4 border-blue-500" : ""
               } ${area.status === "EMPTY" ? "cursor-pointer" : ""}`}
               onClick={() =>
                 area.status === "EMPTY" &&
@@ -128,9 +160,7 @@ export default function RegistLocationPage({
               className={`w-16 h-16 ${getColorClass(
                 area.status
               )} m-1 flex items-center justify-center text-center text-sm font-mono ${
-                selectedSeatIds.includes(area.id)
-                  ? "border-4 border-blue-500"
-                  : ""
+                tempSeatIds.includes(area.id) ? "border-4 border-blue-500" : ""
               } ${area.status === "EMPTY" ? "cursor-pointer" : ""}`}
               onClick={() =>
                 area.status === "EMPTY" &&
@@ -189,6 +219,20 @@ export default function RegistLocationPage({
         <LocationStateInfo color="yellow-400" state={"비어있음"} />
         <LocationStateInfo color="red-400" state={"예약됨"} />
         <LocationStateInfo color="gray-400" state={"승인됨"} />
+      </div>
+      <div className="flex justify-center gap-4 mt-4 w-full">
+        <button
+          onClick={handleConfirm}
+          className="w-1/4 bg-blue-500 text-white py-2 rounded"
+        >
+          확인
+        </button>
+        <button
+          onClick={handleCancel}
+          className="w-1/4 bg-red-500 text-white py-2 rounded"
+        >
+          취소
+        </button>
       </div>
     </>
   ) : (
