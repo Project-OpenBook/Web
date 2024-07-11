@@ -52,7 +52,7 @@ export default function BoothRegistPage() {
     selectedSeatIds,
     setSelectedSeatIds,
   } = useRegisteBooth(state?.name);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [modalState, setModalState] = useState<ModalState>("none");
   const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);

@@ -110,9 +110,11 @@ export default function RegistLocationPage({
   };
 
   const handleCancel = () => {
-    setTempSeatIds(selectedSeatIds);
-    setTempSeatNumbers(selectedSeatNumbers);
-    setModalState("none");
+    if (confirm("취소하시겠습니까?")) {
+      setTempSeatIds(selectedSeatIds);
+      setTempSeatNumbers(selectedSeatNumbers);
+      setModalState("none");
+    }
   };
 
   const renderSeats = () => {
