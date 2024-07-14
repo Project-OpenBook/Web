@@ -186,7 +186,9 @@ export default function BoothRegistPage() {
             {modalState === "serviceManage" && (
               <ServiceManagementPage setModalState={setModalState} />
             )}
-            {modalState === "goodsInput" && <GoodsInfoInputPage />}
+            {modalState === "goodsInput" && (
+              <GoodsInfoInputPage setModalState={setModalState} />
+            )}
             {modalState === "serviceInput" && <ServiceInfoInputPage />}
             {modalState === "serviceTime" && (
               <ServiceTimeAdd

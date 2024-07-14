@@ -110,7 +110,7 @@ export default function RegistLocationPage({
   };
 
   const handleCancel = () => {
-    if (confirm("취소하시겠습니까?")) {
+    if (window.confirm("취소하시겠습니까?")) {
       setTempSeatIds(selectedSeatIds);
       setTempSeatNumbers(selectedSeatNumbers);
       setModalState("none");

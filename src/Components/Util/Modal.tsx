@@ -1,5 +1,4 @@
 import ReactModal from "react-modal";
-import ModalButton from "../Booth/Regist/Location/ModalButton";
 interface Props {
   children?: React.ReactNode;
   isOpen: boolean;

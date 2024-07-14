@@ -24,7 +24,7 @@ export default function GoodsManagementPage({ setModalState }: Props) {
         <GoodsInfoCard />
         <GoodsInfoCard />
         <GoodsInfoCard />
-        <GoodsInfoCardAdd />
+        <GoodsInfoCardAdd setModalState={setModalState} />
       </div>
       <div className="flex justify-center gap-4 mt-4 w-full">
         <button
