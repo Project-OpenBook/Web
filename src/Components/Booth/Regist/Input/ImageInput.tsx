@@ -34,9 +34,7 @@ export default function ImageInput({
           {imageName && <div className="font-bold ml-2">{imageName}</div>}
         </div>
         <button
-          onClick={() => {
-            onCickImageUploadHandler();
-          }}
+          onClick={onCickImageUploadHandler}
           className="border-none h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white"
         >
           이미지 등록
