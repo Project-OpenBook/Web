@@ -45,16 +45,6 @@ export default function RegistLocationPage({
     setTempSeatNumbers(selectedSeatNumbers);
   }, [selectedSeatIds, selectedSeatNumbers]);
 
-  console.log(
-    "선택된 좌석 ID들 :" +
-      selectedSeatIds +
-      "선택된 좌석 번호들" +
-      selectedSeatNumbers
-  );
-  console.log(
-    "임시 좌석 ID들 :" + tempSeatIds + "임시 좌석 번호들 :" + tempSeatNumbers
-  );
-
   if (isLoading) {
     return <div>로딩중입니다...</div>;
   }
