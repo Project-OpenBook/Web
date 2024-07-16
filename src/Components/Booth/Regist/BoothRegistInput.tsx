@@ -5,7 +5,6 @@ interface Props {
   label: string;
   placeholder?: string;
   setValue: (value: any) => void;
-  setValue2?: (value: any) => void;
   Icon: IconType;
   type: "button" | "select" | "text" | "textarea" | "image" | "time";
   imageName?: string;
@@ -18,15 +17,8 @@ export default function BoothRegistInput({
   type,
   setValue,
   Icon,
-  setValue2,
   value,
 }: Props) {
-  //TODO: 추후 삭제
-  const imageInputRef = useRef<HTMLInputElement | null>(null);
-  const onCickImageUploadHandler = (): void => {
-    imageInputRef.current?.click();
-  };
-
   const INPUT_CLASSNAME = `h-10 border-b-2 pl-1 mb-5  ${
     type === "button" || "select" ? "w-3/4" : "w-full"
   }`;
