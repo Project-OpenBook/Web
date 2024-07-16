@@ -1,5 +1,5 @@
 import { IconType } from "react-icons";
-import { useRef } from "react";
+import { BANK_LIST } from "../../../../Constants/BankList";
 
 interface Props {
   label: string;
@@ -15,25 +15,6 @@ export default function AccountInput({
   Icon,
   setAccountNumber,
 }: Props) {
-  const banks = [
-    "국민은행",
-    "신한은행",
-    "하나은행",
-    "우리은행",
-    "기업은행",
-    "농협은행",
-    "산업은행",
-    "수출입은행",
-    "부산은행",
-    "대구은행",
-    "광주은행",
-    "전북은행",
-    "제주은행",
-    "SC제일은행",
-    "씨티은행",
-    "카카오뱅크",
-  ];
-
   return (
     <div className="flex gap-2 items-center h-full w-1/2">
       <div className="flex flex-col w-full">
@@ -56,7 +37,7 @@ export default function AccountInput({
               setAccountNumber(e.target.value);
             }}
           >
-            {banks.map((bank) => {
+            {BANK_LIST.map((bank) => {
               return <option value={bank}>{bank}</option>;
             })}
           </select>
