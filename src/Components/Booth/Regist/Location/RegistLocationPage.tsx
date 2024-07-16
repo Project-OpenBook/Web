@@ -2,7 +2,7 @@ import "../../../../index.css"; // 사용자 정의 CSS 파일 포함
 import { useGetLocation } from "../../../../Hooks/Event/useGetLocation";
 import LocationStateInfo from "./LocationStateInfo";
 import { useState, useEffect } from "react";
-import { ModalState } from "../BoothRegistPage";
+import { Modal_State } from "../BoothRegistPage";
 
 interface Props {
   eventId: string;
@@ -12,7 +12,7 @@ interface Props {
   setSelectedSeatNumbers: (
     numbers: string[] | ((prev: string[]) => string[])
   ) => void;
-  setModalState: (state: ModalState) => void;
+  setModalState: (state: string) => void;
 }
 
 interface Area {
@@ -96,14 +96,14 @@ export default function RegistLocationPage({
   const handleConfirm = () => {
     setSelectedSeatIds(tempSeatIds);
     setSelectedSeatNumbers(tempSeatNumbers);
-    setModalState("none");
+    setModalState(Modal_State.none);
   };
 
   const handleCancel = () => {
     if (window.confirm("취소하시겠습니까?")) {
       setTempSeatIds(selectedSeatIds);
       setTempSeatNumbers(selectedSeatNumbers);
-      setModalState("none");
+      setModalState(Modal_State.none);
     }
   };
 

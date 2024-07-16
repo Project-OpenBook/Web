@@ -1,7 +1,7 @@
 import GoodsInfoInput from "./GoodsInfoInput";
-import { ModalState } from "../BoothRegistPage";
+import { Modal_State } from "../BoothRegistPage";
 interface Props {
-  setModalState: (state: ModalState) => void;
+  setModalState: (state: string) => void;
 }
 
 export default function GoodsInfoCardNone({ setModalState }: Props) {
@@ -17,7 +17,7 @@ export default function GoodsInfoCardNone({ setModalState }: Props) {
         </div>
         <button
           onClick={() => {
-            setModalState("goodsInput");
+            setModalState(Modal_State.goodsInput);
           }}
           className="rounded-md w-full h-full mt-10"
         >

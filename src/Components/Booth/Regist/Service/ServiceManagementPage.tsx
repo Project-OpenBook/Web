@@ -1,8 +1,8 @@
 import ServiceInfoCard from "./ServiceInfoCard";
-import { ModalState } from "../BoothRegistPage";
+import { Modal_State } from "../BoothRegistPage";
 
 interface Props {
-  setModalState: (state: ModalState) => void;
+  setModalState: (state: string) => void;
 }
 
 export default function ServiceManagementPage({ setModalState }: Props) {
@@ -50,11 +50,11 @@ export default function ServiceManagementPage({ setModalState }: Props) {
   ];
 
   const handleConfirm = () => {
-    setModalState("none");
+    setModalState(Modal_State.none);
   };
 
   const handleCancel = () => {
-    setModalState("none");
+    setModalState(Modal_State.none);
   };
 
   return (

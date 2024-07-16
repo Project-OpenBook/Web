@@ -7,9 +7,9 @@ import { IoIosPricetags } from "react-icons/io";
 import { MdOutlineDescription } from "react-icons/md";
 import { TbNumber123 } from "react-icons/tb";
 import { FaRegImage } from "react-icons/fa6";
-import { ModalState } from "../BoothRegistPage";
+import { Modal_State } from "../BoothRegistPage";
 interface Props {
-  setModalState: (state: ModalState) => void;
+  setModalState: (state: string) => void;
 }
 
 export default function GoodsInfoInputPage({ setModalState }: Props) {
@@ -28,12 +28,12 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
   };
 
   const handleConfirm = () => {
-    setModalState("goodsManage");
+    setModalState(Modal_State.goodsManage);
   };
 
   const handleCancel = () => {
     if (window.confirm("취소하시겠습니까?")) {
-      setModalState("goodsManage");
+      setModalState(Modal_State.goodsManage);
     }
   };
 

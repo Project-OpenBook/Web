@@ -26,14 +26,15 @@ import ImageInput from "./Input/ImageInput";
 import TimeInput from "./Input/TimeInput";
 import TextareaInput from "./Input/TextareaInput";
 
-export type ModalState =
-  | "none"
-  | "goodsManage"
-  | "serviceManage"
-  | "goodsInput"
-  | "serviceInput"
-  | "serviceTime"
-  | "locationSelect";
+export const Modal_State = {
+  none: "none",
+  goodsManage: "GM",
+  serviceManage: "SM",
+  goodsInput: "GI",
+  serviceInput: "SI",
+  serviceTime: "ST",
+  locationSelect: "LS",
+};
 
 export default function BoothRegistPage() {
   const { state } = useLocation();
@@ -53,7 +54,7 @@ export default function BoothRegistPage() {
     setSelectedSeatIds,
   } = useRegisteBooth(state?.name);
   const [isOpen, setIsOpen] = useState(true);
-  const [modalState, setModalState] = useState<ModalState>("none");
+  const [modalState, setModalState] = useState(Modal_State.none);
   const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);
 
@@ -115,7 +116,7 @@ export default function BoothRegistPage() {
             <button
               className="h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white"
               onClick={() => {
-                setModalState("locationSelect");
+                setModalState(Modal_State.locationSelect);
               }}
             >
               선택
@@ -150,13 +151,13 @@ export default function BoothRegistPage() {
         />
         <div className="flex gap-4 w-full justify-center">
           <button
-            onClick={() => setModalState("goodsManage")}
+            onClick={() => setModalState(Modal_State.goodsManage)}
             className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#5E1675] rounded-lg text-white mb-4"
           >
             물품 등록 및 관리
           </button>
           <button
-            onClick={() => setModalState("serviceManage")}
+            onClick={() => setModalState(Modal_State.serviceManage)}
             className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#401F71] rounded-lg text-white mb-4"
           >
             서비스(예약) 등록 및 관리
@@ -170,7 +171,7 @@ export default function BoothRegistPage() {
         </button>
         {modalState !== "none" && (
           <Modal isOpen={isOpen}>
-            {modalState === "locationSelect" && (
+            {modalState === Modal_State.locationSelect && (
               <RegistLocationPage
                 selectedSeatIds={selectedSeatIds}
                 selectedSeatNumbers={selectedSeatNumbers}
@@ -180,17 +181,19 @@ export default function BoothRegistPage() {
                 setModalState={setModalState}
               />
             )}
-            {modalState === "goodsManage" && (
+            {modalState === Modal_State.goodsManage && (
               <GoodsManagementPage setModalState={setModalState} />
             )}
-            {modalState === "serviceManage" && (
+            {modalState === Modal_State.serviceManage && (
               <ServiceManagementPage setModalState={setModalState} />
             )}
-            {modalState === "goodsInput" && (
+            {modalState === Modal_State.goodsInput && (
               <GoodsInfoInputPage setModalState={setModalState} />
             )}
-            {modalState === "serviceInput" && <ServiceInfoInputPage />}
-            {modalState === "serviceTime" && (
+            {modalState === Modal_State.serviceInput && (
+              <ServiceInfoInputPage />
+            )}
+            {modalState === Modal_State.serviceTime && (
               <ServiceTimeAdd
                 startDate={new Date(2024, 5, 23)}
                 endDate={new Date(2024, 5, 30)}
