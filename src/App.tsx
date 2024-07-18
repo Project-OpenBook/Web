@@ -19,6 +19,10 @@ import BoothAproval from "./Components/Event/Manage/BoothAproval";
 import EventAproval from "./Components/Admin/EventAproval";
 import ServiceTimeAdd from "./Components/Booth/Regist/Service/ServiceTimeAdd";
 import NavBar from "./Components/NavBar/NavBar";
+import MoreEventPage from "./Components/Search/MorePage/MoreEventPage";
+import MoreBoothPage from "./Components/Search/MorePage/MoreBoothPage";
+import MoreEventHashtagPage from "./Components/Search/MorePage/MoreEventHashtagPage";
+import MoreBoothHashtagPage from "./Components/Search/MorePage/MoreBoothHashtagPage";
 
 function App() {
   //TODO: 임시 데이터. 나중에 모달 연결하면 지울 것
@@ -35,6 +39,16 @@ function App() {
         <Route path="/addEvent" element={<AddEventPage />} />
         <Route path="/BoothListPage" element={<BoothListPage />} />
         <Route path="/SearchResultPage" element={<SearchResultPage />} />
+        <Route path="/MoreEventPage" element={<MoreEventPage />} />
+        <Route path="/MoreBoothPage" element={<MoreBoothPage />} />
+        <Route
+          path="/MoreEventHashtagPage"
+          element={<MoreEventHashtagPage />}
+        />
+        <Route
+          path="/MoreBoothHashtagPage"
+          element={<MoreBoothHashtagPage />}
+        />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/event/:id" element={<EventDetailPage />} />
