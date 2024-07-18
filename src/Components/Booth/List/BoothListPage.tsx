@@ -99,6 +99,7 @@ export default function BoothListPage() {
                   key={booth.id}
                   id={booth.id}
                   name={booth.name}
+                  eventName={booth.eventName}
                   image={booth.mainImageUrl}
                   endDate={booth.closeDate}
                 />

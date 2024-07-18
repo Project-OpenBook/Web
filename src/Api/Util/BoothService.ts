@@ -3,6 +3,7 @@ import { getAccessToken } from "./token";
 export interface Booth {
   id: number;
   name: string;
+  eventName: string;
   openDate: string;
   closeDate: string;
   mainImageUrl: string;

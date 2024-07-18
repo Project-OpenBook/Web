@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 interface BoothCardProps {
   id: number;
   name: string;
+  eventName: string;
   image: string;
   endDate: string;
 }
@@ -11,6 +12,7 @@ interface BoothCardProps {
 export default function BoothCard({
   id,
   name,
+  eventName,
   image,
   endDate,
 }: BoothCardProps) {
@@ -30,7 +32,9 @@ export default function BoothCard({
       </div>
       <div className="p-4">
         <p className="text-gray-600">종료일: {endDate}</p>
-        <p className="text-black font-bold">{name}</p>
+        <p className="text-black font-bold">
+          &#91;{eventName}&#93; &nbsp;{name}
+        </p>
       </div>
     </div>
   );
