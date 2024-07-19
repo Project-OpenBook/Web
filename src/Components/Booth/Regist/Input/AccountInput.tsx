@@ -35,7 +35,6 @@ export default function AccountInput({
             className="h-10 w-1/4 mb-4"
             onChange={(e) => {
               setAccountBankName(e.target.value);
-              console.log(e.target.value);
             }}
           >
             {BANK_LIST.map((bank) => {
