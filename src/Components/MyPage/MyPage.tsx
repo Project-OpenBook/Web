@@ -4,6 +4,7 @@ import Bookmark from "./Bookmark";
 import PurchaseDetails from "./PurchaseDetails";
 import MyEvent from "./MyEvent";
 import MyBooth from "./MyBooth";
+import RequestLayout from "../Layout/RequestLayout";
 
 interface MENU {
   [key: string]: {
@@ -45,18 +46,22 @@ export default function MyPage() {
   };
 
   return (
-    <section className="flex flex-col w-full h-full p-2">
-      <h2 className="border-b text-2xl font-bold p-2">마이페이지</h2>
-      <div className="flex">
-        <div className="flex flex-col gap-2 w-32 border-r py-4">
-          {Object.keys(MENUS).map((sidebar) => (
-            <button onClick={() => onClickSideBar(sidebar)}>
-              {MENUS[sidebar].menu}
-            </button>
-          ))}
+    <RequestLayout header="마이페이지">
+      <section className="flex flex-col w-full h-full p-2">
+        <div className="flex">
+          <div className="flex flex-col gap-2 w-32 border-r py-4">
+            {Object.keys(MENUS).map((sidebar) => (
+              <button
+                onClick={() => onClickSideBar(sidebar)}
+                className={currentSideMenu === sidebar ? "font-bold" : ""}
+              >
+                {MENUS[sidebar].menu}
+              </button>
+            ))}
+          </div>
+          <div className="flex-1 p-8">{MENUS[currentSideMenu].view}</div>
         </div>
-        <div className="flex-1 p-8">{MENUS[currentSideMenu].view}</div>
-      </div>
-    </section>
+      </section>
+    </RequestLayout>
   );
 }
