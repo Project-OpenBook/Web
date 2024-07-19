@@ -29,12 +29,13 @@ export default function AccountInput({
             placeholder={placeholder}
             type="text"
             className="h-10 border-b-2 pl-1 mb-5 w-3/4"
-            onChange={(e) => setAccountBankName(e.target.value)}
+            onChange={(e) => setAccountNumber(e.target.value)}
           />
           <select
             className="h-10 w-1/4 mb-4"
             onChange={(e) => {
-              setAccountNumber(e.target.value);
+              setAccountBankName(e.target.value);
+              console.log(e.target.value);
             }}
           >
             {BANK_LIST.map((bank) => {

@@ -12,6 +12,7 @@ interface BoothRegistData {
   description: string;
   accountNumber: string;
   accountBankName: string;
+  tagNames?: string[];
 }
 
 const fetchSignUp = (boothRegistData: BoothRegistData): Promise<void> => {
@@ -26,6 +27,9 @@ const fetchSignUp = (boothRegistData: BoothRegistData): Promise<void> => {
   formData.append("accountBankName", boothRegistData.accountBankName);
   boothRegistData.selectedSeatIds.forEach((location) => {
     formData.append("layoutAreas", location.toString());
+  });
+  boothRegistData.tagNames?.forEach((tag) => {
+    formData.append("boothTag", tag);
   });
 
   if (boothRegistData.mainImage) {
@@ -53,6 +57,7 @@ export const useRegisteBooth = (initBoothName?: string) => {
   const [mainImage, setMainImage] = useState<File | null>(null);
   const [endTime, setEndTime] = useState("");
   const [name, setName] = useState("");
+  const [tagNames, setTagNames] = useState<string[]>([]);
   const [accountNumber, setAccountNumber] = useState("");
   const [selectedSeatIds, setSelectedSeatIds] = useState<number[]>([]);
   const [accountBankName, setAccountBankName] = useState("");
@@ -70,6 +75,7 @@ export const useRegisteBooth = (initBoothName?: string) => {
         mainImage,
         accountBankName,
         selectedSeatIds,
+        tagNames,
       }),
 
     onError: () => {
@@ -94,5 +100,7 @@ export const useRegisteBooth = (initBoothName?: string) => {
     setLinkedEvent,
     setSelectedSeatIds,
     selectedSeatIds,
+    tagNames,
+    setTagNames,
   };
 };

@@ -53,12 +53,13 @@ export default function BoothRegistPage() {
     setLinkedEvent,
     selectedSeatIds,
     setSelectedSeatIds,
+    setTagNames,
+    tagNames,
   } = useRegisteBooth(state?.name);
   const [isOpen, setIsOpen] = useState(true);
   const [modalState, setModalState] = useState(Modal_State.none);
   const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);
-  const [tagNames, setTagNames] = useState<string[]>([]);
 
   if (!eventId) return <>잘못된 접근입니다.</>;
 
