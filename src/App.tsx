@@ -19,6 +19,7 @@ import BoothAproval from "./Components/Event/Manage/BoothAproval";
 import EventAproval from "./Components/Admin/EventAproval";
 import ServiceTimeAdd from "./Components/Booth/Regist/Service/ServiceTimeAdd";
 import NavBar from "./Components/NavBar/NavBar";
+import MyPage from "./Components/MyPage/MyPage";
 
 function App() {
   //TODO: 임시 데이터. 나중에 모달 연결하면 지울 것
@@ -38,6 +39,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/event/:id" element={<EventDetailPage />} />
+        <Route path="/mypage" element={<MyPage />} />
         <Route
           path="/event/:id/manage"
           element={
