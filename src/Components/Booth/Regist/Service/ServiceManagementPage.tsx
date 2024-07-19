@@ -1,6 +1,11 @@
 import ServiceInfoCard from "./ServiceInfoCard";
+import { Modal_State } from "../BoothRegistPage";
 
-export default function ServiceManagementPage() {
+interface Props {
+  setModalState: (state: string) => void;
+}
+
+export default function ServiceManagementPage({ setModalState }: Props) {
   const products = [
     {
       name: "A-Class",
@@ -44,6 +49,14 @@ export default function ServiceManagementPage() {
     },
   ];
 
+  const handleConfirm = () => {
+    setModalState(Modal_State.none);
+  };
+
+  const handleCancel = () => {
+    setModalState(Modal_State.none);
+  };
+
   return (
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-4">
@@ -62,6 +75,20 @@ export default function ServiceManagementPage() {
           imageUrl={product.imageUrl}
         />
       ))}
+      <div className="flex justify-center gap-4 mt-4 w-full">
+        <button
+          onClick={handleConfirm}
+          className="w-1/4 bg-blue-500 text-white py-2 rounded"
+        >
+          확인
+        </button>
+        <button
+          onClick={handleCancel}
+          className="w-1/4 bg-red-500 text-white py-2 rounded"
+        >
+          취소
+        </button>
+      </div>
     </div>
   );
 }

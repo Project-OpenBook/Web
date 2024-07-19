@@ -1,17 +1,41 @@
 import Modal from "../../Util/Modal";
 import BoothRegistInput from "./BoothRegistInput";
-import { MdStorefront } from "react-icons/md";
-import { FaHashtag } from "react-icons/fa";
-import { FaRegImage } from "react-icons/fa6";
-import { FaCalendarCheck } from "react-icons/fa";
-import { MdDriveFileRenameOutline } from "react-icons/md";
-import { FaRegCreditCard } from "react-icons/fa6";
-import { MdOutlineDescription } from "react-icons/md";
+import {
+  MdStorefront,
+  MdDriveFileRenameOutline,
+  MdOutlineDescription,
+} from "react-icons/md";
+import {
+  FaHashtag,
+  FaRegImage,
+  FaCalendarCheck,
+  FaRegCreditCard,
+} from "react-icons/fa";
 import { SlLocationPin } from "react-icons/sl";
 import { useState } from "react";
 import { useRegisteBooth } from "../../../Hooks/Booth/useRegistBooth";
 import { useLocation } from "react-router-dom";
 import RegistLocationPage from "./Location/RegistLocationPage";
+import GoodsInfoInputPage from "./Goods/GoodsInfoInputPage";
+import GoodsManagementPage from "./Goods/GoodsMangementPage";
+import ServiceManagementPage from "./Service/ServiceManagementPage";
+import ServiceTimeAdd from "./Service/ServiceTimeAdd";
+import ServiceInfoInputPage from "./Service/ServiceInfoInputPage";
+import AccountInput from "./Input/AccountInput";
+import ImageInput from "./Input/ImageInput";
+import TimeInput from "./Input/TimeInput";
+import TextareaInput from "./Input/TextareaInput";
+import TagInput from "./Input/TagInput";
+
+export const Modal_State = {
+  none: "none",
+  goodsManage: "GM",
+  serviceManage: "SM",
+  goodsInput: "GI",
+  serviceInput: "SI",
+  serviceTime: "ST",
+  locationSelect: "LS",
+};
 
 export default function BoothRegistPage() {
   const { state } = useLocation();
@@ -29,8 +53,11 @@ export default function BoothRegistPage() {
     setLinkedEvent,
     selectedSeatIds,
     setSelectedSeatIds,
+    setTagNames,
+    tagNames,
   } = useRegisteBooth(state?.name);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+  const [modalState, setModalState] = useState(Modal_State.none);
   const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);
 
@@ -47,15 +74,10 @@ export default function BoothRegistPage() {
     }
   };
 
-  function switchModal() {
-    if (!isOpen) {
-      setIsOpen(true);
-    } else {
-      if (window.confirm("저장하시겠습니까?")) {
-        setIsOpen(false);
-      }
-    }
-  }
+  const handleBoothSubmission = () => {
+    setLinkedEvent(eventId);
+    mutate();
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -75,12 +97,11 @@ export default function BoothRegistPage() {
           value={boothName}
           type="text"
         />
-        <BoothRegistInput
+        <TimeInput
           label="부스 운영 시간"
           Icon={FaCalendarCheck}
-          setValue={setOpenTime}
-          setValue2={setEndTime}
-          type="time"
+          setStartTime={setOpenTime}
+          setEndTime={setEndTime}
         />
         <div className="flex flex-col w-1/2 mb-5">
           <div className="flex gap-2 items-center h-full mb-2">
@@ -89,7 +110,7 @@ export default function BoothRegistPage() {
           </div>
           <div className="flex items-center w-full gap-2">
             <input
-              placeholder="원하는 부스 신청 위치를 선택해주세요"
+              placeholder="부스 신청 위치를 선택해주세요"
               type="text"
               className="h-10 border-b-2 pl-1 w-3/4"
               onChange={(e) => {}}
@@ -97,73 +118,90 @@ export default function BoothRegistPage() {
             />
             <button
               className="h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white"
-              onClick={switchModal}
+              onClick={() => {
+                setModalState(Modal_State.locationSelect);
+              }}
             >
               선택
             </button>
           </div>
         </div>
-        <BoothRegistInput
-          placeholder="부스를 대표할 이미지를 선택해주세요"
+        <ImageInput
           label="부스 대표이미지"
           Icon={FaRegImage}
-          setValue={handleFileChange}
-          type="image"
+          setImage={handleFileChange}
           imageName={imageName}
         />
-        <BoothRegistInput
-          placeholder="부스를 대한 간단한 설명을 입력해주세요"
+        <TextareaInput
+          placeholder="부스에 대한 간단한 설명을 입력해주세요"
           label="부스 설명"
           Icon={MdOutlineDescription}
           setValue={setDescription}
-          type="textarea"
         />
-        <BoothRegistInput
-          placeholder="부스를 나타내는 태그를 설정해주세요"
-          label="부스 태그"
-          Icon={FaHashtag}
-          setValue={() => {}}
-          type="button"
+        <TagInput
+          placeholder="부스의 태그를 설정한 뒤 확인 버튼을 눌러주세요"
+          tagNames={tagNames}
+          setTagNames={setTagNames}
         />
-        <BoothRegistInput
+        <AccountInput
           placeholder="사용하시는 은행 및 계좌번호를 입력해주세요"
           label="계좌번호"
           Icon={FaRegCreditCard}
-          setValue={setAccountNumber}
-          type="select"
+          setAccountNumber={setAccountNumber}
+          setAccountBankName={setAccountBankName}
         />
         <div className="flex gap-4 w-full justify-center">
           <button
-            onClick={switchModal}
+            onClick={() => setModalState(Modal_State.goodsManage)}
             className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#5E1675] rounded-lg text-white mb-4"
           >
             물품 등록 및 관리
           </button>
           <button
-            onClick={switchModal}
+            onClick={() => setModalState(Modal_State.serviceManage)}
             className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#401F71] rounded-lg text-white mb-4"
           >
             서비스(예약) 등록 및 관리
           </button>
         </div>
         <button
-          onClick={() => {
-            setLinkedEvent(eventId);
-            mutate();
-          }}
+          onClick={handleBoothSubmission}
           className="py-1 font-bold w-1/3 h-10 hover:cursor-pointer bg-[#0064FF] rounded-md text-white mb-4"
         >
           부스 신청
         </button>
-        <Modal isOpen={isOpen} switchModal={switchModal}>
-          <RegistLocationPage
-            selectedSeatIds={selectedSeatIds}
-            selectedSeatNumbers={selectedSeatNumbers}
-            eventId={eventId}
-            setSelectedSeatIds={setSelectedSeatIds}
-            setSelectedSeatNumbers={setSelectedSeatNumbers}
-          />
-        </Modal>
+        {modalState !== "none" && (
+          <Modal isOpen={isOpen}>
+            {modalState === Modal_State.locationSelect && (
+              <RegistLocationPage
+                selectedSeatIds={selectedSeatIds}
+                selectedSeatNumbers={selectedSeatNumbers}
+                eventId={eventId}
+                setSelectedSeatIds={setSelectedSeatIds}
+                setSelectedSeatNumbers={setSelectedSeatNumbers}
+                setModalState={setModalState}
+              />
+            )}
+            {modalState === Modal_State.goodsManage && (
+              <GoodsManagementPage setModalState={setModalState} />
+            )}
+            {modalState === Modal_State.serviceManage && (
+              <ServiceManagementPage setModalState={setModalState} />
+            )}
+            {modalState === Modal_State.goodsInput && (
+              <GoodsInfoInputPage setModalState={setModalState} />
+            )}
+            {modalState === Modal_State.serviceInput && (
+              <ServiceInfoInputPage />
+            )}
+            {modalState === Modal_State.serviceTime && (
+              <ServiceTimeAdd
+                startDate={new Date(2024, 5, 23)}
+                endDate={new Date(2024, 5, 30)}
+              />
+            )}
+          </Modal>
+        )}
       </div>
     </div>
   );

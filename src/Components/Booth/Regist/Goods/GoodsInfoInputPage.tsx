@@ -7,8 +7,12 @@ import { IoIosPricetags } from "react-icons/io";
 import { MdOutlineDescription } from "react-icons/md";
 import { TbNumber123 } from "react-icons/tb";
 import { FaRegImage } from "react-icons/fa6";
+import { Modal_State } from "../BoothRegistPage";
+interface Props {
+  setModalState: (state: string) => void;
+}
 
-export default function GoodsInfoInputPage() {
+export default function GoodsInfoInputPage({ setModalState }: Props) {
   const setBoothImage = useSetRecoilState(boothImageState);
   const [imageName, setImageName] = useState("X");
 
@@ -20,6 +24,16 @@ export default function GoodsInfoInputPage() {
     } else {
       setBoothImage(null);
       setImageName("X");
+    }
+  };
+
+  const handleConfirm = () => {
+    setModalState(Modal_State.goodsManage);
+  };
+
+  const handleCancel = () => {
+    if (window.confirm("취소하시겠습니까?")) {
+      setModalState(Modal_State.goodsManage);
     }
   };
 
@@ -66,7 +80,10 @@ export default function GoodsInfoInputPage() {
           <button className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-[#0064FF] rounded-md text-white mb-4">
             물품 등록
           </button>
-          <button className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-red-700 rounded-md text-white mb-4">
+          <button
+            onClick={handleCancel}
+            className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-red-700 rounded-md text-white mb-4"
+          >
             취소
           </button>
         </div>

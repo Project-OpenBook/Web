@@ -1,4 +1,10 @@
-export default function GoodsInfoCardNone() {
+import GoodsInfoInput from "./GoodsInfoInput";
+import { Modal_State } from "../BoothRegistPage";
+interface Props {
+  setModalState: (state: string) => void;
+}
+
+export default function GoodsInfoCardNone({ setModalState }: Props) {
   return (
     <div className="flex h-80 flex-col p-3 pb-5 w-full gap-6 items-center rounded-md font-bold shadow-lg">
       <button className="flex flex-col ">
@@ -9,7 +15,14 @@ export default function GoodsInfoCardNone() {
             src="images/boothRegist/plus_symbol.png"
           />
         </div>
-        <button className="rounded-md w-full h-full mt-10">물품 등록</button>
+        <button
+          onClick={() => {
+            setModalState(Modal_State.goodsInput);
+          }}
+          className="rounded-md w-full h-full mt-10"
+        >
+          물품 등록
+        </button>
       </button>
     </div>
   );

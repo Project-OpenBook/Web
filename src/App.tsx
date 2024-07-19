@@ -58,23 +58,6 @@ function App() {
         />
         <Route path="/boothRegist" element={<BoothRegistPage />} />
         <Route path="/booth/:id" element={<BoothDetailPage />} />
-        {/* 추후 Modal로 변경 페이지*/}
-        <Route path="/boothGoodsTest" element={<GoodsManagementPage />} />
-        <Route
-          path="/ServiceManagementPage"
-          element={<ServiceManagementPage />}
-        />
-        <Route path="/GoodsInfoPage" element={<GoodsInfoInputPage />} />
-        <Route path="/ServiceInfoPage" element={<ServiceInfoInputPage />} />
-        <Route
-          path="/ServiceTimeAdd"
-          element={
-            <ServiceTimeAdd
-              startDate={new Date(2024, 5, 23)}
-              endDate={new Date(2024, 5, 30)}
-            />
-          }
-        />
       </Routes>
     </div>
   );
