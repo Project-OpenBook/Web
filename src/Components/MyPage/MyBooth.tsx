@@ -42,14 +42,14 @@ export default function MyBooth() {
 
   return (
     <section className="flex flex-col gap-4">
-      {tmpBoothList.map((booth) => (
+      {/* {tmpBoothList.map((booth) => (
         <BoothCard
           endDate={booth.endDate}
           id={booth.id}
           image={booth.image}
           name={booth.name}
         />
-      ))}
+      ))} */}
     </section>
   );
 }
