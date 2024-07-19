@@ -25,6 +25,7 @@ import AccountInput from "./Input/AccountInput";
 import ImageInput from "./Input/ImageInput";
 import TimeInput from "./Input/TimeInput";
 import TextareaInput from "./Input/TextareaInput";
+import TagInput from "./Input/TagInput";
 
 export const Modal_State = {
   none: "none",
@@ -57,6 +58,7 @@ export default function BoothRegistPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
   const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);
+  const [tagNames, setTagNames] = useState<string[]>([]);
 
   if (!eventId) return <>잘못된 접근입니다.</>;
 
@@ -135,12 +137,10 @@ export default function BoothRegistPage() {
           Icon={MdOutlineDescription}
           setValue={setDescription}
         />
-        <BoothRegistInput
-          placeholder="부스를 나타낼 수 있는 태그들을 설정해주세요"
-          label="부스 태그"
-          Icon={FaHashtag}
-          setValue={() => {}}
-          type="button"
+        <TagInput
+          placeholder="부스의 태그를 설정한 뒤 확인 버튼을 눌러주세요"
+          tagNames={tagNames}
+          setTagNames={setTagNames}
         />
         <AccountInput
           placeholder="사용하시는 은행 및 계좌번호를 입력해주세요"
