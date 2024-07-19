@@ -55,7 +55,7 @@ export default function MyPage() {
             </button>
           ))}
         </div>
-        <div className="p-8">{MENUS[currentSideMenu].view}</div>
+        <div className="flex-1 p-8">{MENUS[currentSideMenu].view}</div>
       </div>
     </section>
   );
