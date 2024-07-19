@@ -11,8 +11,14 @@ export default function Profile() {
       </div>
       <div className="flex gap-x-4 flex-wrap items-center">
         <p>프로필</p>
-        <img src="/logo192.png" alt="profile" width={40} height={40}></img>
+        <img src="/logo192.png" alt="profile" width={40} height={40} />
       </div>
+      <button
+        disabled
+        className="w-fit ml-auto px-2 py-1 bg-blue-400 rounded-md text-white shadow-md"
+      >
+        수정
+      </button>
     </div>
   );
 }

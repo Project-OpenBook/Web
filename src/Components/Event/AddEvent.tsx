@@ -6,8 +6,10 @@ import { MdDescription, MdStorefront } from "react-icons/md";
 import { MdOutlineDescription } from "react-icons/md";
 import { SlLocationPin } from "react-icons/sl";
 import { getAccessToken } from "../../Api/Util/token";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PleaseLogin from "../Login/PleaseLogin";
+
+import DaumPostcode from "react-daum-postcode";
 
 export function getNumbers(maxNumber: number) {
   const NUMBERS = [];
@@ -61,6 +63,8 @@ export default function AddEventPage() {
   const [mainImage, setMainImage] = useState<File>();
   const [layoutImages, setLayoutImages] = useState<File[]>([]);
 
+  const [isAddressOpen, setIsAddressOpen] = useState(false);
+
   const mainImageView = useMemo(() => {
     if (mainImage) {
       return URL.createObjectURL(mainImage);
@@ -71,7 +75,7 @@ export default function AddEventPage() {
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-
+    console.log(name, value);
     setEventDetails({ ...eventDetails, [name]: value });
   };
 
@@ -179,6 +183,23 @@ export default function AddEventPage() {
 
   return (
     <form className="flex min-h-screen justify-center" onSubmit={onSubmit}>
+      {isAddressOpen && (
+        <div
+          className="fixed flex justify-center items-center top-0 w-full h-full bg-black/20"
+          onClick={() => {
+            setIsAddressOpen(false);
+          }}
+        >
+          <DaumPostcode
+            className="max-w-screen-md border shadow-lg"
+            onComplete={(e) => {
+              setEventDetails({ ...eventDetails, location: e.roadAddress });
+              setIsAddressOpen(false);
+              console.log("tgd");
+            }}
+          ></DaumPostcode>
+        </div>
+      )}
       <div className="w-full max-w-screen-lg h-full p-10">
         <div className="flex flex-col mt-5">
           <span className="bg-blue-400 w-fit p-2 rounded-t text-white font-bold">
@@ -192,13 +213,24 @@ export default function AddEventPage() {
               label="행사명"
               Icon={MdStorefront}
             />
-            <EventFormInput
-              placeholder="장소"
-              onChange={handleChange}
-              name="location"
-              label="장소"
-              Icon={SlLocationPin}
-            />
+            <div className="flex items-center gap-x-2">
+              <EventFormInput
+                placeholder="장소"
+                onChange={handleChange}
+                name="location"
+                label="장소"
+                Icon={SlLocationPin}
+                value={eventDetails.location}
+              />
+              <button
+                className="mt-7 border shadow-sm rounded-md p-1 w-24"
+                onClick={() => {
+                  setIsAddressOpen(true);
+                }}
+              >
+                주소 찾기
+              </button>
+            </div>
             <EventFormInput
               placeholder="설명"
               onChange={handleChange}
