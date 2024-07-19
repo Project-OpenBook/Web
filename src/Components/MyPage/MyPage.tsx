@@ -48,7 +48,7 @@ export default function MyPage() {
     <section className="flex flex-col w-full h-full p-2">
       <h2 className="border-b text-2xl font-bold p-2">마이페이지</h2>
       <div className="flex">
-        <div className="flex flex-col gap-2 w-60 border-r">
+        <div className="flex flex-col gap-2 w-32 border-r py-4">
           {Object.keys(MENUS).map((sidebar) => (
             <button onClick={() => onClickSideBar(sidebar)}>
               {MENUS[sidebar].menu}
