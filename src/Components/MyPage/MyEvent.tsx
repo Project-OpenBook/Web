@@ -1,3 +1,4 @@
 export default function MyEvent() {
-  return <>내 행사</>;
+  //   const tmp
+  return <section className="flex flex-col">{}</section>;
 }
