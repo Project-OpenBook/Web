@@ -14,7 +14,7 @@ export default function SearchCard({
 }: SearchCardProps) {
   return (
     <div className="border rounded overflow-hidden shadow-md w-full h-88 flex flex-col">
-      <div className="flex-grow bg-gray-300 flex items-center justify-center h-56">
+      <div className="flex-grow bg-gray-300 flex items-center justify-center h-40">
         <img src={image} alt={title} className="object-contain h-48 w-full" />
       </div>
       <div className="p-4">
