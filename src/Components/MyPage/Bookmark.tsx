@@ -40,14 +40,14 @@ export default function Bookmark() {
   ];
   return (
     <section className="w-full grid grid-cols-2 gap-4">
-      {tmpBoothList.map((booth) => (
-        <BoothCard
-          endDate={booth.endDate}
-          id={booth.id}
-          image={booth.image}
-          name={booth.name}
-        />
-      ))}
+      {/* {tmpBoothList.map((booth) => (
+        // <BoothCard
+        //   endDate={booth.endDate}
+        //   id={booth.id}
+        //   image={booth.image}
+        //   name={booth.name}
+        // />
+      ))} */}
     </section>
   );
 }
