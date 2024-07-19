@@ -1,5 +1,9 @@
 import { useSearchParams } from "react-router-dom";
 import Profile from "./Profile";
+import Bookmark from "./Bookmark";
+import PurchaseDetails from "./PurchaseDetails";
+import MyEvent from "./MyEvent";
+import MyBooth from "./MyBooth";
 
 interface MENU {
   [key: string]: {
@@ -15,19 +19,19 @@ const MENUS: MENU = {
   },
   bookmark: {
     menu: "북마크",
-    view: <div>북마크</div>,
+    view: <Bookmark />,
   },
   purchase: {
     menu: "구매 내역 확인",
-    view: <div>구매 내역 확인</div>,
+    view: <PurchaseDetails />,
   },
   myevent: {
     menu: "내 행사 리스트",
-    view: <div>내 행사 리스트</div>,
+    view: <MyEvent />,
   },
   mybooth: {
     menu: "내 부스 리스트",
-    view: <div>내 부스 리스트</div>,
+    view: <MyBooth />,
   },
 };
 
