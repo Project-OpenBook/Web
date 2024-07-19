@@ -1,3 +1,4 @@
+import BoothCard from "../Booth/List/BoothCard";
 import EventCard from "../Event/List/EventCard";
 
 export default function MyBooth() {
@@ -42,7 +43,7 @@ export default function MyBooth() {
   return (
     <section className="flex flex-col gap-4">
       {tmpBoothList.map((booth) => (
-        <EventCard
+        <BoothCard
           endDate={booth.endDate}
           id={booth.id}
           image={booth.image}
