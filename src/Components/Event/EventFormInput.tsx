@@ -8,6 +8,7 @@ interface Props {
   name: string;
   DateInput?: boolean;
   Icon: IconType;
+  value?: string;
 }
 export default function EventFormInput({
   placeholder,
@@ -17,6 +18,7 @@ export default function EventFormInput({
   DateInput = false,
   label,
   Icon,
+  value,
 }: Props) {
   return (
     <div className="flex flex-col gap-1 w-full">
@@ -32,6 +34,7 @@ export default function EventFormInput({
         onChange={onChange}
         name={name}
         type={DateInput ? "date" : "text"}
+        value={value}
       />
     </div>
   );

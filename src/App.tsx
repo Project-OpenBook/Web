@@ -23,6 +23,7 @@ import MoreEventPage from "./Components/Search/MorePage/MoreEventPage";
 import MoreBoothPage from "./Components/Search/MorePage/MoreBoothPage";
 import MoreEventHashtagPage from "./Components/Search/MorePage/MoreEventHashtagPage";
 import MoreBoothHashtagPage from "./Components/Search/MorePage/MoreBoothHashtagPage";
+import MyPage from "./Components/MyPage/MyPage";
 
 function App() {
   //TODO: 임시 데이터. 나중에 모달 연결하면 지울 것
@@ -52,6 +53,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/event/:id" element={<EventDetailPage />} />
+        <Route path="/mypage" element={<MyPage />} />
         <Route
           path="/event/:id/manage"
           element={
@@ -70,23 +72,6 @@ function App() {
         />
         <Route path="/boothRegist" element={<BoothRegistPage />} />
         <Route path="/booth/:id" element={<BoothDetailPage />} />
-        {/* 추후 Modal로 변경 페이지*/}
-        <Route path="/boothGoodsTest" element={<GoodsManagementPage />} />
-        <Route
-          path="/ServiceManagementPage"
-          element={<ServiceManagementPage />}
-        />
-        <Route path="/GoodsInfoPage" element={<GoodsInfoInputPage />} />
-        <Route path="/ServiceInfoPage" element={<ServiceInfoInputPage />} />
-        <Route
-          path="/ServiceTimeAdd"
-          element={
-            <ServiceTimeAdd
-              startDate={new Date(2024, 5, 23)}
-              endDate={new Date(2024, 5, 30)}
-            />
-          }
-        />
       </Routes>
     </div>
   );

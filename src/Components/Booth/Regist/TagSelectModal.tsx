@@ -1,11 +1,10 @@
-import GoodsInfoCard from "./GoodsInfoCard";
-import GoodsInfoCardAdd from "./GoodsInfoCardAdd";
-import { Modal_State } from "../BoothRegistPage";
+import { Modal_State } from "./BoothRegistPage";
+
 interface Props {
   setModalState: (state: string) => void;
 }
 
-export default function GoodsManagementPage({ setModalState }: Props) {
+export default function TagSelectModal({ setModalState }: Props) {
   const handleConfirm = () => {
     setModalState(Modal_State.none);
   };
@@ -17,12 +16,7 @@ export default function GoodsManagementPage({ setModalState }: Props) {
   return (
     <>
       <div className="font-bold text-3xl mb-5">부스 물품 관리</div>
-      <div className="grid place-items-center grid-cols-5 gap-4">
-        {Array.from({ length: 8 }).map(() => (
-          <GoodsInfoCard />
-        ))}
-        <GoodsInfoCardAdd setModalState={setModalState} />
-      </div>
+      <div className="grid place-items-center grid-cols-5 gap-4"></div>
       <div className="flex justify-center gap-4 mt-4 w-full">
         <button
           onClick={handleConfirm}

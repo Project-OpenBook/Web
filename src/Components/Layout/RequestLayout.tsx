@@ -1,6 +1,6 @@
 interface Props {
   header: string;
-  side: string;
+  side?: string;
   children: React.ReactNode;
 }
 export default function RequestLayout({ children, header, side }: Props) {
@@ -12,7 +12,9 @@ export default function RequestLayout({ children, header, side }: Props) {
           {/* <span className="font-bold text-2xl">{"행사명"}</span> */}
         </div>
         <div className="flex">
-          <div className="w-32 h-80 border-r p-4 font-bold">{side}</div>
+          {side && (
+            <div className="w-32 h-80 border-r p-4 font-bold">{side}</div>
+          )}
           {children}
         </div>
       </div>
