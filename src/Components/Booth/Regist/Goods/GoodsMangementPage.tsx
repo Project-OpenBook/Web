@@ -11,7 +11,9 @@ export default function GoodsManagementPage({ setModalState }: Props) {
   };
 
   const handleCancel = () => {
-    setModalState(Modal_State.none);
+    if (window.confirm("취소하시겠습니까?")) {
+      setModalState(Modal_State.none);
+    }
   };
 
   return (
@@ -30,12 +32,12 @@ export default function GoodsManagementPage({ setModalState }: Props) {
         >
           확인
         </button>
-        <button
+        {/* <button
           onClick={handleCancel}
           className="w-1/4 bg-red-500 text-white py-2 rounded"
         >
           취소
-        </button>
+        </button> */}
       </div>
     </>
   );

@@ -82,12 +82,12 @@ export default function ServiceManagementPage({ setModalState }: Props) {
         >
           확인
         </button>
-        <button
+        {/* <button
           onClick={handleCancel}
           className="w-1/4 bg-red-500 text-white py-2 rounded"
         >
           취소
-        </button>
+        </button> */}
       </div>
     </div>
   );
