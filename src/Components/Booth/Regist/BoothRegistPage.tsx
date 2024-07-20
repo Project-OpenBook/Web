@@ -192,7 +192,7 @@ export default function BoothRegistPage() {
               <GoodsInfoInputPage setModalState={setModalState} />
             )}
             {modalState === Modal_State.serviceInput && (
-              <ServiceInfoInputPage />
+              <ServiceInfoInputPage setModalState={setModalState} />
             )}
             {modalState === Modal_State.serviceTime && (
               <ServiceTimeAdd

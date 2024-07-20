@@ -7,10 +7,25 @@ import { IoIosPricetags } from "react-icons/io";
 import { MdOutlineDescription } from "react-icons/md";
 import { FaRegImage } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa6";
+import { Modal_State } from "../BoothRegistPage";
 
-export default function ServiceInfoInputPage() {
+interface Props {
+  setModalState: (state: string) => void;
+}
+
+export default function ServiceInfoInputPage({ setModalState }: Props) {
   const setBoothImage = useSetRecoilState(boothImageState);
   const [imageName, setImageName] = useState("X");
+
+  const handleConfirm = () => {
+    setModalState(Modal_State.serviceManage);
+  };
+
+  const handleCancel = () => {
+    if (window.confirm("취소하시겠습니까?")) {
+      setModalState(Modal_State.serviceManage);
+    }
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
@@ -24,8 +39,8 @@ export default function ServiceInfoInputPage() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="flex flex-col w-1/2 h-full justify-center items-center shadow-md border-b-2">
+    <>
+      <div className="flex flex-col w-full h-full justify-center items-center">
         <h1 className="font-bold text-3xl mb-5">서비스 등록</h1>
         <ServiceInfoInput
           Icon={MdDriveFileRenameOutline}
@@ -63,14 +78,20 @@ export default function ServiceInfoInputPage() {
           imageName={imageName}
         />
         <div className="flex w-1/2 gap-4">
-          <button className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-[#0064FF] rounded-md text-white mb-4">
+          <button
+            onClick={handleConfirm}
+            className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-[#0064FF] rounded-md text-white mb-4"
+          >
             서비스 등록
           </button>
-          <button className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-red-700 rounded-md text-white mb-4">
+          <button
+            onClick={handleCancel}
+            className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-red-700 rounded-md text-white mb-4"
+          >
             취소
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }

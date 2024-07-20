@@ -61,7 +61,12 @@ export default function ServiceManagementPage({ setModalState }: Props) {
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mx-auto">서비스 관리</h1>
-        <button className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded">
+        <button
+          onClick={() => {
+            setModalState(Modal_State.serviceInput);
+          }}
+          className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded"
+        >
           서비스 추가
         </button>
       </div>

@@ -38,8 +38,8 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="flex flex-col w-1/2 h-full justify-center items-center shadow-md border-b-2">
+    <>
+      <div className="flex flex-col w-1/2 p-3 justify-center items-center">
         <h1 className="font-bold text-3xl mb-5">물품 등록</h1>
         <GoodsInfoInput
           Icon={MdDriveFileRenameOutline}
@@ -76,8 +76,11 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
           type="image"
           imageName={imageName}
         />
-        <div className="flex w-1/2 gap-4">
-          <button className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-[#0064FF] rounded-md text-white mb-4">
+        <div className="flex w-full gap-4 mt-4">
+          <button
+            onClick={handleConfirm}
+            className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-[#0064FF] rounded-md text-white mb-4"
+          >
             물품 등록
           </button>
           <button
@@ -88,6 +91,6 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -25,7 +25,7 @@ export default function GoodsInfoInput({
   };
 
   return (
-    <div className="flex flex-col w-1/2">
+    <div className="flex flex-col w-full">
       <div className="flex gap-2 items-center h-full">
         <Icon size={25} color="#0064FF" />
         <label htmlFor={label} className="font-bold">
@@ -50,7 +50,7 @@ export default function GoodsInfoInput({
             onClick={() => {
               onCickImageUploadHandler();
             }}
-            className="border-none h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white"
+            className="h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white"
           >
             이미지 등록
           </button>
