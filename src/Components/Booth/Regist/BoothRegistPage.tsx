@@ -5,12 +5,7 @@ import {
   MdDriveFileRenameOutline,
   MdOutlineDescription,
 } from "react-icons/md";
-import {
-  FaHashtag,
-  FaRegImage,
-  FaCalendarCheck,
-  FaRegCreditCard,
-} from "react-icons/fa";
+import { FaRegImage, FaCalendarCheck, FaRegCreditCard } from "react-icons/fa";
 import { SlLocationPin } from "react-icons/sl";
 import { useState } from "react";
 import { useRegisteBooth } from "../../../Hooks/Booth/useRegistBooth";
@@ -56,7 +51,6 @@ export default function BoothRegistPage() {
     setTagNames,
     tagNames,
   } = useRegisteBooth(state?.name);
-  const [isOpen, setIsOpen] = useState(true);
   const [modalState, setModalState] = useState(Modal_State.none);
   const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);
@@ -171,7 +165,7 @@ export default function BoothRegistPage() {
           부스 신청
         </button>
         {modalState !== "none" && (
-          <Modal isOpen={isOpen}>
+          <Modal isOpen={false}>
             {modalState === Modal_State.locationSelect && (
               <RegistLocationPage
                 selectedSeatIds={selectedSeatIds}

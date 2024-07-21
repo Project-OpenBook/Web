@@ -10,11 +10,11 @@ export default function GoodsManagementPage({ setModalState }: Props) {
     setModalState(Modal_State.none);
   };
 
-  const handleCancel = () => {
-    if (window.confirm("취소하시겠습니까?")) {
-      setModalState(Modal_State.none);
-    }
-  };
+  // const handleCancel = () => {
+  //   if (window.confirm("취소하시겠습니까?")) {
+  //     setModalState(Modal_State.none);
+  //   }
+  // };
 
   return (
     <>

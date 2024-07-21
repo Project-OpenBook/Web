@@ -53,9 +53,9 @@ export default function ServiceManagementPage({ setModalState }: Props) {
     setModalState(Modal_State.none);
   };
 
-  const handleCancel = () => {
-    setModalState(Modal_State.none);
-  };
+  // const handleCancel = () => {
+  //   setModalState(Modal_State.none);
+  // };
 
   return (
     <div className="container mx-auto p-6">
