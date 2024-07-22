@@ -165,7 +165,7 @@ export default function BoothRegistPage() {
           부스 신청
         </button>
         {modalState !== "none" && (
-          <Modal isOpen={false}>
+          <Modal isOpen={true}>
             {modalState === Modal_State.locationSelect && (
               <RegistLocationPage
                 selectedSeatIds={selectedSeatIds}
