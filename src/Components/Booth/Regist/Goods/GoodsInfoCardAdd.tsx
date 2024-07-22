@@ -1,4 +1,3 @@
-import GoodsInfoInput from "./GoodsInfoInput";
 import { Modal_State } from "../BoothRegistPage";
 interface Props {
   setModalState: (state: string) => void;
