@@ -1,5 +1,6 @@
 import { IconType } from "react-icons";
 import { useRef } from "react";
+import { MAIN_BLUE } from "../../../Constants/Color";
 
 interface Props {
   label: string;
@@ -34,8 +35,8 @@ export default function BoothRegistInput({
 
   return (
     <div className="flex flex-col w-1/2">
-      <div className="flex gap-2 items-center h-full">
-        <Icon size={25} color="#0064FF" />
+      <div className="flex gap-2 items-center h-full bg-mainBlue">
+        <Icon size={25} color={MAIN_BLUE} />
         <label htmlFor={label} className="font-bold">
           {label}{" "}
         </label>
