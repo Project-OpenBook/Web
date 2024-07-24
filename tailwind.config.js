@@ -15,7 +15,8 @@ export default {
       nanum: ["namnum"],
     },
     backgroundColor:{
-      mainBlue: '#0064FF'
+      mainBlue: '#0064FF',
+      mainRed: '#EF4444'
     }
   },
   plugins: [],
