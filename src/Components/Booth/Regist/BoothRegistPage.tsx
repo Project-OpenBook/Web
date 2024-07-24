@@ -50,11 +50,13 @@ export default function BoothRegistPage() {
     setSelectedSeatIds,
     setTagNames,
     tagNames,
+    accountBankName,
   } = useRegisteBooth(state?.name);
   const [modalState, setModalState] = useState(Modal_State.none);
   const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);
 
+  console.log(accountBankName);
   if (!eventId) return <>잘못된 접근입니다.</>;
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

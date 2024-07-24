@@ -102,5 +102,6 @@ export const useRegisteBooth = (initBoothName?: string) => {
     selectedSeatIds,
     tagNames,
     setTagNames,
+    accountBankName,
   };
 };
