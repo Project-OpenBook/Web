@@ -18,9 +18,9 @@ export default {
       mainBlue: '#0064FF',
       mainRed: '#EF4444'
     },
-    borderColor:{
-      mainGray: '#D1D5DB'
-    }
+    // borderColor:{ // 기본 보더가 바뀌어서 주석처리
+    //   mainGray: '#D1D5DB'
+    // }
   },
   plugins: [],
 };
