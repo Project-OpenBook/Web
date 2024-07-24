@@ -17,6 +17,9 @@ export default {
     backgroundColor:{
       mainBlue: '#0064FF',
       mainRed: '#EF4444'
+    },
+    borderColor:{
+      mainGray: '#D1D5DB'
     }
   },
   plugins: [],
