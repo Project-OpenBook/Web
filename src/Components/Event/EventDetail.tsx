@@ -70,7 +70,7 @@ export default function EventDetailPage() {
     openDate,
   } = data;
   return (
-    <form className="flex min-h-screen justify-center" onSubmit={onSubmit}>
+    <div className="flex min-h-screen justify-center" onSubmit={onSubmit}>
       <div className="w-full max-w-screen-lg shadow-2xl h-full p-2 pt-10">
         <h2 className="text-2xl font-extrabold text-center">{name}</h2>
         <div className="flex flex-col mt-5">
@@ -105,10 +105,10 @@ export default function EventDetailPage() {
               layoutImageUrls={layoutImageUrls}
             />
             {/* TODO: 리뷰 데이터 추가 이후 작업 */}
-            {/* <EventReviewList /> */}
+            <EventReviewList />
           </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 }
