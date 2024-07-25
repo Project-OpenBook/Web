@@ -33,15 +33,17 @@ export default function EventReviewList() {
       <div className="flex w-full gap-5">
         <img src="" alt="프로필" className="w-10 h-10 rounded-full border" />
         <form
-          className="border border-blue-200 rounded-md flex flex-1"
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
+          className={`border rounded-md flex flex-1 ${
+            error ? "border-red-700" : "border-blue-200"
+          }`}
+          onSubmit={handleSubmit}
         >
           <input
             type="text"
-            className="p-2 flex-1"
+            className={`p-2 flex-1`}
             placeholder="내용을 입력하세요"
+            onChange={onchange}
+            value={value}
           />
           <button className="p-2 px-7 border-l" type="submit">
             입력
