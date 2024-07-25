@@ -1,3 +1,4 @@
+import { useInput } from "../../Hooks/useInput";
 import EventReview from "./EventReview";
 
 const tempReviews = [
@@ -19,18 +20,32 @@ const tempReviews = [
 ];
 
 export default function EventReviewList() {
+  const { error, handleSubmit, onchange, value } = useInput({
+    init: "",
+    submitCallback(value) {
+      console.log(value);
+    },
+  });
+
   return (
     <div className="flex flex-col w-full gap-2">
       <span>리뷰</span>
       <div className="flex w-full gap-5">
         <img src="" alt="프로필" className="w-10 h-10 rounded-full border" />
-        <form className="border border-blue-200 rounded-md flex flex-1">
+        <form
+          className="border border-blue-200 rounded-md flex flex-1"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <input
             type="text"
             className="p-2 flex-1"
             placeholder="내용을 입력하세요"
           />
-          <button className="p-2 px-7 border-l">입력</button>
+          <button className="p-2 px-7 border-l" type="submit">
+            입력
+          </button>
         </form>
       </div>
       <div className="w-full border border-blue-400" />
