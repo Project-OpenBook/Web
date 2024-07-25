@@ -40,7 +40,7 @@ export default function EventReviewList() {
         >
           <input
             type="text"
-            className={`p-2 flex-1`}
+            className="p-2 flex-1"
             placeholder="내용을 입력하세요"
             onChange={onchange}
             value={value}

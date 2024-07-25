@@ -104,7 +104,7 @@ export default function EventDetailPage() {
               boothCount={boothCount}
               layoutImageUrls={layoutImageUrls}
             />
-            {/* TODO: 리뷰 데이터 추가 이후 작업 */}
+
             <EventReviewList />
           </div>
         </div>
