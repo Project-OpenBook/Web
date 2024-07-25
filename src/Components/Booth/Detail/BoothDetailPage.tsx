@@ -33,6 +33,12 @@ export default function BoothDetailPage() {
                 <div className="flex flex-col h-2/3 gap-3 mt-2">
                   <div>
                     <div className="flex gap-2 flex-col md:flex-row">
+                      <div className="font-bold text-nowrap">행사명 : </div>
+                      <div className="flex gap-2 flex-wrap">테스트행사명</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex gap-2 flex-col md:flex-row">
                       <div className="font-bold text-nowrap">부스위치 : </div>
                       <div className="flex gap-2 flex-wrap">
                         {data.location.map((loc, index) => (
