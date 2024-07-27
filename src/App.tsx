@@ -26,7 +26,6 @@ import MoreBoothHashtagPage from "./Components/Search/MorePage/MoreBoothHashtagP
 import MyPage from "./Components/MyPage/MyPage";
 
 function App() {
-  //TODO: 임시 데이터. 나중에 모달 연결하면 지울 것
   const location = useLocation();
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/register";
