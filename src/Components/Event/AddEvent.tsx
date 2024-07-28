@@ -143,7 +143,7 @@ export default function AddEventPage() {
     formData.append("name", eventDetails.name);
     formData.append("location", eventDetails.location);
     formData.append("description", eventDetails.description);
-    if (mainImage) formData.append("mainImage", mainImage);
+    mainImage && formData.append("mainImage", mainImage);
     formData.append("openDate", eventDetails.openDate);
     formData.append("closeDate", eventDetails.closeDate);
     formData.append(
@@ -176,7 +176,7 @@ export default function AddEventPage() {
     formData.append("tags", "testtest");
 
     fetch("http://52.79.91.214:8080/events", {
-      method: "post",
+      method: "POST",
       body: formData,
       headers: {
         Authorization: `Bearer ${getAccessToken()}`,
