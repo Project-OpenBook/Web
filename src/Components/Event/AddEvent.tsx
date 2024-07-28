@@ -173,7 +173,9 @@ export default function AddEventPage() {
       formData.append("areaMaxNumbers", `${maxNumber}`);
     }
 
-    formData.append("tags", "testtest");
+    eventDetails.tags.forEach((tag) => {
+      formData.append("tags", tag);
+    });
 
     fetch("http://52.79.91.214:8080/events", {
       method: "POST",
@@ -241,7 +243,8 @@ export default function AddEventPage() {
               />
               <button
                 className="mt-7 border shadow-sm rounded-md p-1 w-24"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   setIsAddressOpen(true);
                 }}
               >
@@ -322,7 +325,10 @@ export default function AddEventPage() {
               />
               <button
                 className="bg-mainBlue rounded-md text-white px-2 py-1 mt-7 border shadow-sm w-24"
-                onClick={onAddTags}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onAddTags();
+                }}
               >
                 추가
               </button>
