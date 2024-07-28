@@ -316,10 +316,10 @@ export default function AddEventPage() {
             </div>
             <div className="flex items-center gap-2">
               <EventFormInput
-                placeholder="해시태그"
+                placeholder="태그를 입력 후 추가해주세요"
                 onChange={(e) => setInputTag(e.target.value)}
                 name="tags"
-                label="태그를 입력 후 추가해주세요"
+                label="해시태그"
                 Icon={MdOutlineDescription}
                 value={inputTag}
               />
@@ -334,7 +334,7 @@ export default function AddEventPage() {
               </button>
             </div>
             <div className="flex flex-wrap gap-2">
-              {eventDetails.tags?.map((tag) => (
+              {eventDetails.tags.map((tag) => (
                 <div
                   className="flex py-1 px-2 rounded-md bg-mainBlue text-white"
                   key={tag}
