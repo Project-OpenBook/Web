@@ -76,8 +76,8 @@ export default function BoothRegistPage() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="flex flex-col w-1/2 my-5 h-full justify-center items-center shadow-md border-b-2 border-r-2 p-5">
+    <div className="flex justify-center items-center min-h-screen ">
+      <div className="flex w-full flex-col my-5 h-full justify-center items-center shadow-md border-b-2 border-r-2 p-5">
         <h1 className="font-bold text-3xl mb-5">부스 등록</h1>
         <BoothRegistInput
           placeholder="부스명을 입력해 주세요"
@@ -99,7 +99,7 @@ export default function BoothRegistPage() {
           setStartTime={setOpenTime}
           setEndTime={setEndTime}
         />
-        <div className="flex flex-col w-1/2 mb-5">
+        <div className="flex flex-col w-full max-w-screen-sm mb-5">
           <div className="flex gap-2 items-center h-full mb-2">
             <SlLocationPin size={25} color="#0064FF" />
             <label className="font-bold">부스 위치</label>
@@ -146,7 +146,7 @@ export default function BoothRegistPage() {
           setAccountNumber={setAccountNumber}
           setAccountBankName={setAccountBankName}
         />
-        <div className="flex gap-4 w-full justify-center">
+        <div className="flex gap-4 w-full max-w-screen-lg justify-center">
           <button
             onClick={() => setModalState(Modal_State.goodsManage)}
             className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#5E1675] rounded-lg text-white mb-4"
