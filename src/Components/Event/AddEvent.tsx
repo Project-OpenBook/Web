@@ -128,6 +128,14 @@ export default function AddEventPage() {
       return;
     }
 
+    if (inputTag.length > 15) {
+      return;
+    }
+
+    if (eventDetails.tags.length >= 5) {
+      return;
+    }
+
     setEventDetails({
       ...eventDetails,
       tags: [...eventDetails.tags, inputTag],
@@ -336,7 +344,7 @@ export default function AddEventPage() {
             <div className="flex flex-wrap gap-2">
               {eventDetails.tags.map((tag) => (
                 <div
-                  className="flex py-1 px-2 rounded-md bg-mainBlue text-white"
+                  className="flex py-1 px-2 rounded-md bg-mainBlue text-white cursor-pointer"
                   key={tag}
                   onClick={() => {
                     const filteredTags = [...eventDetails.tags].filter(
