@@ -9,6 +9,7 @@ interface Props {
   DateInput?: boolean;
   Icon: IconType;
   value?: string;
+  labelClassName?: string;
 }
 export default function EventFormInput({
   placeholder,
@@ -19,12 +20,13 @@ export default function EventFormInput({
   label,
   Icon,
   value,
+  labelClassName,
 }: Props) {
   return (
     <div className="flex flex-col gap-1 w-full">
       <div className="flex gap-2 items-center">
-        <Icon size={23} />
-        <span>{label}</span>
+        <Icon size={20} />
+        <span className={labelClassName}>{label}</span>
       </div>
 
       <input

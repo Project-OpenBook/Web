@@ -3,8 +3,11 @@ import BoothTable from "./BoothTable";
 import EventFormInput from "./EventFormInput";
 
 import { MdDescription, MdStorefront } from "react-icons/md";
-import { MdOutlineDescription } from "react-icons/md";
 import { SlLocationPin } from "react-icons/sl";
+import { HiHashtag } from "react-icons/hi2";
+import { BsCalendarDate } from "react-icons/bs";
+import { BsCalendar2DateFill } from "react-icons/bs";
+
 import { getAccessToken } from "../../Api/Util/token";
 import { useNavigate } from "react-router-dom";
 import PleaseLogin from "../Login/PleaseLogin";
@@ -293,7 +296,7 @@ export default function AddEventPage() {
                 name="openDate"
                 label="행사 시작 날짜"
                 DateInput
-                Icon={MdOutlineDescription}
+                Icon={BsCalendarDate}
               />
               <EventFormInput
                 placeholder="마감날짜"
@@ -301,7 +304,7 @@ export default function AddEventPage() {
                 name="closeDate"
                 label="행사 마감 날짜"
                 DateInput
-                Icon={MdOutlineDescription}
+                Icon={BsCalendar2DateFill}
               />
             </div>
             <div className="flex gap-2 flex-col sm:flex-row">
@@ -311,7 +314,7 @@ export default function AddEventPage() {
                 name="boothRecruitmentStartDate"
                 label="부스 모집 시작 날짜"
                 DateInput
-                Icon={MdOutlineDescription}
+                Icon={BsCalendarDate}
               />
               <EventFormInput
                 placeholder="부스 모집 마감날짜"
@@ -319,7 +322,7 @@ export default function AddEventPage() {
                 name="boothRecruitmentEndDate"
                 label="부스 모집 마감날짜"
                 DateInput
-                Icon={MdOutlineDescription}
+                Icon={BsCalendar2DateFill}
               />
             </div>
             <div className="flex items-center gap-2">
@@ -328,8 +331,9 @@ export default function AddEventPage() {
                 onChange={(e) => setInputTag(e.target.value)}
                 name="tags"
                 label="해시태그"
-                Icon={MdOutlineDescription}
+                Icon={HiHashtag}
                 value={inputTag}
+                labelClassName="mt-[2px]"
               />
               <button
                 className="bg-mainBlue rounded-md text-white px-2 py-1 mt-7 border shadow-sm w-24"
