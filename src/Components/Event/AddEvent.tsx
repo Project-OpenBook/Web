@@ -338,6 +338,15 @@ export default function AddEventPage() {
                 <div
                   className="flex py-1 px-2 rounded-md bg-mainBlue text-white"
                   key={tag}
+                  onClick={() => {
+                    const filteredTags = [...eventDetails.tags].filter(
+                      (addedTag) => addedTag !== tag
+                    );
+                    setEventDetails({
+                      ...eventDetails,
+                      tags: filteredTags,
+                    });
+                  }}
                 >
                   {tag}
                   <button className="ml-2 text-white/50">x</button>
