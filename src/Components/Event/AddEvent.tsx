@@ -39,6 +39,7 @@ interface EventData {
   boothRecruitmentEndDate: string;
   layoutType: "ALPHABET" | "NUMBER";
   areaClassifications: AreaData;
+  tags: string[];
 }
 
 //TODO: 부스 배치도 이미지 업로드 3장제한
@@ -55,7 +56,9 @@ export default function AddEventPage() {
     boothRecruitmentEndDate: "",
     layoutType: "ALPHABET",
     areaClassifications: [{ area: "A", maxNumber: 1 }],
+    tags: [],
   });
+  const [inputTag, setInputTag] = useState<string>("");
 
   const ALPHABETS = getAlphabets("Z");
   const NUMBERS = getNumbers(eventDetails.layoutType === "ALPHABET" ? 20 : 100);
@@ -120,6 +123,19 @@ export default function AddEventPage() {
     setMaxNumber(e.target.value);
   };
 
+  const onAddTags = () => {
+    if (!inputTag) {
+      return;
+    }
+
+    setEventDetails({
+      ...eventDetails,
+      tags: [...eventDetails.tags, inputTag],
+    });
+
+    setInputTag("");
+  };
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
@@ -127,7 +143,7 @@ export default function AddEventPage() {
     formData.append("name", eventDetails.name);
     formData.append("location", eventDetails.location);
     formData.append("description", eventDetails.description);
-    mainImage && formData.append("mainImage", mainImage);
+    if (mainImage) formData.append("mainImage", mainImage);
     formData.append("openDate", eventDetails.openDate);
     formData.append("closeDate", eventDetails.closeDate);
     formData.append(
@@ -157,8 +173,10 @@ export default function AddEventPage() {
       formData.append("areaMaxNumbers", `${maxNumber}`);
     }
 
+    formData.append("tags", "testtest");
+
     fetch("http://52.79.91.214:8080/events", {
-      method: "POST",
+      method: "post",
       body: formData,
       headers: {
         Authorization: `Bearer ${getAccessToken()}`,
@@ -195,7 +213,6 @@ export default function AddEventPage() {
             onComplete={(e) => {
               setEventDetails({ ...eventDetails, location: e.roadAddress });
               setIsAddressOpen(false);
-              console.log("tgd");
             }}
           ></DaumPostcode>
         </div>
@@ -293,6 +310,33 @@ export default function AddEventPage() {
                 DateInput
                 Icon={MdOutlineDescription}
               />
+            </div>
+            <div className="flex items-center gap-2">
+              <EventFormInput
+                placeholder="해시태그"
+                onChange={(e) => setInputTag(e.target.value)}
+                name="tags"
+                label="태그를 입력 후 추가해주세요"
+                Icon={MdOutlineDescription}
+                value={inputTag}
+              />
+              <button
+                className="bg-mainBlue rounded-md text-white px-2 py-1 mt-7 border shadow-sm w-24"
+                onClick={onAddTags}
+              >
+                추가
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {eventDetails.tags?.map((tag) => (
+                <div
+                  className="flex py-1 px-2 rounded-md bg-mainBlue text-white"
+                  key={tag}
+                >
+                  {tag}
+                  <button className="ml-2 text-white/50">x</button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
