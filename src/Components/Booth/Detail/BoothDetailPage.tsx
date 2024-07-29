@@ -17,6 +17,9 @@ export default function BoothDetailPage() {
   if (isLoading) return <div>로딩중입니다...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
 
+  const tmpGoods = ["1", "2", "3"];
+  const tmpServices = ["1", "2", "3"];
+
   return (
     <div className="max-w-screen flex justify-center text-xl">
       {data ? (
@@ -100,9 +103,9 @@ export default function BoothDetailPage() {
                 </button>
               </div>
               <div className="w-full flex flex-col gap-2">
-                <ProductInfo />
-                <ProductInfo />
-                <ProductInfo />
+                {tmpGoods.map((goods) => {
+                  return <ProductInfo />;
+                })}
               </div>
             </div>
             <div className="flex flex-col items-start w-full gap-2">
@@ -114,9 +117,9 @@ export default function BoothDetailPage() {
                 </button>
               </div>
               <div className="w-full flex flex-col gap-2">
-                <ServiceInfo />
-                <ServiceInfo />
-                <ServiceInfo />
+                {tmpServices.map((service) => {
+                  return <ServiceInfo />;
+                })}
               </div>
             </div>
           </div>
