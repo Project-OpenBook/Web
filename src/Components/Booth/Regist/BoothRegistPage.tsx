@@ -21,6 +21,7 @@ import ImageInput from "./Input/ImageInput";
 import TimeInput from "./Input/TimeInput";
 import TextareaInput from "./Input/TextareaInput";
 import TagInput from "./Input/TagInput";
+import LocationInput from "./Input/LocationInput";
 
 export const Modal_State = {
   none: "none",
@@ -99,29 +100,11 @@ export default function BoothRegistPage() {
           setStartTime={setOpenTime}
           setEndTime={setEndTime}
         />
-        <div className="flex flex-col w-full max-w-screen-sm mb-5">
-          <div className="flex gap-2 items-center h-full mb-2">
-            <SlLocationPin size={25} color="#0064FF" />
-            <label className="font-bold">부스 위치</label>
-          </div>
-          <div className="flex items-center w-full gap-2">
-            <input
-              placeholder="부스 신청 위치를 선택해주세요"
-              type="text"
-              className="h-10 border-b-2 pl-1 w-3/4"
-              onChange={(e) => {}}
-              value={selectedSeatNumbers.join(", ")}
-            />
-            <button
-              className="h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white"
-              onClick={() => {
-                setModalState(Modal_State.locationSelect);
-              }}
-            >
-              선택
-            </button>
-          </div>
-        </div>
+        <LocationInput
+          placeholder="부스 신청 위치를 선택해주세요"
+          selectedSeatNumbers={selectedSeatNumbers}
+          setModalState={setModalState}
+        />
         <ImageInput
           label="부스 대표이미지"
           Icon={FaRegImage}
