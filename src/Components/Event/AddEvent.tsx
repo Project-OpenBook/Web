@@ -195,7 +195,6 @@ export default function AddEventPage() {
             onComplete={(e) => {
               setEventDetails({ ...eventDetails, location: e.roadAddress });
               setIsAddressOpen(false);
-              console.log("tgd");
             }}
           ></DaumPostcode>
         </div>
