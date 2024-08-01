@@ -9,6 +9,10 @@ interface BoothData {
   location: LocationData[];
   description: string;
   mainImageUrl: string;
+  tags: string[];
+  eventId: number;
+  eventName: string;
+  isUserManager: boolean;
 }
 
 export interface LocationData {
