@@ -23,7 +23,6 @@ export default function LocationInput({
           placeholder={placeholder}
           type="text"
           className="h-10 border-b-2 pl-1 w-3/4"
-          onChange={(e) => {}}
           value={selectedSeatNumbers.join(", ")}
         />
         <button
