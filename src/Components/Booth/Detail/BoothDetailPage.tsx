@@ -9,6 +9,7 @@ import Location from "./Location";
 import Time from "./Time";
 import { useParams } from "react-router-dom";
 import { useGetBoothDetail } from "../../../Hooks/Booth/useGetBoothDetail";
+import EventName from "./EventName";
 
 export default function BoothDetailPage() {
   let { id } = useParams();
@@ -21,9 +22,9 @@ export default function BoothDetailPage() {
   const tmpServices = ["1", "2", "3"];
 
   return (
-    <div className="max-w-screen flex justify-center text-xl">
+    <div className="flex justify-center text-xl">
       {data ? (
-        <div className="shadow-md w-full max-w-screen-lg m-2 flex flex-col items-center my-10 pb-5 p-2">
+        <div className="shadow-md w-full max-w-screen-xl m-2 flex flex-col items-center my-10 pb-5 p-2">
           <div className="flex flex-col mt-10 items-center gap-4">
             <div className="text-3xl font-bold my-5">{data.name}</div>
             <div className="flex flex-col lg:flex-row w-full justify-center gap-5">
@@ -37,7 +38,7 @@ export default function BoothDetailPage() {
                   <div>
                     <div className="flex gap-2 flex-col md:flex-row">
                       <div className="font-bold text-nowrap">행사명 : </div>
-                      <div className="flex gap-2 flex-wrap">테스트행사명</div>
+                      <EventName text={data.eventName} />
                     </div>
                   </div>
                   <div>
