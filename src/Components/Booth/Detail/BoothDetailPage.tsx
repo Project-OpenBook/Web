@@ -18,6 +18,12 @@ export default function BoothDetailPage() {
   if (isLoading) return <div>로딩중입니다...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
 
+  const renderModify = () => {
+    if (data?.isUserManager) {
+      return <div>수정</div>;
+    }
+  };
+
   const tmpGoods = ["1", "2", "3"];
   const tmpServices = ["1", "2", "3"];
 
@@ -26,7 +32,10 @@ export default function BoothDetailPage() {
       {data ? (
         <div className="shadow-md w-full max-w-screen-xl m-2 flex flex-col items-center my-10 pb-5 p-2">
           <div className="flex flex-col mt-10 items-center gap-4">
-            <div className="text-3xl font-bold my-5">{data.name}</div>
+            <div className="text-3xl font-bold my-5 flex">
+              <div>{data.name} </div>
+              <div>{renderModify()} </div>
+            </div>
             <div className="flex flex-col lg:flex-row w-full justify-center gap-5">
               <img
                 className="w-full lg:w-60"
