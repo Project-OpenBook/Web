@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAccessToken } from "../Util/token";
+import { getAccessToken } from "../Api/Util/token";
 
 interface AuthResponse {
   role: string;
