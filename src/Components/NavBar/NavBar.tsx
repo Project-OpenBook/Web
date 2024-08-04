@@ -6,7 +6,7 @@ import logo from "../NavBar/logo_wide.png";
 import { getAccessToken, removeAccessToken } from "../../Api/Util/token";
 import AlarmModal from "../Alarm/AlarmModal";
 import AlarmPage from "../Alarm/AlarmPage";
-import { useAuth } from "../../Api/Util/useAuth";
+import { useAuth } from "../../Hooks/useAuth";
 
 export default function NavBar() {
   const location = useLocation();
