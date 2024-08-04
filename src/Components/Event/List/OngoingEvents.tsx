@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import EventCard from "./EventCard";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Event, fetchEvents } from "../../../Api/Util/EventService";
+import { Event, fetchEvents, OrderType } from "../../../Api/Util/EventService";
 
 interface OngoingEventsProps {
-  sortOrder: string;
+  sortOrder: OrderType;
 }
 
 export default function OngoingEvents({ sortOrder }: OngoingEventsProps) {

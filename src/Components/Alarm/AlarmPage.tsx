@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import AlarmCard from "./AlarmCard";
-import { FcAbout } from "react-icons/fc"; // 아이콘 추가
+import { FcAbout } from "react-icons/fc";
 import {
   fetchAlarms,
   Alarm,
@@ -83,9 +83,9 @@ export default function AlarmPage({ onClose }: Props) {
             <span className="text-gray-500">표시할 알림이 없습니다.</span>
           </div>
         ) : (
-          alarms.map((alarm, index) => (
+          alarms.map((alarm) => (
             <AlarmCard
-              key={index}
+              key={alarm.id}
               id={alarm.id}
               content_name={alarm.content_name}
               message={alarm.message}

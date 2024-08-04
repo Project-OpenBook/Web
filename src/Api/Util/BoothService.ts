@@ -16,9 +16,11 @@ export interface BoothResponse {
   content: Booth[];
 }
 
+export type OrderType = "최신순" | "오래된순";
+
 export const fetchBooths = async (
   sliceNumber: number,
-  sortOrder: string
+  sortOrder: OrderType
 ): Promise<BoothResponse> => {
   const token = getAccessToken();
   const response = await fetch(

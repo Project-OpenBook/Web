@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BoothCard from "./BoothCard";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Booth, fetchBooths } from "../../../Api/Util/BoothService";
+import { Booth, fetchBooths, OrderType } from "../../../Api/Util/BoothService";
 import { getAccessToken } from "../../../Api/Util/token";
 import RadioButtons from "../../Event/List/RadioButtons";
 
@@ -11,7 +11,7 @@ export default function BoothListPage() {
   const [sliceNumber, setSliceNumber] = useState(0);
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [sortOrder, setSortOrder] = useState("최신순");
+  const [sortOrder, setSortOrder] = useState<OrderType>("최신순");
 
   const fetchMoreBooths = async (reset = false) => {
     try {

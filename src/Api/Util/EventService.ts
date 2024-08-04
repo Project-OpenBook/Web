@@ -17,9 +17,11 @@ export interface EventResponse {
   content: Event[];
 }
 
+export type OrderType = "최신순" | "오래된순";
+
 export const fetchEvents = async (
   sliceNumber: number,
-  sortOrder: string,
+  sortOrder: OrderType,
   progress: string
 ): Promise<EventResponse> => {
   const token = getAccessToken();
