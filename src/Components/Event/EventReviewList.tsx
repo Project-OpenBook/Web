@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useInput } from "../../Hooks/useInput";
 import EventReview from "./EventReview";
-import ReviewStar from "./ReviewStar";
+import ReviewStars from "./ReviewStars";
 
 const tempReviews = [
   {
     img: "",
-    rating: 5,
+    rating: 3,
     text: "리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용",
   },
   {
     img: "",
-    rating: 5,
+    rating: 1.5,
     text: "리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 ",
   },
   {
@@ -38,15 +38,8 @@ export default function EventReviewList() {
     },
   });
 
-  const onMouseMoveStar = (e: any, orderStarNumber: number) => {
-    const rect = e.target.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-
-    if (mouseX < rect.width / 2) {
-      setCurrentScore(orderStarNumber - STAR_SCORE_UNIT);
-    } else {
-      setCurrentScore(orderStarNumber);
-    }
+  const onMouseMoveStar = (e: any, scoreOnMouse: number) => {
+    setCurrentScore(scoreOnMouse);
   };
 
   return (
@@ -58,18 +51,11 @@ export default function EventReviewList() {
           className={`rounded-md flex flex-1 flex-col gap-2`}
           onSubmit={handleSubmit}
         >
-          <div className="flex items-center">
-            {Array.from({ length: 5 }, (_, i) => i + 1).map((v) => {
-              return (
-                <ReviewStar
-                  key={v}
-                  currentScore={currentScore}
-                  starOrderNumber={v}
-                  onMouseMoveStar={onMouseMoveStar}
-                />
-              );
-            })}
-          </div>
+          <ReviewStars
+            currentScore={currentScore}
+            maxScore={INIT_STAR_SCORE}
+            onMouseMoveStar={onMouseMoveStar}
+          />
           <div className="flex items-center">
             <input
               type="text"
