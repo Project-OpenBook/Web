@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MoreCard from "./MoreCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import RadioButtons from "../../Event/List/RadioButtons";
+import { OrderType } from "../../../Api/Util/BoothService";
 
 interface BoothHashtag {
   id: number;
@@ -98,7 +99,7 @@ export default function MoreBoothHashtagPage() {
   const [hasMore, setHasMore] = useState(true);
   const [sliceNumber, setSliceNumber] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [sortOrder, setSortOrder] = useState("최신순");
+  const [sortOrder, setSortOrder] = useState<OrderType>("최신순");
   const [searchTerm, setSearchTerm] = useState("검색어");
 
   const fetchMoreBoothHashtags = () => {

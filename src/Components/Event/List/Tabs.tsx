@@ -17,7 +17,7 @@ export default function Tabs({ selectedTab, onTabChange }: TabsProps) {
           className={`px-4 py-2 rounded-t ${
             selectedTab === tab
               ? "bg-blue-500 text-white border-blue-500 border-t-2 border-x-2"
-              : "bg-gray-200 text-gray-800 border-b-2 border-blue-500"
+              : "bg-gray-200 text-gray-800"
           }`}
           onClick={() => onTabChange(tab)}
         >

@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { VscBell } from "react-icons/vsc";
+import { FcSearch, FcReadingEbook } from "react-icons/fc";
 import logo from "../NavBar/logo_wide.png";
 import { getAccessToken, removeAccessToken } from "../../Api/Util/token";
+import AlarmModal from "../Alarm/AlarmModal";
+import AlarmPage from "../Alarm/AlarmPage";
+import { useAuth } from "../../Hooks/useAuth";
 
 export default function NavBar() {
   const location = useLocation();
-  const handleSearchSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { role, nickname, loading } = useAuth();
 
   const isLoggedIn = !!getAccessToken();
 
@@ -29,56 +33,89 @@ export default function NavBar() {
           </div>
           <div className="flex justify-center items-center mt-3">
             <form
-              className="mb-4 w-full max-w-lg"
-              onSubmit={handleSearchSubmit}
+              className="mb-4 w-full max-w-4xl relative"
+              onSubmit={(e) => {
+                e.preventDefault();
+                // 검색 동작을 수행하는 로직 추가 예정
+              }}
             >
-              <div className="flex">
-                <input
-                  type="text"
-                  placeholder="검색어를 입력해주세요."
-                  className="flex-grow p-2 border border-gray-300 rounded-l"
-                />
-                <button
-                  type="submit"
-                  className="p-2 bg-blue-500 text-white rounded-r"
-                >
-                  검색
-                </button>
-              </div>
+              <FcSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-xl" />
+              <input
+                type="text"
+                placeholder="검색어를 입력해주세요."
+                className="w-full p-2 pl-10 border border-gray-300 rounded"
+              />
             </form>
           </div>
           <div className="flex flex-col justify-center items-end space-y-2">
-            <Link
-              to="/admin/eventmanage"
-              className="flex justify-center items-center"
-            >
-              관리자 페이지
-            </Link>
-            {isLoggedIn ? (
-              <div className="flex space-x-2">
-                <button
-                  onClick={handleLogout}
-                  className="flex justify-center items-center"
-                >
-                  로그아웃
-                </button>
-                <Link to="/mypage" className="flex justify-center items-center">
-                  마이페이지
-                </Link>
-              </div>
+            {!loading && role === "ADMIN" ? (
+              <Link
+                to="/admin/eventmanage"
+                className="flex items-center px-4 py-1 border-2 rounded-lg translate-x-px"
+              >
+                <FcReadingEbook className="mr-2" />
+                관리자
+              </Link>
             ) : (
-              <div className="flex space-x-2">
-                <Link to="/login" className="flex justify-center items-center">
-                  로그인
-                </Link>
-                <Link
-                  to="/register"
-                  className="flex justify-center items-center"
-                >
-                  회원가입
-                </Link>
-              </div>
+              !loading &&
+              nickname && (
+                <span className="flex justify-center items-center font-bold">
+                  <span className="border-b-2 border-black mr-1">
+                    {nickname}
+                  </span>
+                  님
+                </span>
+              )
             )}
+            <div className="flex space-x-2">
+              {isLoggedIn && (
+                <>
+                  <button
+                    className="flex justify-center items-center"
+                    onClick={() => setIsModalOpen(true)}
+                  >
+                    <VscBell className="text-2xl" />
+                  </button>
+                  <AlarmModal
+                    isOpen={isModalOpen}
+                    onRequestClose={() => setIsModalOpen(false)}
+                  >
+                    <AlarmPage onClose={() => setIsModalOpen(false)} />
+                  </AlarmModal>
+                </>
+              )}
+              {isLoggedIn ? (
+                <>
+                  <button
+                    onClick={handleLogout}
+                    className="flex justify-center items-center"
+                  >
+                    로그아웃
+                  </button>
+                  <Link
+                    to="/mypage"
+                    className="flex justify-center items-center"
+                  >
+                    마이페이지
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="flex justify-center items-center"
+                  >
+                    로그인
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="flex justify-center items-center"
+                  >
+                    회원가입
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </nav>

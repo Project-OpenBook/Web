@@ -16,12 +16,17 @@ export interface BoothResponse {
   content: Booth[];
 }
 
+export type OrderType = "최신순" | "오래된순";
+
 export const fetchBooths = async (
-  sliceNumber: number
+  sliceNumber: number,
+  sortOrder: OrderType
 ): Promise<BoothResponse> => {
   const token = getAccessToken();
   const response = await fetch(
-    `http://52.79.91.214:8080/booths?page=${sliceNumber}`,
+    `http://52.79.91.214:8080/booths?page=${sliceNumber}&sort=openTime%2C${
+      sortOrder === "최신순" ? "DESC" : "ASC"
+    }&progress=ongoing`,
     {
       method: "GET",
       headers: {
