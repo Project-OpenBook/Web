@@ -5,7 +5,7 @@ import { STAR_SCORE_UNIT } from "./EventReviewList";
 interface Props {
   currentScore: number;
   starOrderNumber: number;
-  onMouseMoveStar: (e: any, orderStarNumber: number) => void;
+  onMouseMoveStar?: (e: any, orderStarNumber: number) => void;
 }
 
 export default function ReviewStar({
@@ -26,7 +26,7 @@ export default function ReviewStar({
       color="orange"
       size={35}
       onMouseMove={(e) => {
-        onMouseMoveStar(e, starOrderNumber);
+        onMouseMoveStar && onMouseMoveStar(e, starOrderNumber);
       }}
     />
   );
