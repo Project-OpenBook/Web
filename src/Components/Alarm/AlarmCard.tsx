@@ -1,6 +1,5 @@
 import React from "react";
 import { FcAdvertising } from "react-icons/fc";
-import { deleteAlarm } from "../../Api/Util/AlarmService";
 
 interface AlarmCardProps {
   id: number;
@@ -17,13 +16,8 @@ export default function AlarmCard({
   registeredAt,
   onDelete,
 }: AlarmCardProps) {
-  const handleDelete = async () => {
-    try {
-      await deleteAlarm(id);
-      onDelete(id);
-    } catch (error) {
-      console.error("Failed to delete alarm:", error);
-    }
+  const handleDelete = () => {
+    onDelete(id);
   };
 
   const formatDate = (dateString: string) => {

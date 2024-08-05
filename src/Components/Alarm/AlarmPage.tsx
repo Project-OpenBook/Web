@@ -5,6 +5,7 @@ import {
   fetchAlarms,
   Alarm,
   deleteAllAlarms,
+  deleteAlarm,
 } from "../../Api/Util/AlarmService";
 
 interface Props {
@@ -48,8 +49,13 @@ export default function AlarmPage({ onClose }: Props) {
     }
   };
 
-  const handleDelete = (id: number) => {
-    setAlarms(alarms.filter((alarm) => alarm.id !== id));
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteAlarm(id);
+      setAlarms((prevAlarms) => prevAlarms.filter((alarm) => alarm.id !== id));
+    } catch (error) {
+      console.error("Failed to delete alarm:", error);
+    }
   };
 
   const handleDeleteAll = async () => {
