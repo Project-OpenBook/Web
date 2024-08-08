@@ -1,55 +1,76 @@
+import { useQuery } from "@tanstack/react-query";
 import EventCard from "../Event/List/EventCard";
+import { getAccessToken } from "../../Api/Util/token";
+import { useEffect, useState } from "react";
+import { Event } from "../Event/EventDetail";
+import RadioButtons from "../Event/List/RadioButtons";
+import { OrderType } from "../../Api/Util/EventService";
+
+enum EventStatus {
+  all = "ALL",
+  aprove = "APPROVE",
+  waiting = "WAITING",
+  reject = "REJECT",
+}
+
+enum EventSort {
+  desc = "DESC",
+  asc = "ASC",
+}
+
+interface InfinityMyEvent {
+  hasNext: boolean;
+  numberOfElements: number;
+  sliceNumber: number;
+  content: Array<Event>;
+}
+
+const fetcher = (status: EventStatus, sort: OrderType) =>
+  fetch(
+    `http://52.79.91.214:8080/manage/events?status=${status}&sort=registeredAt%2C${
+      sort === "최신순" ? EventSort.desc : EventSort.asc
+    }`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`,
+      },
+    }
+  ).then((response) => {
+    if (response.ok) return response.json();
+    else throw new Error();
+  });
 
 export default function MyEvent() {
-  //   const tmp
-  const tmpBoothList = [
-    {
-      endDate: "2024-00-00",
-      id: 25,
-      image:
-        "https://openbookbucket.s3.ap-northeast-2.amazonaws.com/%E1%84%80%E1%85%A1%E1%86%AB%E1%84%89%E1%85%B5%E1%86%A8%E1%84%87%E1%85%AE%E1%84%89%E1%85%B3.png",
-      name: "행사명",
-    },
-    {
-      endDate: "2024-00-00",
-      id: 1,
-      image:
-        "https://openbookbucket.s3.ap-northeast-2.amazonaws.com/butflow.png",
-      name: "행사명",
-    },
-    {
-      endDate: "2024-00-00",
-      id: 1,
-      image:
-        "https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/nZ7e2z99yxb9JzoE0AwQNDN1ft4.jpg",
-      name: "행사명",
-    },
-    {
-      endDate: "2024-00-00",
-      id: 1,
-      image:
-        "https://openbookbucket.s3.ap-northeast-2.amazonaws.com/639dd299-4fd6-4eea-92e9-bfbd2743503eevent.png",
-      name: "행사명",
-    },
-    {
-      endDate: "2024-00-00",
-      id: 1,
-      image:
-        "https://openbookbucket.s3.ap-northeast-2.amazonaws.com/c7a6b55d-2aaa-45e6-b770-0118695c2d7b%E1%84%86%E1%85%A2%E1%86%A8%E1%84%8C%E1%85%AE%E1%84%8E%E1%85%AE%E1%86%A8%E1%84%8C%E1%85%A6.png",
-      name: "행사명",
-    },
-  ];
+  const [eventStatus] = useState<EventStatus>(EventStatus.all);
+  const [eventSort, setEventSort] = useState<OrderType>("최신순");
+
+  const { data, isError, refetch } = useQuery<InfinityMyEvent>({
+    queryKey: ["my-event"],
+    queryFn: () => fetcher(eventStatus, eventSort),
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [eventSort, refetch]);
+
+  if (isError) {
+    return <>내 행사 데이터를 가져오는데 실패했습니다.</>;
+  }
 
   return (
     <section className="flex flex-col gap-4">
-      {/* {tmpBoothList.map((booth) => (
+      <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} />
+
+      {data?.content.map((event) => (
         <EventCard
-          endDate={booth.endDate}
-          id={booth.id}
-          image={booth.image}
-          name={booth.name}
+          endDate={event.closeDate}
+          id={event.id}
+          image={event.mainImageUrl}
+          name={event.name}
+          key={event.id}
         />
-      ))} */}
+      ))}
     </section>
   );
 }
