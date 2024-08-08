@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAccessToken } from "../Api/Util/token";
+import { getAccessToken, removeAccessToken } from "../Api/Util/token";
 
 interface AuthResponse {
   role: string;
@@ -28,13 +28,13 @@ export function useAuth() {
           setRole(data.role);
           setNickname(data.nickname);
         } else {
-          setRole(null);
-          setNickname(null);
+          throw new Error();
         }
       } catch (error) {
         console.error("Failed to fetch role:", error);
         setRole(null);
         setNickname(null);
+        removeAccessToken();
       } finally {
         setLoading(false);
       }

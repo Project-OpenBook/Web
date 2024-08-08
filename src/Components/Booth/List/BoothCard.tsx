@@ -27,8 +27,8 @@ export default function BoothCard({
       onClick={handleClick}
       className="border rounded overflow-hidden shadow-md w-full h-96 flex flex-col cursor-pointer"
     >
-      <div className="flex-grow bg-gray-300 flex items-center justify-center h-56">
-        <img src={image} alt={name} className="object-cover h-full w-full" />
+      <div className="flex-grow bg-sky-50 flex items-center justify-center h-56">
+        <img src={image} alt={name} className="object-contain h-full w-full" />
       </div>
       <div className="p-4">
         <p className="text-gray-600">종료일: {endDate}</p>
