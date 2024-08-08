@@ -69,6 +69,7 @@ export default function MyEvent() {
           image={event.mainImageUrl}
           name={event.name}
           key={event.id}
+          tags={event.tags}
         />
       ))}
     </section>

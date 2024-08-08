@@ -8,6 +8,7 @@ export interface Event {
   closeDate: string;
   recruitStartDate: string;
   recruitEndDate: string;
+  tags: string[];
 }
 
 export interface EventResponse {
