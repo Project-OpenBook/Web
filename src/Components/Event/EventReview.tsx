@@ -1,3 +1,5 @@
+import ReviewStars from "./ReviewStars";
+
 interface Props {
   review: {
     img: string;
@@ -17,7 +19,11 @@ export default function EventReview({ review }: Props) {
         <div className="flex w-full h-10 items-center gap-4">
           <img src="" alt="프로필" className="w-10 h-10 rounded-full border" />
           <span>닉네임</span>
-          <span className="ml-auto">{review.rating}</span>
+          <ReviewStars
+            currentScore={review.rating}
+            maxScore={5}
+            className="ml-auto w-32"
+          />
         </div>
         <div className="flex-1">{review.text}</div>
       </div>
