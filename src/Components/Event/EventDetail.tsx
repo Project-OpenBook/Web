@@ -19,6 +19,7 @@ export interface Event {
   layoutImageUrls: Array<string>;
   boothCount: number;
   isUserManager: boolean;
+  tags?: string[];
 }
 
 export const eventFetcher = (id: string | undefined) => {
