@@ -3,9 +3,10 @@ import EventInfo from "./EventInfo";
 import BoothInEventInfo from "./BoothsInEventInfo";
 import EventReviewList from "./EventReviewList";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getAccessToken } from "../../Api/Util/token";
 import { IoIosSettings } from "react-icons/io";
+import KakaoMap from "./KakaoMap";
 
 export interface Event {
   id: number;
@@ -69,6 +70,7 @@ export default function EventDetailPage() {
     name,
     openDate,
   } = data;
+
   return (
     <div className="flex min-h-screen justify-center" onSubmit={onSubmit}>
       <div className="w-full max-w-screen-lg shadow-2xl h-full p-2 pt-10">
@@ -104,6 +106,8 @@ export default function EventDetailPage() {
               boothCount={boothCount}
               layoutImageUrls={layoutImageUrls}
             />
+
+            <KakaoMap location={location} />
 
             <EventReviewList />
           </div>
