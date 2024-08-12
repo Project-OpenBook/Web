@@ -4,14 +4,27 @@ import OngoingEvents from "./OngoingEvents";
 import RecruitingEvents from "./RecruitingEvents";
 import FinishedEvents from "./FinishedEvents";
 import RadioButtons from "./RadioButtons";
+import DateRangeFilter from "./DateRangeFilter";
 import { Progress } from "./types";
-import { getAccessToken } from "../../../Api/Util/token";
-import { FaRegCalendarCheck } from "react-icons/fa6";
 import { OrderType } from "../../../Api/Util/EventService";
 
 export default function EventListPage() {
   const [selectedTab, setSelectedTab] = useState<Progress>("진행중");
   const [sortOrder, setSortOrder] = useState<OrderType>("최신순");
+  const [startDate, setStartDate] = useState<string | null>(null);
+  const [endDate, setEndDate] = useState<string | null>(null);
+
+  const handleDateFilter = (startDate: string, endDate: string) => {
+    setStartDate(startDate);
+    setEndDate(endDate);
+  };
+
+  const handleTabChange = (tab: Progress) => {
+    setSelectedTab(tab);
+    setSortOrder("최신순");
+    setStartDate(null);
+    setEndDate(null);
+  };
 
   const renderTabContent = () => {
     switch (selectedTab) {
@@ -32,8 +45,10 @@ export default function EventListPage() {
       case "종료된 행사":
         return (
           <FinishedEvents
-            key={`${selectedTab}-${sortOrder}`}
+            key={`${selectedTab}-${sortOrder}-${startDate}-${endDate}`}
             sortOrder={sortOrder}
+            startDate={startDate}
+            endDate={endDate}
           />
         );
       default:
@@ -41,17 +56,9 @@ export default function EventListPage() {
     }
   };
 
-  if (!getAccessToken()) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <h2>로그인 후 이용해주세요.</h2>
-      </div>
-    );
-  }
-
   return (
     <div className="p-4 m-2">
-      <Tabs selectedTab={selectedTab} onTabChange={setSelectedTab} />
+      <Tabs selectedTab={selectedTab} onTabChange={handleTabChange} />
       <div className="border-b-2 border-r-2 shadow-md">
         <div className="p-4">
           <form
@@ -60,18 +67,7 @@ export default function EventListPage() {
           >
             {selectedTab === "종료된 행사" && (
               <div className="flex justify-between w-full">
-                <label htmlFor="search" className="sr-only">
-                  특정 기간 내 행사 찾기
-                </label>
-                <div className="flex items-center w-5/6">
-                  <FaRegCalendarCheck className="mr-2 w-6 h-6" />
-                  <input
-                    type="text"
-                    id="search"
-                    placeholder="특정 기간 내 행사 찾기"
-                    className="border p-2 rounded w-full"
-                  />
-                </div>
+                <DateRangeFilter onFilter={handleDateFilter} />
                 <RadioButtons
                   sortOrder={sortOrder}
                   onSortOrderChange={setSortOrder}
