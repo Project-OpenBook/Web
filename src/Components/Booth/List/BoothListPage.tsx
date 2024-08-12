@@ -86,6 +86,7 @@ export default function BoothListPage() {
                   eventName={booth.eventName}
                   image={booth.mainImageUrl}
                   endDate={booth.closeDate}
+                  tags={booth.tags}
                 />
               ))}
             </div>
