@@ -32,7 +32,7 @@ export default function AccountInput({
             onChange={(e) => setAccountNumber(e.target.value)}
           />
           <select
-            className="h-10 w-1/4 mb-4"
+            className="h-10 w-1/4 mb-4 border-black border-2 rounded-md"
             onChange={(e) => {
               setAccountBankName(e.target.value);
             }}

@@ -6,14 +6,10 @@ import {
   MdOutlineDescription,
 } from "react-icons/md";
 import { FaRegImage, FaCalendarCheck, FaRegCreditCard } from "react-icons/fa";
-import { SlLocationPin } from "react-icons/sl";
 import { useState } from "react";
 import { useRegisteBooth } from "../../../Hooks/Booth/useRegistBooth";
 import { useLocation } from "react-router-dom";
 import RegistLocationPage from "./Location/RegistLocationPage";
-import ServiceManagementPage from "./Service/ServiceManagementPage";
-import ServiceTimeAdd from "./Service/ServiceTimeAdd";
-import ServiceInfoInputPage from "./Service/ServiceInfoInputPage";
 import AccountInput from "./Input/AccountInput";
 import ImageInput from "./Input/ImageInput";
 import TimeInput from "./Input/TimeInput";
@@ -55,7 +51,6 @@ export default function BoothRegistPage() {
   const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);
 
-  console.log(accountBankName);
   if (!eventId) return <>잘못된 접근입니다.</>;
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +71,7 @@ export default function BoothRegistPage() {
 
   return (
     <div className="flex justify-center items-center min-h-screen ">
-      <div className="flex w-full flex-col my-5 h-full justify-center items-center shadow-md border-b-2 border-r-2 p-5">
+      <div className="flex w-full flex-col my-5 h-full justify-center items-center p-5">
         <h1 className="font-bold text-3xl mb-5">부스 등록</h1>
         <BoothRegistInput
           placeholder="부스명을 입력해 주세요"
@@ -127,20 +122,6 @@ export default function BoothRegistPage() {
           setAccountNumber={setAccountNumber}
           setAccountBankName={setAccountBankName}
         />
-        <div className="flex gap-4 w-full max-w-screen-lg justify-center">
-          <button
-            onClick={() => setModalState(Modal_State.goodsManage)}
-            className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#5E1675] rounded-lg text-white mb-4"
-          >
-            물품 등록 및 관리
-          </button>
-          <button
-            onClick={() => setModalState(Modal_State.serviceManage)}
-            className="p-1 w-1/4 font-bold h-8 hover:cursor-pointer bg-[#401F71] rounded-lg text-white mb-4"
-          >
-            서비스(예약) 등록 및 관리
-          </button>
-        </div>
         <button
           onClick={handleBoothSubmission}
           className="py-1 font-bold w-1/3 h-10 hover:cursor-pointer bg-[#0064FF] rounded-md text-white mb-4"
@@ -157,18 +138,6 @@ export default function BoothRegistPage() {
                 setSelectedSeatIds={setSelectedSeatIds}
                 setSelectedSeatNumbers={setSelectedSeatNumbers}
                 setModalState={setModalState}
-              />
-            )}
-            {modalState === Modal_State.serviceManage && (
-              <ServiceManagementPage setModalState={setModalState} />
-            )}
-            {modalState === Modal_State.serviceInput && (
-              <ServiceInfoInputPage setModalState={setModalState} />
-            )}
-            {modalState === Modal_State.serviceTime && (
-              <ServiceTimeAdd
-                startDate={new Date(2024, 5, 23)}
-                endDate={new Date(2024, 5, 30)}
               />
             )}
           </Modal>
