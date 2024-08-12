@@ -1,14 +1,18 @@
 import React from "react";
+import { OrderType } from "../../../Api/Util/EventService";
 
 interface RadioButtonsProps {
-  sortOrder: string;
-  onSortOrderChange: (order: string) => void;
+  sortOrder: OrderType;
+  onSortOrderChange: (sortOrder: OrderType) => void;
 }
 
 export default function RadioButtons({
   sortOrder,
   onSortOrderChange,
-}: RadioButtonsProps) {
+}: {
+  sortOrder: OrderType;
+  onSortOrderChange: (sortOrder: OrderType) => void;
+}) {
   return (
     <div className="flex space-x-4">
       <label>

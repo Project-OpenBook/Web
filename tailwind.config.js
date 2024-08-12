@@ -8,12 +8,21 @@ export default {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class',
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor: {
+        mainBlue: '#0064FF',
+        mainRed: '#EF4444'
+      },
+        borderColor: {
+          mainGray: '#D1D5DB'
+      }
+    },
     fontFamily: {
       nanumEB: ["nanumEB"],
       nanumB: ["nanumB"],
       nanum: ["namnum"],
     },
+
   },
   plugins: [],
 };

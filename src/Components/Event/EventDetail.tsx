@@ -3,9 +3,10 @@ import EventInfo from "./EventInfo";
 import BoothInEventInfo from "./BoothsInEventInfo";
 import EventReviewList from "./EventReviewList";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getAccessToken } from "../../Api/Util/token";
 import { IoIosSettings } from "react-icons/io";
+import KakaoMap from "./KakaoMap";
 
 export interface Event {
   id: number;
@@ -18,6 +19,7 @@ export interface Event {
   layoutImageUrls: Array<string>;
   boothCount: number;
   isUserManager: boolean;
+  tags?: string[];
 }
 
 export const eventFetcher = (id: string | undefined) => {
@@ -69,8 +71,9 @@ export default function EventDetailPage() {
     name,
     openDate,
   } = data;
+
   return (
-    <form className="flex min-h-screen justify-center" onSubmit={onSubmit}>
+    <div className="flex min-h-screen justify-center" onSubmit={onSubmit}>
       <div className="w-full max-w-screen-lg shadow-2xl h-full p-2 pt-10">
         <h2 className="text-2xl font-extrabold text-center">{name}</h2>
         <div className="flex flex-col mt-5">
@@ -104,11 +107,13 @@ export default function EventDetailPage() {
               boothCount={boothCount}
               layoutImageUrls={layoutImageUrls}
             />
-            {/* TODO: 리뷰 데이터 추가 이후 작업 */}
-            {/* <EventReviewList /> */}
+
+            <KakaoMap location={location} />
+
+            <EventReviewList />
           </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 }

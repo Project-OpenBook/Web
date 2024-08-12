@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MoreCard from "./MoreCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import RadioButtons from "../../Event/List/RadioButtons";
+import { OrderType } from "../../../Api/Util/EventService";
 
 interface EventHashtag {
   id: number;
@@ -98,7 +99,7 @@ export default function MoreEventHashtagPage() {
   const [hasMore, setHasMore] = useState(true);
   const [sliceNumber, setSliceNumber] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [sortOrder, setSortOrder] = useState("최신순");
+  const [sortOrder, setSortOrder] = useState<OrderType>("최신순");
   const [searchTerm, setSearchTerm] = useState("검색어");
 
   const fetchMoreEventHashtags = () => {
@@ -154,7 +155,7 @@ export default function MoreEventHashtagPage() {
               </p>
             }
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mx-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mx-10">
               {eventhashtags.map((eventhashtag) => (
                 <MoreCard
                   key={eventhashtag.id}

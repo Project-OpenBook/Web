@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MoreCard from "./MoreCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import RadioButtons from "../../Event/List/RadioButtons";
+import { OrderType } from "../../../Api/Util/BoothService"; // 아직 검색 결과 페이지 데이터 패칭 진행이 안되서 임시로 BoothService에서 데이터 타입 받아온 것
 
 interface Booth {
   id: number;
@@ -98,7 +99,7 @@ export default function MoreBoothPage() {
   const [hasMore, setHasMore] = useState(true);
   const [sliceNumber, setSliceNumber] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [sortOrder, setSortOrder] = useState("최신순");
+  const [sortOrder, setSortOrder] = useState<OrderType>("최신순");
   const [searchTerm, setSearchTerm] = useState("검색어");
 
   const fetchMoreBooths = () => {
@@ -148,7 +149,7 @@ export default function MoreBoothPage() {
               </p>
             }
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mx-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mx-10">
               {booths.map((booth) => (
                 <MoreCard
                   key={booth.id}

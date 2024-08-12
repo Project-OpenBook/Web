@@ -6,10 +6,12 @@ import FinishedEvents from "./FinishedEvents";
 import RadioButtons from "./RadioButtons";
 import { Progress } from "./types";
 import { getAccessToken } from "../../../Api/Util/token";
+import { FaRegCalendarCheck } from "react-icons/fa6";
+import { OrderType } from "../../../Api/Util/EventService";
 
 export default function EventListPage() {
   const [selectedTab, setSelectedTab] = useState<Progress>("진행중");
-  const [sortOrder, setSortOrder] = useState("최신순");
+  const [sortOrder, setSortOrder] = useState<OrderType>("최신순");
 
   const renderTabContent = () => {
     switch (selectedTab) {
@@ -61,12 +63,15 @@ export default function EventListPage() {
                 <label htmlFor="search" className="sr-only">
                   특정 기간 내 행사 찾기
                 </label>
-                <input
-                  type="text"
-                  id="search"
-                  placeholder="특정 기간 내 행사 찾기"
-                  className="border p-2 rounded w-3/4"
-                />
+                <div className="flex items-center w-5/6">
+                  <FaRegCalendarCheck className="mr-2 w-6 h-6" />
+                  <input
+                    type="text"
+                    id="search"
+                    placeholder="특정 기간 내 행사 찾기"
+                    className="border p-2 rounded w-full"
+                  />
+                </div>
                 <RadioButtons
                   sortOrder={sortOrder}
                   onSortOrderChange={setSortOrder}
@@ -82,7 +87,7 @@ export default function EventListPage() {
               </div>
             )}
           </form>
-          <div className="mx-2">{renderTabContent()}</div>
+          <div className="mx-4">{renderTabContent()}</div>
         </div>
       </div>
     </div>
