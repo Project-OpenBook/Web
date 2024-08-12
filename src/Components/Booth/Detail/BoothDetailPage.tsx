@@ -20,7 +20,12 @@ export default function BoothDetailPage() {
 
   const renderModify = () => {
     if (data?.isUserManager) {
-      return <div>수정</div>;
+      return (
+        <div>
+          <div>물품 관리</div>
+          <div>서비스 관리</div>
+        </div>
+      );
     }
   };
 

@@ -11,8 +11,6 @@ import { useState } from "react";
 import { useRegisteBooth } from "../../../Hooks/Booth/useRegistBooth";
 import { useLocation } from "react-router-dom";
 import RegistLocationPage from "./Location/RegistLocationPage";
-import GoodsInfoInputPage from "./Goods/GoodsInfoInputPage";
-import GoodsManagementPage from "./Goods/GoodsMangementPage";
 import ServiceManagementPage from "./Service/ServiceManagementPage";
 import ServiceTimeAdd from "./Service/ServiceTimeAdd";
 import ServiceInfoInputPage from "./Service/ServiceInfoInputPage";
@@ -161,14 +159,8 @@ export default function BoothRegistPage() {
                 setModalState={setModalState}
               />
             )}
-            {modalState === Modal_State.goodsManage && (
-              <GoodsManagementPage setModalState={setModalState} />
-            )}
             {modalState === Modal_State.serviceManage && (
               <ServiceManagementPage setModalState={setModalState} />
-            )}
-            {modalState === Modal_State.goodsInput && (
-              <GoodsInfoInputPage setModalState={setModalState} />
             )}
             {modalState === Modal_State.serviceInput && (
               <ServiceInfoInputPage setModalState={setModalState} />

@@ -1,4 +1,4 @@
-import { Modal_State } from "../BoothRegistPage";
+import { Modal_State } from "../../../Regist/BoothRegistPage";
 interface Props {
   setModalState: (state: string) => void;
 }

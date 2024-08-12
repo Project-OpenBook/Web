@@ -29,7 +29,7 @@ const fetchSignUp = (boothRegistData: BoothRegistData): Promise<void> => {
     formData.append("layoutAreas", location.toString());
   });
   boothRegistData.tagNames?.forEach((tag) => {
-    formData.append("boothTag", tag);
+    formData.append("tags", tag);
   });
 
   if (boothRegistData.mainImage) {

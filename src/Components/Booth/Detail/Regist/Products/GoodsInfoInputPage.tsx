@@ -1,13 +1,13 @@
 import GoodsInfoInput from "./GoodsInfoInput";
 import { useSetRecoilState } from "recoil";
 import { useState } from "react";
-import { boothImageState } from "../../../../Recoil/Booth/boothRegistAtom";
+import { boothImageState } from "../../../../../Recoil/Booth/boothRegistAtom";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { IoIosPricetags } from "react-icons/io";
 import { MdOutlineDescription } from "react-icons/md";
 import { TbNumber123 } from "react-icons/tb";
 import { FaRegImage } from "react-icons/fa6";
-import { Modal_State } from "../BoothRegistPage";
+import { Modal_State } from "../../../Regist/BoothRegistPage";
 interface Props {
   setModalState: (state: string) => void;
 }

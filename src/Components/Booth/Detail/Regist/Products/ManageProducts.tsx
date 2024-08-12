@@ -1,11 +1,12 @@
 import GoodsInfoCard from "./GoodsInfoCard";
 import GoodsInfoCardAdd from "./GoodsInfoCardAdd";
-import { Modal_State } from "../BoothRegistPage";
+import { Modal_State } from "../../../Regist/BoothRegistPage";
+
 interface Props {
   setModalState: (state: string) => void;
 }
 
-export default function GoodsManagementPage({ setModalState }: Props) {
+export default function ManageProducts({ setModalState }: Props) {
   const handleConfirm = () => {
     setModalState(Modal_State.none);
   };
