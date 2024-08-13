@@ -34,7 +34,10 @@ export default function DateRangeFilter({ onFilter }: DateRangeFilterProps) {
       />
       <button
         onClick={handleFilter}
-        className="bg-blue-500 text-white p-2 rounded"
+        className={`bg-blue-500 text-white p-2 rounded ${
+          !(startDate && endDate) ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+        disabled={!(startDate && endDate)}
       >
         찾기
       </button>
