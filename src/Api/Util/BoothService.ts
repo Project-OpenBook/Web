@@ -7,7 +7,7 @@ export interface Booth {
   openDate: string;
   closeDate: string;
   mainImageUrl: string;
-  tags: string[];
+  tags?: string[];
 }
 
 export interface BoothResponse {
