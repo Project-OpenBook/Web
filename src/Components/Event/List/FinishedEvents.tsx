@@ -5,8 +5,8 @@ import { Event, fetchEvents, OrderType } from "../../../Api/Util/EventService";
 
 interface FinishedEventsProps {
   sortOrder: OrderType;
-  startDate?: string | null;
-  endDate?: string | null;
+  startDate: string | null;
+  endDate: string | null;
 }
 
 export default function FinishedEvents({
@@ -26,12 +26,16 @@ export default function FinishedEvents({
   const filterEventsByDate = (events: Event[]) => {
     if (!startDate || !endDate) return events;
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const formatDateString = (dateString: string) => {
+      return dateString.replace(/-/g, "/");
+    };
+
+    const start = new Date(formatDateString(startDate));
+    const end = new Date(formatDateString(endDate));
 
     return events.filter((event) => {
-      const eventStart = new Date(event.openDate);
-      const eventEnd = new Date(event.closeDate);
+      const eventStart = new Date(formatDateString(event.openDate));
+      const eventEnd = new Date(formatDateString(event.closeDate));
       return eventStart <= end && eventEnd >= start;
     });
   };
