@@ -39,8 +39,13 @@ export default function RecruitingEvents({ sortOrder }: RecruitingEventsProps) {
     setSliceNumber(0);
     setHasMore(true);
     setLoading(true);
-    fetchMoreEvents();
   }, [sortOrder]);
+
+  useEffect(() => {
+    if (sliceNumber === 0) {
+      fetchMoreEvents();
+    }
+  }, [sliceNumber]);
 
   if (isError) {
     return (

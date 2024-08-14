@@ -103,9 +103,13 @@ export default function FinishedEvents({
     setSliceNumber(0);
     setHasMore(true);
     setLoading(false);
-
-    fetchMoreEvents();
   };
+
+  useEffect(() => {
+    if (sliceNumber === 0) {
+      fetchMoreEvents();
+    }
+  }, [sliceNumber]);
 
   useEffect(() => {
     if (initialLoad.current) {

@@ -14,6 +14,12 @@ export default function OngoingEvents({ sortOrder }: OngoingEventsProps) {
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
+  useEffect(() => {
+    return () => {
+      console.log("초기ㅗ하");
+    };
+  }, []);
+
   const fetchMoreEvents = async () => {
     try {
       setLoading(true);
@@ -35,11 +41,16 @@ export default function OngoingEvents({ sortOrder }: OngoingEventsProps) {
   };
 
   useEffect(() => {
+    if (sliceNumber === 0) {
+      fetchMoreEvents();
+    }
+  }, [sliceNumber]);
+
+  useEffect(() => {
     setEvents([]);
     setSliceNumber(0);
     setHasMore(true);
     setLoading(true);
-    fetchMoreEvents();
   }, [sortOrder]);
 
   if (isError) {

@@ -29,23 +29,12 @@ export default function EventListPage() {
   const renderTabContent = () => {
     switch (selectedTab) {
       case "진행중":
-        return (
-          <OngoingEvents
-            key={`${selectedTab}-${sortOrder}`}
-            sortOrder={sortOrder}
-          />
-        );
+        return <OngoingEvents sortOrder={sortOrder} />;
       case "모집중":
-        return (
-          <RecruitingEvents
-            key={`${selectedTab}-${sortOrder}`}
-            sortOrder={sortOrder}
-          />
-        );
+        return <RecruitingEvents sortOrder={sortOrder} />;
       case "종료된 행사":
         return (
           <FinishedEvents
-            key={`${selectedTab}-${sortOrder}-${startDate}-${endDate}`}
             sortOrder={sortOrder}
             startDate={startDate}
             endDate={endDate}
