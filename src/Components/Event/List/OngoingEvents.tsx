@@ -14,12 +14,6 @@ export default function OngoingEvents({ sortOrder }: OngoingEventsProps) {
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    return () => {
-      console.log("초기ㅗ하");
-    };
-  }, []);
-
   const fetchMoreEvents = async () => {
     try {
       setLoading(true);
