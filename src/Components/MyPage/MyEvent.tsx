@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import EventCard from "../Event/List/EventCard";
 import { getAccessToken } from "../../Api/Util/token";
 import { useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import { Event } from "../Event/EventDetail";
 import RadioButtons from "../Event/List/RadioButtons";
 import { OrderType } from "../../Api/Util/EventService";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useScrollDown } from "../../Hooks/useScrollDown";
 
 enum EventStatus {
   all = "ALL",
@@ -34,7 +35,7 @@ const fetcher = (
   fetch(
     `http://52.79.91.214:8080/manage/events?status=${eventStatus}&sort=registeredAt%2C${
       eventSort === "최신순" ? EventSort.desc : EventSort.asc
-    }`,
+    }&page=${page}`,
     {
       method: "GET",
       headers: {
@@ -62,6 +63,10 @@ export default function MyEvent() {
   useEffect(() => {
     refetch();
   }, [eventSort, refetch]);
+
+  useScrollDown({
+    onScrollDownToEnd: fetchNextPage,
+  });
 
   if (isError && !data?.pages) {
     return <>내 행사 데이터를 가져오는데 실패했습니다.</>;
