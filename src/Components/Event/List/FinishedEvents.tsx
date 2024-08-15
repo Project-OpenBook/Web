@@ -108,12 +108,6 @@ export default function FinishedEvents({
   };
 
   useEffect(() => {
-    if (initialLoad.current) {
-      initialLoad.current = false;
-      fetchMoreEvents();
-      return;
-    }
-
     resetAndFetchEvents();
   }, [sortOrder, startDate, endDate]);
 
