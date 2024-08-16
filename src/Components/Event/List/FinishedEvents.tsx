@@ -20,7 +20,6 @@ export default function FinishedEvents({
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const initialLoad = useRef(true);
   const isFetching = useRef(false);
 
   const filterEventsByDate = (events: Event[]) => {
@@ -108,12 +107,6 @@ export default function FinishedEvents({
   };
 
   useEffect(() => {
-    if (initialLoad.current) {
-      initialLoad.current = false;
-      fetchMoreEvents();
-      return;
-    }
-
     resetAndFetchEvents();
   }, [sortOrder, startDate, endDate]);
 
