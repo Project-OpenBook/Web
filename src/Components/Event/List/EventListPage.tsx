@@ -11,8 +11,8 @@ import { OrderType } from "../../../Api/Util/EventService";
 export default function EventListPage() {
   const [selectedTab, setSelectedTab] = useState<Progress>("진행중");
   const [sortOrder, setSortOrder] = useState<OrderType>("최신순");
-  const [startDate, setStartDate] = useState<string | null>(null);
-  const [endDate, setEndDate] = useState<string | null>(null);
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
 
   const handleDateFilter = (startDate: string, endDate: string) => {
     setStartDate(startDate);
@@ -22,8 +22,8 @@ export default function EventListPage() {
   const handleTabChange = (tab: Progress) => {
     setSelectedTab(tab);
     setSortOrder("최신순");
-    setStartDate(null);
-    setEndDate(null);
+    setStartDate("");
+    setEndDate("");
   };
 
   const renderTabContent = () => {
