@@ -16,6 +16,8 @@ import TimeInput from "./Input/TimeInput";
 import TextareaInput from "./Input/TextareaInput";
 import TagInput from "./Input/TagInput";
 import LocationInput from "./Input/LocationInput";
+import { CiCircleInfo } from "react-icons/ci";
+import InfoBoothRegist from "./InfoBoothRegist";
 
 export const Modal_State = {
   none: "none",
@@ -25,6 +27,7 @@ export const Modal_State = {
   serviceInput: "SI",
   serviceTime: "ST",
   locationSelect: "LS",
+  inforMation: "INFO",
 };
 
 export default function BoothRegistPage() {
@@ -72,7 +75,19 @@ export default function BoothRegistPage() {
   return (
     <div className="flex justify-center items-center min-h-screen ">
       <div className="flex w-full flex-col my-5 h-full justify-center items-center p-5">
-        <h1 className="font-bold text-3xl mb-5">부스 등록</h1>
+        <div className="flex w-full justify-center">
+          <h1 className="font-bold text-3xl mb-5">부스 등록</h1>
+          <button
+            onClick={() => {
+              setModalState(Modal_State.inforMation);
+            }}
+            className="ml-auto flex gap-2 shadow-md"
+          >
+            <CiCircleInfo size={25} />
+            부스 등록 방법
+          </button>
+        </div>
+
         <BoothRegistInput
           placeholder="부스명을 입력해 주세요"
           label="부스명"
@@ -140,6 +155,7 @@ export default function BoothRegistPage() {
                 setModalState={setModalState}
               />
             )}
+            {modalState === Modal_State.inforMation && <InfoBoothRegist />}
           </Modal>
         )}
       </div>
