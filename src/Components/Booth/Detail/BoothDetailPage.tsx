@@ -171,7 +171,7 @@ export default function BoothDetailPage() {
         </div>
       ) : null}
       {modalState !== "none" && (
-        <Modal isOpen={true}>
+        <Modal width="w-3/4" isOpen={true}>
           {modalState === Modal_State.goodsManage && (
             <ManageProducts setModalState={setModalState} />
           )}

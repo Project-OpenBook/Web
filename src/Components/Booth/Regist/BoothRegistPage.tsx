@@ -74,20 +74,17 @@ export default function BoothRegistPage() {
 
   return (
     <div className="flex justify-center items-center min-h-screen ">
-      <div className="flex w-full flex-col my-5 h-full justify-center items-center p-5">
-        <div className="flex w-full justify-center">
-          <h1 className="font-bold text-3xl mb-5">부스 등록</h1>
-          <button
-            onClick={() => {
-              setModalState(Modal_State.inforMation);
-            }}
-            className="ml-auto flex gap-2 shadow-md"
-          >
-            <CiCircleInfo size={25} />
-            부스 등록 방법
-          </button>
-        </div>
-
+      <div className="flex w-full max-w-screen-sm flex-col my-5 h-full justify-center items-center p-5">
+        <h1 className="font-bold text-3xl mb-5">부스 등록</h1>
+        <button
+          onClick={() => {
+            setModalState(Modal_State.inforMation);
+          }}
+          className="flex gap-2 ml-auto border-blue-300 border-2 rounded-md p-1 text-blue-400"
+        >
+          <CiCircleInfo size={25} />
+          부스 등록 방법
+        </button>
         <BoothRegistInput
           placeholder="부스명을 입력해 주세요"
           label="부스명"
@@ -144,19 +141,23 @@ export default function BoothRegistPage() {
           부스 신청
         </button>
         {modalState !== "none" && (
-          <Modal isOpen={true}>
-            {modalState === Modal_State.locationSelect && (
-              <RegistLocationPage
-                selectedSeatIds={selectedSeatIds}
-                selectedSeatNumbers={selectedSeatNumbers}
-                eventId={eventId}
-                setSelectedSeatIds={setSelectedSeatIds}
-                setSelectedSeatNumbers={setSelectedSeatNumbers}
-                setModalState={setModalState}
-              />
-            )}
-            {modalState === Modal_State.inforMation && <InfoBoothRegist />}
-          </Modal>
+          <>
+            <Modal width="w-3/4" isOpen={true}>
+              {modalState === Modal_State.locationSelect && (
+                <RegistLocationPage
+                  selectedSeatIds={selectedSeatIds}
+                  selectedSeatNumbers={selectedSeatNumbers}
+                  eventId={eventId}
+                  setSelectedSeatIds={setSelectedSeatIds}
+                  setSelectedSeatNumbers={setSelectedSeatNumbers}
+                  setModalState={setModalState}
+                />
+              )}
+              {modalState === Modal_State.inforMation && (
+                <InfoBoothRegist setModalState={setModalState} />
+              )}
+            </Modal>
+          </>
         )}
       </div>
     </div>

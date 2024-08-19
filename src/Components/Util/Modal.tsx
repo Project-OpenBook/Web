@@ -2,16 +2,17 @@ import ReactModal from "react-modal";
 interface Props {
   children?: React.ReactNode;
   isOpen: boolean;
+  width: string;
 }
 
-export default function Modal({ isOpen, children }: Props) {
+export default function Modal({ isOpen, children, width }: Props) {
   return (
     <div className="flex flex-col items-center justify-center">
       <ReactModal
         shouldCloseOnOverlayClick={false}
         isOpen={isOpen}
         onRequestClose={() => {}}
-        className="flex flex-col w-3/4 bg-white p-4 items-center justify-center"
+        className={`flex flex-col ${width} bg-white p-4 items-center justify-center`}
         overlayClassName="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center"
       >
         {children}
