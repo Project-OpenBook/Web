@@ -3,9 +3,10 @@ import { Link, useSearchParams } from "react-router-dom";
 interface Props {
   showPage: number;
   maxPage: number;
+  className?: string;
 }
 
-export default function PageNation({ showPage, maxPage }: Props) {
+export default function PageNation({ showPage, maxPage, className }: Props) {
   const [searchParams] = useSearchParams();
   const currnetPage = Number(searchParams.get("page") ?? 1);
   if (currnetPage <= 0 || currnetPage > maxPage) return <></>;
@@ -22,8 +23,7 @@ export default function PageNation({ showPage, maxPage }: Props) {
     page[page.length - 1] + 1 > maxPage ? null : page[page.length - 1] + 1;
 
   return (
-    // 버전1
-    <div className="w-full flex gap-2 justify-center text-2xl">
+    <div className={`w-full flex gap-2 justify-center text-2xl ${className}`}>
       {prevPage && <Link to={`?page=${1}`}>{`<<`}</Link>}
       {prevPage && <Link to={`?page=${prevPage}`}> {`<`} </Link>}
       {page.map((i) => (
