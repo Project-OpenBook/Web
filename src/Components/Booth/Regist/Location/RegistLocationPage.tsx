@@ -21,11 +21,11 @@ interface Area {
   status: "EMPTY" | "WAITING" | "COMPLETE";
 }
 
-interface Data {
-  layoutType: "ALPHABET" | "NUMBER";
-  layoutImageUrls: string[];
-  areas: { [key: string]: Area[] };
-}
+// interface Data {
+//   layoutType: "ALPHABET" | "NUMBER";
+//   layoutImageUrls: string[];
+//   areas: { [key: string]: Area[] };
+// }
 
 export default function RegistLocationPage({
   eventId,

@@ -1,4 +1,4 @@
-import Carousel from "../Carousel";
+import Carousel from "../Util/Carousel";
 
 interface Props {
   boothCount: number;

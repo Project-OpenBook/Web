@@ -5,18 +5,18 @@ import {
   PrevButton,
   useDotButton,
   usePrevNextButtons,
-} from "../Hooks/useCarouselDot";
+} from "../../Hooks/useCarouselDot";
 
 interface Props {
   className?: String;
-  imgs: string[];
+  comps: React.ReactNode[];
   dot?: boolean;
   button?: boolean;
 }
 // TODO: 최대개수 제한?
-export default function Carousel({
+export default function CompCarousel({
   className,
-  imgs = [],
+  comps = [],
   dot = true,
   button = true,
 }: Props) {
@@ -36,13 +36,9 @@ export default function Carousel({
     <>
       <div className={`embla overflow-hidden ${className}`} ref={emblaRef}>
         <div className="embla__container h-full">
-          {imgs.map((img, i) => (
-            <div className="embla__slide h-full" key={img + i}>
-              <img
-                src={img}
-                alt="케러셀 이미지"
-                className="h-full w-full object-contain"
-              />
+          {comps.map((comp, i) => (
+            <div className="embla__slide h-full" key={i}>
+              {comp}
             </div>
           ))}
         </div>

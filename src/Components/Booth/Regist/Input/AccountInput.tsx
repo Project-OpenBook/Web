@@ -16,7 +16,7 @@ export default function AccountInput({
   setAccountNumber,
 }: Props) {
   return (
-    <div className="flex gap-2 items-center h-full w-1/2">
+    <div className="flex gap-2 items-center h-full w-full max-w-screen-sm">
       <div className="flex flex-col w-full">
         <div className="flex gap-2 items-center h-full">
           <Icon size={25} color="#0064FF" />
@@ -32,7 +32,7 @@ export default function AccountInput({
             onChange={(e) => setAccountNumber(e.target.value)}
           />
           <select
-            className="h-10 w-1/4 mb-4"
+            className="h-10 w-1/4 mb-4 border-black border-2 rounded-md"
             onChange={(e) => {
               setAccountBankName(e.target.value);
             }}

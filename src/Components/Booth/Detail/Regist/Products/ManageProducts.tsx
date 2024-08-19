@@ -1,18 +1,21 @@
 import GoodsInfoCard from "./GoodsInfoCard";
 import GoodsInfoCardAdd from "./GoodsInfoCardAdd";
-import { Modal_State } from "../BoothRegistPage";
+import { Modal_State } from "../../../Regist/BoothRegistPage";
+
 interface Props {
   setModalState: (state: string) => void;
 }
 
-export default function GoodsManagementPage({ setModalState }: Props) {
+export default function ManageProducts({ setModalState }: Props) {
   const handleConfirm = () => {
     setModalState(Modal_State.none);
   };
 
-  const handleCancel = () => {
-    setModalState(Modal_State.none);
-  };
+  // const handleCancel = () => {
+  //   if (window.confirm("취소하시겠습니까?")) {
+  //     setModalState(Modal_State.none);
+  //   }
+  // };
 
   return (
     <>
@@ -30,12 +33,12 @@ export default function GoodsManagementPage({ setModalState }: Props) {
         >
           확인
         </button>
-        <button
+        {/* <button
           onClick={handleCancel}
           className="w-1/4 bg-red-500 text-white py-2 rounded"
         >
           취소
-        </button>
+        </button> */}
       </div>
     </>
   );

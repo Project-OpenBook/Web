@@ -18,14 +18,14 @@ export default function TimeInput({
   const INPUT_CLASSNAME = "h-10 border-b-2 pl-1 mb-5 w-full";
 
   return (
-    <div className="flex flex-col w-1/2">
+    <div className="flex flex-col w-full max-w-screen-sm">
       <div className="flex gap-2 items-center h-full">
         <Icon size={25} color="#0064FF" />
         <label htmlFor={label} className="font-bold">
           {label}{" "}
         </label>
       </div>
-      <div className="flex justify-between items-center w-3/4 gap-3">
+      <div className="flex justify-between items-center gap-3">
         <input
           type="time"
           className={INPUT_CLASSNAME}

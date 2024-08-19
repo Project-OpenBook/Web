@@ -1,5 +1,5 @@
 import tempBanner from "../../logo.svg";
-import Carousel from "../Carousel";
+import Carousel from "../Util/Carousel";
 
 export type Booth = {
   images: string[];

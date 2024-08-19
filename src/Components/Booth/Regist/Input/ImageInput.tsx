@@ -21,7 +21,7 @@ export default function ImageInput({
   };
 
   return (
-    <div className="flex flex-col w-1/2">
+    <div className="flex flex-col w-full max-w-screen-sm">
       <div className="flex gap-2 items-center h-full">
         <Icon size={25} color="#0064FF" />
         <label htmlFor={label} className="font-bold">

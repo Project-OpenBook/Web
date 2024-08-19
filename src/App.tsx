@@ -7,8 +7,8 @@ import EventDetailPage from "./Components/Event/EventDetail";
 import AddEventPage from "./Components/Event/AddEvent";
 import BoothRegistPage from "./Components/Booth/Regist/BoothRegistPage";
 import BoothDetailPage from "./Components/Booth/Detail/BoothDetailPage";
-import GoodsManagementPage from "./Components/Booth/Regist/Goods/GoodsMangementPage";
-import GoodsInfoInputPage from "./Components/Booth/Regist/Goods/GoodsInfoInputPage";
+import ManageProducts from "./Components/Booth/Detail/Regist/Products/ManageProducts";
+import GoodsInfoInputPage from "./Components/Booth/Detail/Regist/Products/GoodsInfoInputPage";
 import ServiceInfoInputPage from "./Components/Booth/Regist/Service/ServiceInfoInputPage";
 import ServiceManagementPage from "./Components/Booth/Regist/Service/ServiceManagementPage";
 import EventListPage from "./Components/Event/List/EventListPage";
@@ -26,7 +26,6 @@ import MoreBoothHashtagPage from "./Components/Search/MorePage/MoreBoothHashtagP
 import MyPage from "./Components/MyPage/MyPage";
 
 function App() {
-  //TODO: 임시 데이터. 나중에 모달 연결하면 지울 것
   const location = useLocation();
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/register";

@@ -52,7 +52,7 @@ export default function TagInput({
   };
 
   return (
-    <div className="flex flex-col w-1/2 mb-5">
+    <div className="flex flex-col w-full max-w-screen-sm mb-5">
       <div className="flex gap-2 items-center h-full mb-2">
         <FaHashtag size={25} color="#0064FF" />
         <label className="font-bold">부스 태그</label>

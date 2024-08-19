@@ -53,15 +53,20 @@ export default function ServiceManagementPage({ setModalState }: Props) {
     setModalState(Modal_State.none);
   };
 
-  const handleCancel = () => {
-    setModalState(Modal_State.none);
-  };
+  // const handleCancel = () => {
+  //   setModalState(Modal_State.none);
+  // };
 
   return (
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mx-auto">서비스 관리</h1>
-        <button className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded">
+        <button
+          onClick={() => {
+            setModalState(Modal_State.serviceInput);
+          }}
+          className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded"
+        >
           서비스 추가
         </button>
       </div>
@@ -82,12 +87,12 @@ export default function ServiceManagementPage({ setModalState }: Props) {
         >
           확인
         </button>
-        <button
+        {/* <button
           onClick={handleCancel}
           className="w-1/4 bg-red-500 text-white py-2 rounded"
         >
           취소
-        </button>
+        </button> */}
       </div>
     </div>
   );
