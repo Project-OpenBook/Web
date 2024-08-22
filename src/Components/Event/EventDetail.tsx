@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import { getAccessToken } from "../../Api/Util/token";
 import { IoIosSettings } from "react-icons/io";
 import KakaoMap from "./KakaoMap";
+import EventNotice from "./EventNotice";
 
 export interface Event {
   id: number;
@@ -102,6 +103,8 @@ export default function EventDetailPage() {
               description={description}
               location={location}
             />
+
+            <EventNotice eventId={eventId} />
 
             <BoothInEventInfo
               boothCount={boothCount}
