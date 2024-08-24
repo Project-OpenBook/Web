@@ -2,14 +2,18 @@ import { useEffect, useState } from "react";
 
 interface Option {
   onScrollDownToEnd?: () => void;
+  offset?: number;
 }
 
-export function useScrollDown({ onScrollDownToEnd }: Option) {
+export function useScrollDown({ onScrollDownToEnd, offset = 0 }: Option) {
   const [isScrollDown, setIsScrollDown] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      if (
+        window.innerHeight + window.scrollY + offset >=
+        document.body.offsetHeight
+      ) {
         setIsScrollDown(true);
         onScrollDownToEnd && onScrollDownToEnd();
       } else {
