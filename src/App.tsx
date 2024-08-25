@@ -24,6 +24,7 @@ import MoreBoothPage from "./Components/Search/MorePage/MoreBoothPage";
 import MoreEventHashtagPage from "./Components/Search/MorePage/MoreEventHashtagPage";
 import MoreBoothHashtagPage from "./Components/Search/MorePage/MoreBoothHashtagPage";
 import MyPage from "./Components/MyPage/MyPage";
+import EventNoticeList from "./Components/Event/EventNoticeList";
 
 function App() {
   const location = useLocation();
@@ -52,6 +53,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/event/:id" element={<EventDetailPage />} />
+        <Route path="/event/:id/notice" element={<EventNoticeList />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route
           path="/event/:id/manage"
