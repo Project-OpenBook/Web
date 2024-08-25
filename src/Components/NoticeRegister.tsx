@@ -35,7 +35,7 @@ export default function NoticeRegister({ eventId }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-2">
+    <div className="flex flex-col gap-4 p-2 border-b-4 pb-4">
       <EventFormInput
         placeholder="제목을 입력해주세요"
         onChange={(e) => setTitle(e.target.value)}

@@ -4,6 +4,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useScrollDown } from "../../Hooks/useScrollDown";
 import NoticeRegister from "../NoticeRegister";
 import NoticeCard from "../NoticeCard";
+import { useQuery } from "@tanstack/react-query";
+import { Event, eventFetcher } from "./EventDetail";
 
 export default function EventNoticeList() {
   const { id } = useParams();
@@ -11,6 +13,17 @@ export default function EventNoticeList() {
   const { data, fetchNextPage, hasNextPage, refetch } = useEventNotice(
     +(id ?? 1)
   );
+
+  const {
+    data: eventData,
+    isError,
+    isLoading,
+  } = useQuery<Event>({
+    queryKey: ["event", id],
+    enabled: !!id,
+    queryFn: () => eventFetcher(id),
+    retry: 1,
+  });
 
   useScrollDown({ offset: 0, onScrollDownToEnd: () => refetch() });
 
@@ -25,8 +38,8 @@ export default function EventNoticeList() {
       }
       className="w-full max-w-screen-lg shadow-2xl h-full p-2 pt-10 mx-auto"
     >
-      <NoticeRegister eventId={+(id ?? 0)} />
-      <section className="w-full flex flex-col gap-4 border-t-4 pt-4">
+      {eventData?.isUserManager && <NoticeRegister eventId={+(id ?? 0)} />}
+      <section className="w-full flex flex-col gap-4">
         {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
 
         {data?.pages.map((notices) =>
