@@ -8,7 +8,6 @@ interface Props {
 
 export default function EventNotice({ eventId }: Props) {
   const { data } = useEventNotice(eventId);
-  console.log(data);
 
   if (!data) {
     return <></>;
