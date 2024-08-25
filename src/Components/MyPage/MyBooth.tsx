@@ -66,7 +66,7 @@ export default function MyBooth() {
 
   useScrollDown({
     onScrollDownToEnd: fetchNextPage,
-    offset: 100,
+    offset: 5,
   });
 
   if (isError && !data?.pages) {
