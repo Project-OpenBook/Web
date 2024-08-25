@@ -22,10 +22,12 @@ export default function BoothSearchSection({
     <div className="max-w-screen-xl">
       <div className="flex justify-between items-center mb-2 px-2">
         <h2 className="text-lg font-semibold">{title}</h2>
-        <button className="text-blue-500">{buttonText} &gt;</button>
+        <button className={`text-blue-500 ${items.length <= 4 && "hidden"}`}>
+          {buttonText} &gt;
+        </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
         {items.map((item) => (
           <BoothSearchCard
             key={item.id}
