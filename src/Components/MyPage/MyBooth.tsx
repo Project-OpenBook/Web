@@ -79,7 +79,7 @@ export default function MyBooth() {
       hasMore={hasNextPage}
       loader={<h4 className="text-center my-4">로딩 중...</h4>}
       endMessage={
-        <p className="text-center font-bold my-4">모든 부스를 불러왔습니다</p>
+        <p className="text-center font-bold my-4">모든 행사를 불러왔습니다</p>
       }
     >
       <section className="flex flex-col gap-4">

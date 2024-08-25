@@ -132,29 +132,27 @@ export default function SearchResultPage() {
           "{searchQuery}"에 대한 검색 결과입니다.
         </h1>
       </header>
-      <div className="w-full max-w-screen-xl mx-auto">
-        <div className={`flex flex-col items-start gap-8 w-full`}>
-          <EventSearchSection
-            title="행사"
-            items={eventItems}
-            buttonText="행사 더보기"
-          />
-          <BoothSearchSection
-            title="부스"
-            items={boothItems}
-            buttonText="부스 더보기"
-          />
-          <EventSearchSection
-            title={`#${searchQuery}_행사`}
-            items={eventTagItems}
-            buttonText="행사 더보기"
-          />
-          <BoothSearchSection
-            title={`#${searchQuery}_부스`}
-            items={boothTagItems}
-            buttonText="부스 더보기"
-          />
-        </div>
+      <div className="flex flex-col items-center gap-8 w-full">
+        <EventSearchSection
+          title="행사"
+          items={eventItems}
+          buttonText="행사 더보기"
+        />
+        <BoothSearchSection
+          title="부스"
+          items={boothItems}
+          buttonText="부스 더보기"
+        />
+        <EventSearchSection
+          title={`#${searchQuery}_행사`}
+          items={eventTagItems}
+          buttonText="행사 더보기"
+        />
+        <BoothSearchSection
+          title={`#${searchQuery}_부스`}
+          items={boothTagItems}
+          buttonText="부스 더보기"
+        />
       </div>
     </div>
   );
