@@ -3,6 +3,7 @@ import { useEventNotice } from "../../Hooks/Event/useEventNotice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useScrollDown } from "../../Hooks/useScrollDown";
 import NoticeRegister from "../NoticeRegister";
+import NoticeCard from "../NoticeCard";
 
 export default function EventNoticeList() {
   const { id } = useParams();
@@ -25,11 +26,13 @@ export default function EventNoticeList() {
       className="w-full max-w-screen-lg shadow-2xl h-full p-2 pt-10 mx-auto"
     >
       <NoticeRegister eventId={+(id ?? 0)} />
-      <section className="w-full flex flex-col gap-4 border-t-4">
+      <section className="w-full flex flex-col gap-4 border-t-4 pt-4">
         {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
 
         {data?.pages.map((notices) =>
-          notices.content.map((notice) => <div>{notice.content}</div>)
+          notices.content.map((notice) => (
+            <NoticeCard key={notice.id} notice={notice} />
+          ))
         )}
       </section>
     </InfiniteScroll>
