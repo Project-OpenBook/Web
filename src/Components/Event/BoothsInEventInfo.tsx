@@ -18,7 +18,9 @@ export default function BoothInEventInfo({
       </div>
       <Carousel
         className="h-[300x]"
-        imgs={layoutImageUrls}
+        list={layoutImageUrls.map((url) => (
+          <img className="w-full h-96" src={url} alt="layout" />
+        ))}
         dot={layoutImageUrls.length !== 1}
         button={layoutImageUrls.length !== 1}
       />

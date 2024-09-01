@@ -10,14 +10,14 @@ import EventCard from "../Event/List/EventCard";
 
 interface Props {
   className?: String;
-  imgs: string[];
+  list: React.ReactNode[];
   dot?: boolean;
   button?: boolean;
 }
 // TODO: 최대개수 제한?
 export default function Carousel({
   className,
-  imgs = [],
+  list = [],
   dot = true,
   button = true,
 }: Props) {
@@ -37,19 +37,9 @@ export default function Carousel({
     <>
       <div className={`embla overflow-visible ${className}`} ref={emblaRef}>
         <div className="embla__container h-full">
-          {imgs.map((img, i) => (
-            <div className="embla__slide h-full" key={img + i}>
-              {/* <div className="h-full w-full object-contain bg-white p-2 rounded-md "> */}
-              {/* <img
-                  src={img}
-                  alt="케러셀 이미지"
-                  className="h-[80%] w-full object-contain"
-                />
-                <p className="flex items-center justify-center border-t-2 mt-2">
-                  ~~행사
-                </p> */}
-              <EventCard endDate="123" id={1} image={img} name="행사" />
-              {/* </div> */}
+          {list.map((item, i) => (
+            <div className="embla__slide h-full" key={i}>
+              {item}
             </div>
           ))}
         </div>
