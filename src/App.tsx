@@ -25,6 +25,7 @@ import MoreEventHashtagPage from "./Components/Search/MorePage/MoreEventHashtagP
 import MoreBoothHashtagPage from "./Components/Search/MorePage/MoreBoothHashtagPage";
 import MyPage from "./Components/MyPage/MyPage";
 import EventNoticeList from "./Components/Event/EventNoticeList";
+import logo from "./Components/NavBar/logo_wide.png";
 
 function App() {
   const location = useLocation();
@@ -74,6 +75,38 @@ function App() {
         <Route path="/boothRegist" element={<BoothRegistPage />} />
         <Route path="/booth/:id" element={<BoothDetailPage />} />
       </Routes>
+      <footer className="flex items-center w-full h-44 bg-blue-300 text-white">
+        <img src={logo} className="w-44 object-contain" alt="footerlogo" />
+        <div className="flex items-center justify-around w-full gap-2 font-bold">
+          <div className="footer-section">
+            <h4>Contact Information</h4>
+            <p>Email: contact@yourcompany.com</p>
+            <p>Phone: +1 234 567 890</p>
+            <p>Address: 1234 Main Street, Anytown, USA</p>
+          </div>
+
+          <div className="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li>
+                <a href="#">Home</a>
+              </li>
+              <li>
+                <a href="#">Services</a>
+              </li>
+              <li>
+                <a href="#">About Us</a>
+              </li>
+              <li>
+                <a href="#">Contact</a>
+              </li>
+              <li>
+                <a href="#">Privacy Policy</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

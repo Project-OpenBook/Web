@@ -25,7 +25,7 @@ export default function EventCard({
   return (
     <div
       onClick={handleClick}
-      className="border rounded overflow-hidden shadow-md w-full h-96 flex flex-col cursor-pointer"
+      className="border rounded overflow-hidden shadow-md w-full h-96 flex flex-col cursor-pointer bg-white"
     >
       <div className="flex-grow bg-sky-50 flex items-center justify-center max-h-[280px]">
         <img src={image} alt={name} className="object-contain h-full w-full" />
