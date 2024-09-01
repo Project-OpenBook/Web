@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEventNotice } from "../../Hooks/Event/useEventNotice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useScrollDown } from "../../Hooks/useScrollDown";
-import NoticeRegister from "../NoticeRegister";
 import NoticeCard from "../NoticeCard";
 import { useQuery } from "@tanstack/react-query";
 import { Event, eventFetcher } from "./EventDetail";
+import AddNotice from "../Notice/AddNotice";
 
 export default function EventNoticeList() {
   const { id } = useParams();
@@ -14,11 +14,7 @@ export default function EventNoticeList() {
     +(id ?? 1)
   );
 
-  const {
-    data: eventData,
-    isError,
-    isLoading,
-  } = useQuery<Event>({
+  const { data: eventData } = useQuery<Event>({
     queryKey: ["event", id],
     enabled: !!id,
     queryFn: () => eventFetcher(id),
@@ -38,7 +34,8 @@ export default function EventNoticeList() {
       }
       className="w-full max-w-screen-lg shadow-2xl h-full p-2 pt-10 mx-auto"
     >
-      {eventData?.isUserManager && <NoticeRegister eventId={+(id ?? 0)} />}
+      {eventData?.isUserManager && <AddNotice id={+(id ?? 0)} type="events" />}
+
       <section className="w-full flex flex-col gap-4">
         {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
 

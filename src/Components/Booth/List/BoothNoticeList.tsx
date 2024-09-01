@@ -1,10 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useBoothNotice } from "../../../Hooks/Booth/useBoothNotice";
-import { useQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useScrollDown } from "../../../Hooks/useScrollDown";
 import NoticeCard from "../../NoticeCard";
-import RadioButtons from "../../Event/List/RadioButtons";
+import AddNotice from "../../Notice/AddNotice";
 
 export default function BoothNoticeList() {
   const { id } = useParams();
@@ -37,7 +36,8 @@ export default function BoothNoticeList() {
       }
       className="w-full max-w-screen-lg h-full p-2 pt-10 mx-auto"
     >
-      {/* {eventData?.isUserManager && <NoticeRegister eventId={+(id ?? 0)} />} */}
+      {/* TODO: 매니저인 경우에만 보일 것 */}
+      {true && <AddNotice type="booths" id={+(id ?? 0)} />}
       <section className="w-full flex flex-col gap-4">
         {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
 
