@@ -18,6 +18,7 @@ import ServiceInfoInputPage from "../Regist/Service/ServiceInfoInputPage";
 import ServiceTimeAdd from "../Regist/Service/ServiceTimeAdd";
 import ManageProducts from "./Regist/Products/ManageProducts";
 import GoodsInfoInputPage from "./Regist/Products/GoodsInfoInputPage";
+import BoothNotice from "./BoothNotice";
 
 export default function BoothDetailPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
@@ -117,20 +118,7 @@ export default function BoothDetailPage() {
               </div>
             </div>
             <div className="flex flex-col items-start w-full gap-2">
-              <div className="flex gap-1 items-center justify-between w-full">
-                <div className="flex items-center gap-2">
-                  <MdAnnouncement size={25} color="#0064FF" />
-                  <div className="font-bold">공지사항/이벤트</div>
-                </div>
-                <button className="ml-auto bg-[#0064FF] text-white rounded-md px-2 ">
-                  모두 보기
-                </button>
-              </div>
-              <div className="w-full flex flex-col gap-4 shadow-md px-4 py-6 rounded-md">
-                <NoticeEvent text="이벤트 1" type="event" />
-                <NoticeEvent text="공지사항 1" type="notice" />
-                <NoticeEvent text="공지사항 2" type="notice" />
-              </div>
+              <BoothNotice boothId={+(id ?? 0)} />
             </div>
 
             <div className="flex flex-col items-start w-full gap-2">

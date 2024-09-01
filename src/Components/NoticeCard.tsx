@@ -1,7 +1,7 @@
-import { EventNotice } from "../Hooks/Event/useEventNotice";
+import { Notice } from "../Hooks/Event/useEventNotice";
 
 interface Props {
-  notice: EventNotice;
+  notice: Notice;
 }
 export default function NoticeCard({ notice }: Props) {
   const { content, title, imageUrl } = notice;

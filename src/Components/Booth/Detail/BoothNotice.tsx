@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
-import { useEventNotice } from "../../Hooks/Event/useEventNotice";
-import NoticeCard from "../NoticeCard";
+import NoticeCard from "../../NoticeCard";
+import { useBoothNotice } from "../../../Hooks/Booth/useBoothNotice";
 import { MdAnnouncement } from "react-icons/md";
 
 interface Props {
-  eventId: number;
+  boothId: number;
 }
-
-export default function EventNotice({ eventId }: Props) {
-  const { data } = useEventNotice(eventId);
+export default function BoothNotice({ boothId }: Props) {
+  const { data } = useBoothNotice(boothId);
 
   if (!data) {
     return <></>;

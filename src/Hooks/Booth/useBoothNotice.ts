@@ -1,30 +1,22 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getAccessToken } from "../../Api/Util/token";
+import { Notice } from "../Event/useEventNotice";
 
-export interface Notice {
-  id: number;
-  title: string;
-  content: string;
-  imageUrl: string;
-  type: "BASIC" | "EVENT";
-  registeredAt: string;
-}
-
-export interface EventNotice extends Notice {
-  eventId: number;
-  eventName: string;
-  eventManagerId: number;
+export interface BoothNotice extends Notice {
+  boothId: number;
+  boothName: string;
+  boothManagerId: number;
 }
 
 interface InfinityEventNotice {
   hasNext: boolean;
   numberOfElements: number;
   sliceNumber: number;
-  content: Array<EventNotice>;
+  content: Array<BoothNotice>;
 }
 
-const fetcher = (eventId: number) => {
-  return fetch(`http://52.79.91.214:8080/events/${eventId}/notices`, {
+const fetcher = (boothid: number) => {
+  return fetch(`http://52.79.91.214:8080/booths/${boothid}/notices`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
@@ -35,7 +27,7 @@ const fetcher = (eventId: number) => {
   });
 };
 
-export function useEventNotice(eventId: number) {
+export function useBoothNotice(eventId: number) {
   const { data, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
     queryKey: ["eventNotice", eventId],
     queryFn: ({ pageParam }) => fetcher(pageParam),
