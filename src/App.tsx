@@ -26,6 +26,7 @@ import MoreBoothHashtagPage from "./Components/Search/MorePage/MoreBoothHashtagP
 import MyPage from "./Components/MyPage/MyPage";
 import EventNoticeList from "./Components/Event/EventNoticeList";
 import logo from "./Components/NavBar/logo_wide.png";
+import BoothNoticeList from "./Components/Booth/List/BoothNoticeList";
 
 function App() {
   const location = useLocation();
@@ -35,46 +36,49 @@ function App() {
   return (
     <div>
       {!isAuthPage && <NavBar />}
-      <Routes>
-        <Route path="/" element={<MainPage state="main" />} />
-        <Route path="/EventListPage" element={<EventListPage />} />
-        <Route path="/addEvent" element={<AddEventPage />} />
-        <Route path="/BoothListPage" element={<BoothListPage />} />
-        <Route path="/SearchResultPage" element={<SearchResultPage />} />
-        <Route path="/MoreEventPage" element={<MoreEventPage />} />
-        <Route path="/MoreBoothPage" element={<MoreBoothPage />} />
-        <Route
-          path="/MoreEventHashtagPage"
-          element={<MoreEventHashtagPage />}
-        />
-        <Route
-          path="/MoreBoothHashtagPage"
-          element={<MoreBoothHashtagPage />}
-        />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/event/:id" element={<EventDetailPage />} />
-        <Route path="/event/:id/notice" element={<EventNoticeList />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route
-          path="/event/:id/manage"
-          element={
-            <RequestLayout header="부스 신청" side="부스 신청 현황">
-              <BoothAproval />
-            </RequestLayout>
-          }
-        />
-        <Route
-          path="/admin/eventmanage"
-          element={
-            <RequestLayout header="행사 신청" side="행사 신청 현황">
-              <EventAproval />
-            </RequestLayout>
-          }
-        />
-        <Route path="/boothRegist" element={<BoothRegistPage />} />
-        <Route path="/booth/:id" element={<BoothDetailPage />} />
-      </Routes>
+      <div className="min-h-screen">
+        <Routes>
+          <Route path="/" element={<MainPage state="main" />} />
+          <Route path="/EventListPage" element={<EventListPage />} />
+          <Route path="/addEvent" element={<AddEventPage />} />
+          <Route path="/BoothListPage" element={<BoothListPage />} />
+          <Route path="/SearchResultPage" element={<SearchResultPage />} />
+          <Route path="/MoreEventPage" element={<MoreEventPage />} />
+          <Route path="/MoreBoothPage" element={<MoreBoothPage />} />
+          <Route
+            path="/MoreEventHashtagPage"
+            element={<MoreEventHashtagPage />}
+          />
+          <Route
+            path="/MoreBoothHashtagPage"
+            element={<MoreBoothHashtagPage />}
+          />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/event/:id" element={<EventDetailPage />} />
+          <Route path="/event/:id/notice" element={<EventNoticeList />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route
+            path="/event/:id/manage"
+            element={
+              <RequestLayout header="부스 신청" side="부스 신청 현황">
+                <BoothAproval />
+              </RequestLayout>
+            }
+          />
+          <Route
+            path="/admin/eventmanage"
+            element={
+              <RequestLayout header="행사 신청" side="행사 신청 현황">
+                <EventAproval />
+              </RequestLayout>
+            }
+          />
+          <Route path="/boothRegist" element={<BoothRegistPage />} />
+          <Route path="/booth/:id" element={<BoothDetailPage />} />
+          <Route path="/booth/:id/notice" element={<BoothNoticeList />} />
+        </Routes>
+      </div>
       <footer className="flex items-center w-full h-44 bg-blue-300 text-white">
         <img src={logo} className="w-44 object-contain" alt="footerlogo" />
         <div className="flex items-center justify-around w-full gap-2 font-bold">

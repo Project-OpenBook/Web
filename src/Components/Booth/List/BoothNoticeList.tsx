@@ -1,25 +1,27 @@
 import { useParams } from "react-router-dom";
-import { useEventNotice } from "../../Hooks/Event/useEventNotice";
+import { useBoothNotice } from "../../../Hooks/Booth/useBoothNotice";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useScrollDown } from "../../Hooks/useScrollDown";
-import NoticeCard from "../NoticeCard";
-import { useQuery } from "@tanstack/react-query";
-import { Event, eventFetcher } from "./EventDetail";
-import AddNotice from "../Notice/AddNotice";
+import { useScrollDown } from "../../../Hooks/useScrollDown";
+import NoticeCard from "../../NoticeCard";
+import AddNotice from "../../Notice/AddNotice";
 
-export default function EventNoticeList() {
+export default function BoothNoticeList() {
   const { id } = useParams();
 
-  const { data, fetchNextPage, hasNextPage, refetch } = useEventNotice(
+  const { data, fetchNextPage, hasNextPage, refetch } = useBoothNotice(
     +(id ?? 1)
   );
 
-  const { data: eventData } = useQuery<Event>({
-    queryKey: ["event", id],
-    enabled: !!id,
-    queryFn: () => eventFetcher(id),
-    retry: 1,
-  });
+  //   const {
+  //     data: eventData,
+  //     isError,
+  //     isLoading,
+  //   } = useQuery<Event>({
+  //     queryKey: ["event", id],
+  //     enabled: !!id,
+  //     queryFn: () => eventFetcher(id),
+  //     retry: 1,
+  //   });
 
   useScrollDown({ offset: 0, onScrollDownToEnd: () => refetch() });
 
@@ -32,10 +34,10 @@ export default function EventNoticeList() {
       endMessage={
         <p className="text-center font-bold my-4">모든 공지를 불러왔습니다</p>
       }
-      className="w-full max-w-screen-lg shadow-2xl h-full p-2 pt-10 mx-auto"
+      className="w-full max-w-screen-lg h-full p-2 pt-10 mx-auto"
     >
-      {eventData?.isUserManager && <AddNotice id={+(id ?? 0)} type="events" />}
-
+      {/* TODO: 매니저인 경우에만 보일 것 */}
+      {true && <AddNotice type="booths" id={+(id ?? 0)} />}
       <section className="w-full flex flex-col gap-4">
         {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
 
