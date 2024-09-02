@@ -49,7 +49,7 @@ export const fetchSearchEvents = async (
   const response = await fetch(
     `http://52.79.91.214:8080/events/search?page=${sliceNumber}&type=${type}&query=${encodeURIComponent(
       query
-    )}&sort=openDate%2C${sortOrder === "최신순" ? "DESC" : "ASC"}`,
+    )}&sort=${sortOrder === "최신순" ? "desc" : "asc"}`,
     {
       method: "GET",
       headers: {
@@ -75,7 +75,7 @@ export const fetchSearchBooths = async (
   const response = await fetch(
     `http://52.79.91.214:8080/booths/search?page=${sliceNumber}&type=${type}&query=${encodeURIComponent(
       query
-    )}&sort=openTime%2C${sortOrder === "최신순" ? "DESC" : "ASC"}`,
+    )}&sort=${sortOrder === "최신순" ? "desc" : "asc"}`,
     {
       method: "GET",
       headers: {
