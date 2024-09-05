@@ -113,7 +113,7 @@ export default function EventDetailPage() {
 
             <KakaoMap location={location} />
 
-            <EventReviewList />
+            <EventReviewList eventId={eventId} />
           </div>
         </div>
       </div>
