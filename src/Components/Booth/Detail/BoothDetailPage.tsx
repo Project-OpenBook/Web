@@ -22,9 +22,9 @@ import BoothNotice from "./BoothNotice";
 
 export default function BoothDetailPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
-  let { id } = useParams();
+  let { boothId } = useParams();
 
-  const { isError, data, isLoading } = useGetBoothDetail(id ?? "");
+  const { isError, data, isLoading } = useGetBoothDetail(boothId ?? "");
   if (isLoading) return <div>로딩중입니다...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
 
@@ -118,7 +118,7 @@ export default function BoothDetailPage() {
               </div>
             </div>
             <div className="flex flex-col items-start w-full gap-2">
-              <BoothNotice boothId={+(id ?? 0)} />
+              <BoothNotice boothId={+(boothId ?? 0)} />
             </div>
 
             <div className="flex flex-col items-start w-full gap-2">
@@ -177,6 +177,9 @@ export default function BoothDetailPage() {
               startDate={new Date(2024, 5, 23)}
               endDate={new Date(2024, 5, 30)}
             />
+          )}
+          {modalState === Modal_State.serviceInput && (
+            <ServiceInfoInputPage setModalState={setModalState} />
           )}
         </Modal>
       )}

@@ -8,18 +8,28 @@ import { MdOutlineDescription } from "react-icons/md";
 import { TbNumber123 } from "react-icons/tb";
 import { FaRegImage } from "react-icons/fa6";
 import { Modal_State } from "../../../Regist/BoothRegistPage";
+import { useGoodsInput } from "../../../../../Hooks/Booth/Detail/useRegistGoods";
 interface Props {
   setModalState: (state: string) => void;
 }
 
 export default function GoodsInfoInputPage({ setModalState }: Props) {
+  const {
+    mutate,
+    setCategoryId,
+    setDescription,
+    setImages,
+    setName,
+    setPrice,
+    setStock,
+  } = useGoodsInput();
   const setBoothImage = useSetRecoilState(boothImageState);
   const [imageName, setImageName] = useState("X");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
     if (selectedFile) {
-      setBoothImage(selectedFile);
+      setImages([selectedFile]);
       setImageName(selectedFile.name);
     } else {
       setBoothImage(null);
@@ -28,6 +38,7 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
   };
 
   const handleConfirm = () => {
+    mutate();
     setModalState(Modal_State.goodsManage);
   };
 
@@ -45,28 +56,28 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
           Icon={MdDriveFileRenameOutline}
           label="물품명"
           placeholder="물품의 이름을 입력해주세요"
-          setValue={() => {}}
+          setValue={setName}
           type="text"
         />
         <GoodsInfoInput
           Icon={MdOutlineDescription}
           label="물품 설명"
           placeholder="물품에 대한 간략한 설명을 입력해주세요"
-          setValue={() => {}}
+          setValue={setDescription}
           type="text"
         />
         <GoodsInfoInput
           Icon={IoIosPricetags}
           label="개당 가격(원)"
           placeholder="물품의 개당 가격(원)을 숫자로 입력해주세요"
-          setValue={() => {}}
+          setValue={setPrice}
           type="text"
         />
         <GoodsInfoInput
           Icon={TbNumber123}
           label="재고 수"
           placeholder="물품의 재고 수를 입력해주세요"
-          setValue={() => {}}
+          setValue={setStock}
           type="text"
         />
         <GoodsInfoInput
