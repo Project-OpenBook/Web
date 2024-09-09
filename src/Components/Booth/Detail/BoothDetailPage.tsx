@@ -174,12 +174,10 @@ export default function BoothDetailPage() {
           )}
           {modalState === Modal_State.serviceTime && (
             <ServiceTimeAdd
+              setModalState={setModalState}
               startDate={new Date(2024, 5, 23)}
               endDate={new Date(2024, 5, 30)}
             />
-          )}
-          {modalState === Modal_State.serviceInput && (
-            <ServiceInfoInputPage setModalState={setModalState} />
           )}
         </Modal>
       )}

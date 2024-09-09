@@ -69,6 +69,7 @@ export default function ServiceInfoInputPage({ setModalState }: Props) {
           placeholder="서비스를 이용할 수 있는 시간대를 선택해 주세요"
           setValue={() => {}}
           type="button"
+          setModalState={setModalState}
         />
         <ServiceInfoInput
           Icon={FaRegImage}

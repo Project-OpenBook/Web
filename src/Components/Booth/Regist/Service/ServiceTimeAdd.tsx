@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import { Modal_State } from "../BoothRegistPage";
 import {
   format,
   addMonths,
@@ -12,6 +13,7 @@ import {
 
 // Props 타입 정의
 interface Props {
+  setModalState: (state: string) => void;
   startDate: Date;
   endDate: Date;
 }
@@ -21,11 +23,25 @@ interface ServiceDateAndTime {
   timeList: string[];
 }
 
-export default function ServiceTimeAdd({ startDate, endDate }: Props) {
+export default function ServiceTimeAdd({
+  startDate,
+  endDate,
+  setModalState,
+}: Props) {
   const [serviceDateAndTimeList, setServiceDateAndTimeList] = useState<
     ServiceDateAndTime[]
   >([]);
   const [time, setTime] = useState("");
+
+  const handleConfirm = () => {
+    setModalState(Modal_State.serviceManage);
+  };
+
+  const handleCancel = () => {
+    if (window.confirm("취소하시겠습니까?")) {
+      setModalState(Modal_State.serviceManage);
+    }
+  };
 
   const addServiceTime = (selectDate: Date, time: string) => {
     setServiceDateAndTimeList((prevServiceDateAndTimeList) => {
@@ -111,89 +127,105 @@ export default function ServiceTimeAdd({ startDate, endDate }: Props) {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="flex flex-col items-center w-1/3">
-        <div className="flex justify-between items-center w-full mb-2">
-          <button
-            onClick={handlePreviousMonth}
-            className="px-2 py-1 bg-gray-200 rounded"
-          >
-            Prev
-          </button>
-          <div className="text-lg font-bold">
-            {format(currentMonth, "yyyy MMMM")}
+    <div className="flex flex-col items-center gap-4">
+      <div className="flex justify-center items-center">
+        <div className="flex flex-col items-center w-1/3">
+          <div className="flex justify-between items-center w-full mb-2">
+            <button
+              onClick={handlePreviousMonth}
+              className="px-2 py-1 bg-gray-200 rounded"
+            >
+              Prev
+            </button>
+            <div className="text-lg font-bold">
+              {format(currentMonth, "yyyy MMMM")}
+            </div>
+            <button
+              onClick={handleNextMonth}
+              className="px-2 py-1 bg-gray-200 rounded"
+            >
+              Next
+            </button>
           </div>
-          <button
-            onClick={handleNextMonth}
-            className="px-2 py-1 bg-gray-200 rounded"
-          >
-            Next
-          </button>
+          <div className="grid grid-cols-7 gap-2 w-full">
+            {daysInMonth.map((day) => {
+              const isActive = isWithinInterval(day, {
+                start: adjustedStartDate,
+                end: adjustedEndDate,
+              });
+              const isTodayDate = isToday(day);
+              return (
+                <div
+                  key={format(day, "yyyy-MM-dd")}
+                  className={`p-2 text-center border ${
+                    isActive
+                      ? "bg-white cursor-pointer"
+                      : "bg-gray-300 cursor-not-allowed"
+                  } border-gray-200`}
+                  onClick={() => handleDateClick(day)}
+                >
+                  {format(day, "d")}
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div className="grid grid-cols-7 gap-2 w-full">
-          {daysInMonth.map((day) => {
-            const isActive = isWithinInterval(day, {
-              start: adjustedStartDate,
-              end: adjustedEndDate,
-            });
-            const isTodayDate = isToday(day);
-            return (
-              <div
-                key={format(day, "yyyy-MM-dd")}
-                className={`p-2 text-center border ${
-                  isActive
-                    ? "bg-white cursor-pointer"
-                    : "bg-gray-300 cursor-not-allowed"
-                } border-gray-200`}
-                onClick={() => handleDateClick(day)}
-              >
-                {format(day, "d")}
-              </div>
-            );
-          })}
+
+        <div className="flex flex-col gap-4 items-center bg-white w-1/3 p-4 mt-4">
+          {selectedDate ? (
+            <p className="font-bold text-xl">
+              선택된 날짜: {format(selectedDate, "yyyy-MM-dd")}
+            </p>
+          ) : (
+            <p className="font-bold text-xl">날짜를 선택해 주세요</p>
+          )}
+          <div className="flex gap-5">
+            <h1 className="font-bold text-xl">시간 추가</h1>
+            <input
+              type="time"
+              className="font-bold border-2 border-black rounded-md px-1"
+              value={time}
+              onChange={handleTimeChange}
+            />
+            <button
+              onClick={() => {
+                if (selectedDate) {
+                  addServiceTime(selectedDate, time);
+                }
+              }}
+              className="bg-blue-500 font-bold px-4 rounded-md text-white"
+            >
+              추가
+            </button>
+          </div>
+
+          {selectedDate && (
+            <div className="w-full flex flex-col items-center gap-1 text-center">
+              {getServiceTimeList(selectedDate).map((time, i) => (
+                <div
+                  key={i}
+                  className="px-4 py-2 font-bold w-1/3 bg-blue-500 text-white rounded"
+                >
+                  {time}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-
-      <div className="flex flex-col gap-4 items-center bg-white w-1/3 p-4 mt-4">
-        {selectedDate ? (
-          <p className="font-bold text-xl">
-            선택된 날짜: {format(selectedDate, "yyyy-MM-dd")}
-          </p>
-        ) : (
-          <p className="font-bold text-xl">날짜를 선택해 주세요</p>
-        )}
-        <div className="flex gap-5">
-          <h1 className="font-bold text-xl">시간 추가</h1>
-          <input
-            type="time"
-            className="font-bold border-2 border-black rounded-md px-1"
-            value={time}
-            onChange={handleTimeChange}
-          />
-          <button
-            onClick={() => {
-              if (selectedDate) {
-                addServiceTime(selectedDate, time);
-              }
-            }}
-            className="bg-blue-500 font-bold px-4 rounded-md text-white"
-          >
-            추가
-          </button>
-        </div>
-
-        {selectedDate && (
-          <div className="w-full flex flex-col items-center gap-1 text-center">
-            {getServiceTimeList(selectedDate).map((time, i) => (
-              <div
-                key={i}
-                className="px-4 py-2 font-bold w-1/3 bg-blue-500 text-white rounded"
-              >
-                {time}
-              </div>
-            ))}
-          </div>
-        )}
+      <div className="flex w-1/2 gap-4">
+        <button
+          onClick={handleConfirm}
+          className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-[#0064FF] rounded-md text-white mb-4"
+        >
+          확인
+        </button>
+        <button
+          onClick={handleCancel}
+          className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-red-700 rounded-md text-white mb-4"
+        >
+          취소
+        </button>
       </div>
     </div>
   );
