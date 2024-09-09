@@ -75,7 +75,7 @@ function App() {
             }
           />
           <Route path="/boothRegist" element={<BoothRegistPage />} />
-          <Route path="/booth/:id" element={<BoothDetailPage />} />
+          <Route path="/booth/:boothId" element={<BoothDetailPage />} />
           <Route path="/booth/:id/notice" element={<BoothNoticeList />} />
         </Routes>
       </div>
