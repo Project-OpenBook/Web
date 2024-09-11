@@ -19,11 +19,28 @@ import ServiceTimeAdd from "../Regist/Service/ServiceTimeAdd";
 import ManageProducts from "./Regist/Products/ManageProducts";
 import GoodsInfoInputPage from "./Regist/Products/GoodsInfoInputPage";
 import BoothNotice from "./BoothNotice";
+import { useReserveInput } from "../../../Hooks/Booth/Detail/useRegistReserve";
 
 export default function BoothDetailPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
   let { boothId } = useParams();
 
+  const {
+    mutate,
+    setName,
+    setPrice,
+    setDescription,
+    setImage,
+    name,
+    description,
+    price,
+    imageName,
+    setImageName,
+    selectedDates,
+    setSelectedDates,
+    setTimeList,
+    timeList,
+  } = useReserveInput();
   const { isError, data, isLoading } = useGetBoothDetail(boothId ?? "");
   if (isLoading) return <div>로딩중입니다...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
@@ -170,13 +187,29 @@ export default function BoothDetailPage() {
             <ServiceManagementPage setModalState={setModalState} />
           )}
           {modalState === Modal_State.serviceInput && (
-            <ServiceInfoInputPage setModalState={setModalState} />
+            <ServiceInfoInputPage
+              mutate={mutate}
+              imageName={imageName}
+              setImageName={setImageName}
+              setModalState={setModalState}
+              description={description}
+              name={name}
+              price={price}
+              setDescription={setDescription}
+              setImage={setImage}
+              setName={setName}
+              setPrice={setPrice}
+            />
           )}
           {modalState === Modal_State.serviceTime && (
             <ServiceTimeAdd
+              selectedDates={selectedDates}
+              setSelectedDates={setSelectedDates}
+              setTimeList={setTimeList}
+              timeList={timeList}
               setModalState={setModalState}
-              startDate={new Date(2024, 5, 23)}
-              endDate={new Date(2024, 5, 30)}
+              startDate={new Date(2024, 7, 20)}
+              endDate={new Date(2024, 7, 30)}
             />
           )}
         </Modal>

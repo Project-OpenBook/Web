@@ -9,36 +9,35 @@ import {
   isWithinInterval,
 } from "date-fns";
 import { Modal_State } from "../BoothRegistPage";
-import { useReserveInput } from "../../../../Hooks/Booth/Detail/useRegistReserve";
+
 interface Props {
   setModalState: (state: string) => void;
   startDate: Date;
   endDate: Date;
-  selectedDates?: string[];
-  setSelectedDates?: (date: string) => void;
-  timeList?: string[];
-  setTimeList?: (time: string) => void;
+  selectedDates: string[];
+  setSelectedDates: (dates: string[]) => void;
+  setTimeList: (lists: string[]) => void;
+  timeList: string[];
 }
 
 export default function ServiceTimeAdd({
   startDate,
   endDate,
   setModalState,
+  selectedDates,
+  setSelectedDates,
+  setTimeList,
+  timeList,
 }: Props) {
-  const [selectedDates, setSelectedDates] = useState<string[]>([]); // 선택된 날짜 배열
-  const [timeList, setTimeList] = useState<string[]>([]); // 시간 배열
-  const [time, setTime] = useState(""); // 입력된 시간
+  const [time, setTime] = useState<string>(""); // 입력된 시간
 
-  const { date } = useReserveInput();
-
-  console.log(selectedDates, timeList);
   const handleConfirm = () => {
-    setModalState(Modal_State.serviceManage);
+    setModalState(Modal_State.serviceInput);
   };
 
   const handleCancel = () => {
     if (window.confirm("취소하시겠습니까?")) {
-      setModalState(Modal_State.serviceManage);
+      setModalState(Modal_State.serviceInput);
     }
   };
 
@@ -46,13 +45,11 @@ export default function ServiceTimeAdd({
   const toggleSelectDate = (date: Date) => {
     const formattedDate = format(date, "yyyy-MM-dd");
 
-    setSelectedDates((prevSelectedDates) => {
-      if (prevSelectedDates.includes(formattedDate)) {
-        return prevSelectedDates.filter((d) => d !== formattedDate); // 이미 선택된 날짜는 제거
-      } else {
-        return [...prevSelectedDates, formattedDate].sort(); // 새로운 날짜 추가 후 정렬
-      }
-    });
+    if (selectedDates.includes(formattedDate)) {
+      setSelectedDates(selectedDates.filter((d) => d !== formattedDate)); // 이미 선택된 날짜는 제거
+    } else {
+      setSelectedDates([...selectedDates, formattedDate].sort()); // 새로운 날짜 추가 후 정렬
+    }
   };
 
   // 시간 추가
@@ -64,21 +61,19 @@ export default function ServiceTimeAdd({
         return;
       }
 
-      setTimeList((prevTimeList) => [...prevTimeList, time].sort()); // 시간 추가 후 정렬
+      setTimeList([...timeList, time].sort()); // 시간 추가 후 정렬
       setTime(""); // 시간 추가 후 초기화
     }
   };
 
   // 날짜 삭제
   const removeDate = (date: string) => {
-    setSelectedDates((prevSelectedDates) =>
-      prevSelectedDates.filter((d) => d !== date)
-    );
+    setSelectedDates(selectedDates.filter((d) => d !== date));
   };
 
   // 시간 삭제
   const removeTime = (time: string) => {
-    setTimeList((prevTimeList) => prevTimeList.filter((t) => t !== time));
+    setTimeList(timeList.filter((t) => t !== time));
   };
 
   // Month index is adjusted by subtracting 1

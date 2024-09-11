@@ -29,6 +29,9 @@ const fetchReserveInput = (
   reserveRegistData.times.forEach((time) => {
     formData.append("times", time);
   });
+  reserveRegistData.date.forEach((date) => {
+    formData.append("date", date);
+  });
   const response = fetch(
     `http://52.79.91.214:8080/booths/${reserveRegistData.boothId}/reservation`,
     {
@@ -53,8 +56,9 @@ export const useReserveInput = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState<File | null>(null);
-  const [times, setTimes] = useState([]);
-  const [date, setDate] = useState([]);
+  const [timeList, setTimeList] = useState<string[]>([]);
+  const [selectedDates, setSelectedDates] = useState<string[]>([]);
+  const [imageName, setImageName] = useState("X");
 
   const { mutate } = useMutation({
     mutationFn: () =>
@@ -64,8 +68,8 @@ export const useReserveInput = () => {
         image,
         price,
         boothId,
-        times,
-        date,
+        times: timeList,
+        date: selectedDates,
       }),
 
     onError: () => {
@@ -79,13 +83,19 @@ export const useReserveInput = () => {
 
   return {
     mutate,
-    setTimes,
-    date,
-    times,
-    setDate,
+    setTimeList,
+    selectedDates,
+    timeList,
+    setSelectedDates,
     setDescription,
     setImage,
     setName,
+    name,
+    description,
+    image,
+    price,
     setPrice,
+    imageName,
+    setImageName,
   };
 };

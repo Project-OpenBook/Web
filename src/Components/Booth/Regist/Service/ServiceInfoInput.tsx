@@ -9,6 +9,7 @@ interface Props {
   setValue: (value: any) => void;
   Icon: IconType;
   type: "text" | "image" | "button";
+  value?: string;
   imageName?: string;
   setModalState?: (state: string) => void;
 }
@@ -21,6 +22,7 @@ export default function ServiceInfoInput({
   Icon,
   imageName,
   setModalState,
+  value,
 }: Props) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -40,6 +42,7 @@ export default function ServiceInfoInput({
         <input
           placeholder={placeholder}
           type={type}
+          value={value}
           className="h-10 border-b-2 pl-1 mb-5 w-full"
           onChange={(e) => setValue(e.target.value)}
         />
