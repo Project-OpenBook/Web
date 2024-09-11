@@ -80,6 +80,8 @@ export const useReserveInput = () => {
   return {
     mutate,
     setTimes,
+    date,
+    times,
     setDate,
     setDescription,
     setImage,
