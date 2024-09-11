@@ -7,6 +7,7 @@ import { FaX } from "react-icons/fa6";
 import { getAccessToken } from "../../Api/Util/token";
 import { useEventReview } from "../../Hooks/useReview";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useScrollDown } from "../../Hooks/useScrollDown";
 
 interface Props {
   eventId: number;
@@ -88,6 +89,11 @@ export default function EventReviewList({ eventId }: Props) {
     refetch,
   } = useEventReview(eventId);
 
+  useScrollDown({
+    offset: 1,
+    onScrollDownToEnd: fetchNextPage,
+  });
+
   const handleLayoutImagesChange = (e: any) => {
     const images = [...reviewImages, ...e.target.files].splice(0, 3);
 
@@ -124,8 +130,9 @@ export default function EventReviewList({ eventId }: Props) {
             maxScore={INIT_STAR_SCORE}
             onMouseMoveStar={onMouseMoveStar}
           />
-          <div>
-            <label className="grid grid-cols-3 gap-2">
+
+          <div className="flex items-center">
+            <label className="grid">
               <input
                 type="file"
                 name="layoutImages"
@@ -136,19 +143,6 @@ export default function EventReviewList({ eventId }: Props) {
               />
               {reviewImages.length < 3 && <CiImageOn size={46} />}
             </label>
-            <div className="flex gap-2">
-              {reviewImages.map((src, i) => (
-                <div className="relative" key={src.name}>
-                  <img src={URL.createObjectURL(src)} alt="리뷰이미지" />
-                  <FaX
-                    className="absolute top-2 right-2"
-                    onClick={() => onDeleteReviewImg(i)}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex items-center">
             <input
               type="text"
               className={`p-2 flex-1 border border-r-0 ${
@@ -161,6 +155,23 @@ export default function EventReviewList({ eventId }: Props) {
             <button className="p-2 px-7 border" type="submit">
               입력
             </button>
+          </div>
+          <div>
+            <div
+              className={`flex gap-2 border-2 p-2 ${
+                reviewImages.length === 0 && "hidden"
+              }`}
+            >
+              {reviewImages.map((src, i) => (
+                <div className="relative" key={src.name}>
+                  <img src={URL.createObjectURL(src)} alt="리뷰이미지" />
+                  <FaX
+                    className="absolute top-2 right-2"
+                    onClick={() => onDeleteReviewImg(i)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </form>
       </div>
