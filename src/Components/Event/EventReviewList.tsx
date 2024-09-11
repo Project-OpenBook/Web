@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useInput } from "../../Hooks/useInput";
 import EventReview from "./EventReview";
 import ReviewStars from "./ReviewStars";
@@ -79,6 +79,8 @@ export default function EventReviewList({ eventId }: Props) {
     },
   });
 
+  const imgRef = useRef<HTMLInputElement>(null);
+
   const {
     data: reviews,
     fetchNextPage,
@@ -88,18 +90,25 @@ export default function EventReviewList({ eventId }: Props) {
 
   const handleLayoutImagesChange = (e: any) => {
     const images = [...reviewImages, ...e.target.files].splice(0, 3);
-    // @ts-ignore
+
     setReviewImages(images);
   };
 
   const onDeleteReviewImg = (index: number) => {
     const imgs = reviewImages.filter((_, i) => index !== i);
+
+    if (imgRef.current) {
+      imgRef.current.value = "";
+    }
+
     setReviewImages(imgs);
   };
 
   const onMouseMoveStar = (e: any, scoreOnMouse: number) => {
     setCurrentScore(scoreOnMouse);
   };
+
+  const hasReview = reviews && reviews?.pages[0].content.length > 1;
 
   return (
     <div className="flex flex-col w-full gap-2">
@@ -123,6 +132,7 @@ export default function EventReviewList({ eventId }: Props) {
                 multiple
                 onChange={handleLayoutImagesChange}
                 hidden
+                ref={imgRef}
               />
               {reviewImages.length < 3 && <CiImageOn size={46} />}
             </label>
@@ -155,24 +165,32 @@ export default function EventReviewList({ eventId }: Props) {
         </form>
       </div>
       <div className="w-full border border-blue-400" />
-      <InfiniteScroll
-        dataLength={reviews?.pages[0].numberOfElements ?? 5}
-        next={fetchNextPage}
-        hasMore={hasNextPage}
-        loader={<h4 className="text-center my-4">로딩 중...</h4>}
-        endMessage={
-          <p className="text-center font-bold my-4">모든 리뷰를 불러왔습니다</p>
-        }
-        className="w-full max-w-screen-lg shadow-xl h-full p-2 pt-10 mx-auto rounded-md"
-      >
-        <section className="w-full flex flex-col gap-4">
-          {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
+      {hasReview ? (
+        <InfiniteScroll
+          dataLength={reviews?.pages[0].numberOfElements ?? 5}
+          next={fetchNextPage}
+          hasMore={hasNextPage}
+          loader={<h4 className="text-center my-4">로딩 중...</h4>}
+          endMessage={
+            <p className="text-center font-bold my-4">
+              모든 리뷰를 불러왔습니다
+            </p>
+          }
+          className="w-full max-w-screen-lg shadow-xl h-full p-2 pt-10 mx-auto rounded-md"
+        >
+          <section className="w-full flex flex-col gap-4">
+            {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
 
-          {reviews?.pages.map((reviews) =>
-            reviews.content.map((review) => <EventReview review={review} />)
-          )}
-        </section>
-      </InfiniteScroll>
+            {reviews?.pages.map((reviews) =>
+              reviews.content.map((review) => <EventReview review={review} />)
+            )}
+          </section>
+        </InfiniteScroll>
+      ) : (
+        <p className="w-full max-w-screen-lg shadow-xl h-full p-14 mx-auto rounded-md text-center">
+          첫 번째 리뷰를 남겨주세요!
+        </p>
+      )}
     </div>
   );
 }

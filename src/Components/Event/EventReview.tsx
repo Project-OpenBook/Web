@@ -6,12 +6,14 @@ interface Props {
 }
 
 export default function EventReview({ review }: Props) {
+  const imgUrl = review.images[0]?.url;
+
   return (
     <div className="flex gap-5 border-b border-blue-200 p-3 last:border-none">
       <img
-        className="w-32 aspect-square border rounded-md"
+        className={`w-32 aspect-square border rounded-md ${imgUrl ?? "hidden"}`}
         alt="리뷰 이미지"
-        src={review.images[0].url}
+        src={review.images[0]?.url}
       />
       <div className="flex flex-col w-full gap-2">
         <div className="flex w-full h-10 items-center gap-4">
