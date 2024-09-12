@@ -19,6 +19,7 @@ export default function NavBar() {
 
   const handleLogout = () => {
     removeAccessToken();
+    navigate("/");
     window.location.reload();
   };
 
