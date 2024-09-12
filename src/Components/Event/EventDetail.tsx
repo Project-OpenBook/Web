@@ -86,7 +86,8 @@ export default function EventDetailPage() {
             >
               부스 신청
             </Link>
-            {data?.isUserManager && (
+            {
+              /*data?.isUserManager && (*/
               <Link
                 to={"manage"}
                 className="flex gap-2 items-center ml-auto p-2 rounded-md bg-orange-500 text-white"
@@ -94,7 +95,8 @@ export default function EventDetailPage() {
                 <IoIosSettings size={20} />
                 행사 관리
               </Link>
-            )}
+              /*)*/
+            }
 
             <EventInfo
               mainImageUrl={mainImageUrl}

@@ -3,6 +3,7 @@ import { getAccessToken } from "../../../Api/Util/token";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { isError } from "util";
 
 interface ReserveRegistData {
   name: string;
@@ -60,7 +61,17 @@ export const useReserveInput = () => {
   const [selectedDates, setSelectedDates] = useState<string[]>([]);
   const [imageName, setImageName] = useState("X");
 
-  const { mutate } = useMutation({
+  const resetVar = () => {
+    setName("");
+    setDescription("");
+    setPrice("");
+    setImage(null);
+    setTimeList([]);
+    setSelectedDates([]);
+    setImageName("X");
+  };
+
+  const { mutate, isError, isSuccess } = useMutation({
     mutationFn: () =>
       fetchReserveInput({
         name,
@@ -73,11 +84,12 @@ export const useReserveInput = () => {
       }),
 
     onError: () => {
-      alert("상품 등록에 실패했습니다.");
+      alert("서비스 등록에 실패했습니다.");
     },
     onSuccess: () => {
-      alert("상품이 등록되었습니다.");
-      navi("/");
+      alert("서비스가 등록되었습니다.");
+      resetVar();
+      navi(`/${boothId}/reservation`);
     },
   });
 
@@ -97,5 +109,7 @@ export const useReserveInput = () => {
     setPrice,
     imageName,
     setImageName,
+    isError,
+    isSuccess,
   };
 };

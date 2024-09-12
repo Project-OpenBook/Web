@@ -46,29 +46,29 @@ export default function BoothDetailPage() {
   if (isError) return <div>에러가 발생했습니다.</div>;
 
   const renderProductManage = () => {
-    if (data?.isUserManager) {
-      return (
-        <div
-          onClick={() => setModalState(Modal_State.goodsManage)}
-          className="w-15 inline-flex shadow-md px-2 rounded-md text-white text-center bg-[#401F71]"
-        >
-          물품 관리
-        </div>
-      );
-    }
+    //if (data?.isUserManager) {
+    return (
+      <div
+        onClick={() => setModalState(Modal_State.goodsManage)}
+        className="w-15 inline-flex shadow-md px-2 rounded-md text-white text-center bg-[#401F71]"
+      >
+        물품 관리
+      </div>
+    );
+    //}
   };
 
   const renderServiceManage = () => {
-    if (data?.isUserManager) {
-      return (
-        <div
-          onClick={() => setModalState(Modal_State.serviceManage)}
-          className="w-15 inline-flex shadow-md px-2 rounded-md text-white text-center bg-[#401F71]"
-        >
-          서비스 관리
-        </div>
-      );
-    }
+    //if (data?.isUserManager) {
+    return (
+      <div
+        onClick={() => setModalState(Modal_State.serviceManage)}
+        className="w-15 inline-flex shadow-md px-2 rounded-md text-white text-center bg-[#401F71]"
+      >
+        서비스 관리
+      </div>
+    );
+    // }
   };
 
   const tmpGoods = ["1", "2", "3"];
@@ -208,8 +208,8 @@ export default function BoothDetailPage() {
               setTimeList={setTimeList}
               timeList={timeList}
               setModalState={setModalState}
-              startDate={new Date(2024, 7, 20)}
-              endDate={new Date(2024, 7, 30)}
+              startDate={new Date(2024, 1, 1)}
+              endDate={new Date(2025, 1, 30)}
             />
           )}
         </Modal>

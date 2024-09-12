@@ -1,5 +1,4 @@
 import ServiceInfoInput from "./ServiceInfoInput";
-import { useState } from "react";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { IoIosPricetags } from "react-icons/io";
 import { MdOutlineDescription } from "react-icons/md";
@@ -35,9 +34,17 @@ export default function ServiceInfoInputPage({
   setImageName,
   mutate,
 }: Props) {
+  const { isSuccess } = useReserveInput();
+
   const handleConfirm = () => {
     mutate();
-    setModalState(Modal_State.serviceManage);
+    if (isSuccess) {
+      setModalState(Modal_State.serviceManage);
+    }
+  };
+
+  const dateAndTimeValue = (dates: string[], times: string[]) => {
+    return `${dates.length} 개의 날짜와 ${times.length}개의 시간이 등록되었습니다.`;
   };
 
   const handleCancel = () => {
@@ -89,7 +96,9 @@ export default function ServiceInfoInputPage({
           Icon={FaClock}
           label="서비스 시간"
           placeholder="서비스를 이용할 수 있는 시간대를 선택해 주세요"
-          setValue={() => {}}
+          setValue={() => {
+            dateAndTimeValue(a, b);
+          }}
           type="button"
           setModalState={setModalState}
         />
