@@ -22,7 +22,7 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
     setName,
     setPrice,
     setStock,
-  } = useGoodsInput();
+  } = useGoodsInput(setModalState);
   const setBoothImage = useSetRecoilState(boothImageState);
   const [imageName, setImageName] = useState("X");
 

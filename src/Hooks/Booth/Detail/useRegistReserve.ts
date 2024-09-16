@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { isError } from "util";
+import { Modal_State } from "../../../Components/Booth/Regist/BoothRegistPage";
 
 interface ReserveRegistData {
   name: string;
@@ -50,8 +51,7 @@ const fetchReserveInput = (
   return response;
 };
 
-export const useReserveInput = () => {
-  const navi = useNavigate();
+export const useReserveInput = (setModalState: (state: string) => void) => {
   const { boothId } = useParams() as { boothId: string };
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -89,7 +89,7 @@ export const useReserveInput = () => {
     onSuccess: () => {
       alert("서비스가 등록되었습니다.");
       resetVar();
-      navi(`/${boothId}/reservation`);
+      setModalState(Modal_State.serviceManage);
     },
   });
 

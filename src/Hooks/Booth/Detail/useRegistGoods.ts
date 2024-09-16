@@ -3,6 +3,7 @@ import { getAccessToken } from "../../../Api/Util/token";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Modal_State } from "../../../Components/Booth/Regist/BoothRegistPage";
 
 interface GoodsRegistData {
   categoryId: string;
@@ -45,8 +46,7 @@ const fetchGoodsInput = (goodsRegistData: GoodsRegistData): Promise<void> => {
   return response;
 };
 
-export const useGoodsInput = () => {
-  const navi = useNavigate();
+export const useGoodsInput = (setModalState: (state: string) => void) => {
   const { boothId } = useParams() as { boothId: string };
   const [categoryId, setCategoryId] = useState("");
   const [name, setName] = useState("");
@@ -72,7 +72,6 @@ export const useGoodsInput = () => {
     },
     onSuccess: () => {
       alert("상품이 등록되었습니다.");
-      navi("/");
     },
   });
 

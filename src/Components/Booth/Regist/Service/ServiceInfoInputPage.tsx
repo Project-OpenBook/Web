@@ -19,6 +19,8 @@ interface Props {
   imageName: string;
   setImageName: (Iname: string) => void;
   mutate: () => void;
+  selectedDates: string[];
+  timeList: string[];
 }
 
 export default function ServiceInfoInputPage({
@@ -33,8 +35,10 @@ export default function ServiceInfoInputPage({
   imageName,
   setImageName,
   mutate,
+  selectedDates,
+  timeList,
 }: Props) {
-  const { isSuccess } = useReserveInput();
+  const { isSuccess } = useReserveInput(setModalState);
 
   const handleConfirm = () => {
     mutate();
@@ -44,7 +48,7 @@ export default function ServiceInfoInputPage({
   };
 
   const dateAndTimeValue = (dates: string[], times: string[]) => {
-    return `${dates.length} 개의 날짜와 ${times.length}개의 시간이 등록되었습니다.`;
+    return `총 ${dates.length} 개의 날짜와 ${times.length} 개의 시간이 등록되었습니다.`;
   };
 
   const handleCancel = () => {
@@ -96,11 +100,10 @@ export default function ServiceInfoInputPage({
           Icon={FaClock}
           label="서비스 시간"
           placeholder="서비스를 이용할 수 있는 시간대를 선택해 주세요"
-          setValue={() => {
-            dateAndTimeValue(a, b);
-          }}
+          value={dateAndTimeValue(selectedDates, timeList)}
           type="button"
           setModalState={setModalState}
+          setValue={() => {}}
         />
         <ServiceInfoInput
           Icon={FaRegImage}

@@ -40,7 +40,7 @@ export default function BoothDetailPage() {
     setSelectedDates,
     setTimeList,
     timeList,
-  } = useReserveInput();
+  } = useReserveInput(setModalState);
   const { isError, data, isLoading } = useGetBoothDetail(boothId ?? "");
   if (isLoading) return <div>로딩중입니다...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
@@ -199,6 +199,8 @@ export default function BoothDetailPage() {
               setImage={setImage}
               setName={setName}
               setPrice={setPrice}
+              selectedDates={selectedDates}
+              timeList={timeList}
             />
           )}
           {modalState === Modal_State.serviceTime && (

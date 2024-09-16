@@ -53,7 +53,7 @@ export default function ServiceInfoInput({
             placeholder={placeholder}
             type="text"
             className="h-10 border-b-2 pl-1 mb-5 w-3/4"
-            onChange={(e) => setValue(e.target.value)}
+            value={value}
           />
           <button
             onClick={() => {
