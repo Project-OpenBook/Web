@@ -4,8 +4,8 @@ import { getAccessToken } from "../../Api/Util/token";
 interface BoothData {
   id: number;
   name: string;
-  openTime: string;
-  closeTime: string;
+  openData: string;
+  closeData: string;
   location: LocationData[];
   description: string;
   mainImageUrl: string;
@@ -13,6 +13,15 @@ interface BoothData {
   eventId: number;
   eventName: string;
   isUserManager: boolean;
+  event: {
+    id: string;
+    name: string;
+    manager: {
+      id: string;
+      nickname: string;
+      role: string;
+    };
+  };
 }
 
 export interface LocationData {
