@@ -11,36 +11,38 @@ interface Props {
     }[];
   };
 }
-
 export default function GoodsInfoCard({ product }: Props) {
   return (
-    <div className="flex h-80 flex-col p-3 pb-5 w-full gap-6 items-center rounded-md font-bold shadow-lg">
-      <div className="flex bg-slate-100 rounded-lg justify-center">
+    <div className="flex h-96 flex-col p-3 pb-5 w-full gap-6 items-center rounded-md font-bold shadow-lg transition-transform duration-300 hover:scale-105">
+      {/* 이미지 컨테이너 */}
+      <div className="flex h-80 w-full bg-slate-100 rounded-lg justify-center items-center overflow-hidden">
         {product.images.length > 0 ? (
           <img
             alt={`${product.name} 이미지`}
-            className="flex w-1/2"
-            src={product.images[0].url} // 첫 번째 이미지를 표시
+            className="object-contain h-full w-full"
+            src={product.images[0].url}
           />
         ) : (
           <img
             alt="기본 이미지"
-            className="flex w-1/2"
-            src="images/logos/logo_small.png" // 이미지가 없을 때 기본 이미지
+            className="object-contain h-full w-full"
+            src="images/boothRegist/noimage.png"
           />
         )}
       </div>
       <div>
-        {product.name} : {product.price.toLocaleString()}원
-      </div>{" "}
-      {/* 가격 표시 */}
-      <div>재고 : {product.stock}개</div> {/* 재고 표시 */}
-      <div>카테고리 : {product.description}</div> {/* 카테고리 설명 표시 */}
+        {product.name} : {product.price.toLocaleString()} 원
+      </div>
+      <div>재고 : {product.stock} 개</div>
+      <div>카테고리 : {product.description}</div>
+      {/* 수정/삭제 버튼 */}
       <div className="flex justify-center gap-5 w-full text-white">
-        <button className="bg-[rgb(96,165,250)] rounded-md w-full p-1">
+        <button className="bg-[rgb(96,165,250)] rounded-md w-full p-1 transition-transform transform hover:scale-105 hover:bg-blue-500 duration-300">
           수정
         </button>
-        <button className="bg-red-600 rounded-md w-full p-1">삭제</button>
+        <button className="bg-red-600 rounded-md w-full p-1 transition-transform transform hover:scale-105 hover:bg-red-500 duration-300">
+          삭제
+        </button>
       </div>
     </div>
   );

@@ -15,7 +15,6 @@ interface GoodsRegistData {
 
 const fetchGoodsInput = (goodsRegistData: GoodsRegistData): Promise<void> => {
   const token = getAccessToken();
-  console.log(goodsRegistData.boothId);
   let formData = new FormData();
   formData.append("name", goodsRegistData.name);
   formData.append("categoryId", "1");
