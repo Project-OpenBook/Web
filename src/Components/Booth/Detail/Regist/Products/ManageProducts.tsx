@@ -3,29 +3,54 @@ import GoodsInfoCard from "./GoodsInfoCard";
 import { Modal_State } from "../../../Regist/BoothRegistPage";
 import { useGetGoodsList } from "../../../../../Hooks/Booth/Detail/useGetGoods";
 import { useParams } from "react-router-dom";
-import { useCategoryGoods } from "../../../../../Hooks/Booth/Detail/useGetGoodsCategory";
+import { useCategoryGoodsInfinite } from "../../../../../Hooks/Booth/Detail/useGetGoodsCategory";
 import { useCategoryList } from "../../../../../Hooks/Booth/Detail/useGetCategory";
 import CategoryModal from "./CategoryModal";
-
-// 임시로 생성한 커스텀 훅 (데이터를 불러오는 역할)
-const useTempCustomHook = (value: number) => {
-  return { data: `${value} 카테고리의 상품 리스트입니다` };
-};
-
+import { useEffect, useRef } from "react";
 interface Props {
   setModalState: (state: string) => void;
 }
 
+// 무한 스크롤 및 categoryGoodsList 데이터를 사용하는 코드
 export default function ManageProducts({ setModalState }: Props) {
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false); // 카테고리 모달 상태 관리
-  const [selectedOption, setSelectedOption] = useState(1); // select 태그 상태 관리
+  const [selectedOption, setSelectedOption] = useState<number>(0); // select 태그 상태 관리
   let { boothId } = useParams();
   const { isError, data, isLoading } = useGetGoodsList(boothId ?? "");
-  const { data: categoryGoodsList } = useCategoryGoods(
-    selectedOption.toString()
-  );
+  const {
+    data: categoryGoodsList,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useCategoryGoodsInfinite(selectedOption.toString());
   const { data: categoryList } = useCategoryList(boothId ?? "");
-  // 임시 커스텀 훅 호출 (select에서 선택한 값으로 데이터 로드)
+
+  // 무한 스크롤을 위한 Ref
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+
+  // IntersectionObserver를 사용하여 무한 스크롤 구현
+  useEffect(() => {
+    if (!hasNextPage || isFetchingNextPage) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 1 }
+    );
+
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
+
+    return () => {
+      if (loadMoreRef.current) {
+        observer.unobserve(loadMoreRef.current);
+      }
+    };
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const handleConfirm = () => {
     setModalState(Modal_State.none);
@@ -35,7 +60,6 @@ export default function ManageProducts({ setModalState }: Props) {
     setCategoryModalOpen(true);
   };
 
-  // select 태그의 onChange 핸들러
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(Number(event.target.value));
   };
@@ -64,6 +88,7 @@ export default function ManageProducts({ setModalState }: Props) {
               onChange={handleSelectChange}
               className="border border-gray-300 rounded-md p-2"
             >
+              <option value={0}>전체</option>
               {categoryList?.map((category) => {
                 return <option value={category.id}>{category.name}</option>;
               })}
@@ -86,49 +111,67 @@ export default function ManageProducts({ setModalState }: Props) {
             </button>
           </div>
 
-          {/* 선택한 카테고리 데이터 (임시 커스텀 훅 결과 출력) */}
-          {/* <div className="mt-6 mb-6">
-            <p className="text-center text-xl">
-              {`선택된 옵션: ${selectedOption} - ${tempData}`}
-            </p>
-          </div> */}
-
-          <div className="space-y-8">
-            {data.length > 0 ? (
-              data.map((category, catIndex) => (
-                <div key={catIndex} className="space-y-4">
-                  {/* 카테고리 제목 */}
-                  <div className="flex gap-2 items-center">
-                    <h3 className="font-bold text-2xl text-left mb-4">
-                      {category.category.name}
-                    </h3>
-                    {category.category.description && (
-                      <h3 className=" text-xl text-left mb-4">
-                        {`- ${category.category.description}`}
+          {selectedOption === 0 ? (
+            <div className="space-y-8">
+              {/* 전체 상품 데이터 출력 */}
+              {data.length > 0 ? (
+                data.map((category, catIndex) => (
+                  <div key={catIndex} className="space-y-4">
+                    <div className="flex gap-2 items-center">
+                      <h3 className="font-bold text-2xl text-left mb-4">
+                        {category.category.name}
                       </h3>
-                    )}
-                  </div>
+                      {category.category.description && (
+                        <h3 className="text-xl text-left mb-4">
+                          {`- ${category.category.description}`}
+                        </h3>
+                      )}
+                    </div>
 
-                  {/* 제품 그리드 */}
+                    {/* 제품 그리드 */}
+                    <div className="grid place-items-center grid-cols-5 gap-6">
+                      {category.products.content.length > 0 ? (
+                        category.products.content.map((product, prodIndex) => (
+                          <GoodsInfoCard key={prodIndex} product={product} />
+                        ))
+                      ) : (
+                        <div className="col-span-5 text-center">
+                          등록된 물품이 없습니다.
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center">
+                  등록된 카테고리 및 물품이 없습니다.
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-8">
+              {/* 선택된 카테고리 상품 데이터 출력 */}
+              {categoryGoodsList?.pages.map((page, pageIndex) => (
+                <div key={pageIndex} className="space-y-4">
                   <div className="grid place-items-center grid-cols-5 gap-6">
-                    {category.products.content.length > 0 ? (
-                      category.products.content.map((product, prodIndex) => (
-                        <GoodsInfoCard key={prodIndex} product={product} />
-                      ))
-                    ) : (
-                      <div className="col-span-5 text-center">
-                        등록된 물품이 없습니다.
-                      </div>
-                    )}
+                    {page.products.content.map((product, prodIndex) => (
+                      <GoodsInfoCard key={prodIndex} product={product} />
+                    ))}
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="text-center">
-                등록된 카테고리 및 물품이 없습니다.
-              </div>
-            )}
-          </div>
+              ))}
+
+              {/* 로딩 중이면 메시지 표시 */}
+              {isFetchingNextPage && (
+                <div className="text-center">더 불러오는 중...</div>
+              )}
+
+              {/* 더 불러오기 트리거 */}
+              {hasNextPage && (
+                <div ref={loadMoreRef} className="h-10 bg-transparent"></div>
+              )}
+            </div>
+          )}
 
           <div className="flex justify-center gap-4 mt-4 w-full">
             <button

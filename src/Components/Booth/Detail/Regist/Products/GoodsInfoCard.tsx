@@ -5,11 +5,13 @@ interface Props {
     description: string;
     stock: number;
     price: number;
-    images: {
-      id: string;
-      url: string;
-    }[];
+    images: Image[];
   };
+}
+
+interface Image {
+  id: string;
+  url: string;
 }
 export default function GoodsInfoCard({ product }: Props) {
   return (
