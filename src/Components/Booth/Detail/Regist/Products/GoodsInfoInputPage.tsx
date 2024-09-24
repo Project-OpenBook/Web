@@ -8,6 +8,9 @@ import { MdOutlineDescription } from "react-icons/md";
 import { TbNumber123 } from "react-icons/tb";
 import { FaRegImage } from "react-icons/fa6";
 import { Modal_State } from "../../../Regist/BoothRegistPage";
+import { BiSolidCategory } from "react-icons/bi";
+import { useParams } from "react-router-dom";
+import { useCategoryList } from "../../../../../Hooks/Booth/Detail/useGetCategory";
 import { useGoodsInput } from "../../../../../Hooks/Booth/Detail/useRegistGoods";
 interface Props {
   setModalState: (state: string) => void;
@@ -23,8 +26,11 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
     setPrice,
     setStock,
   } = useGoodsInput(setModalState);
+  let { boothId } = useParams();
   const setBoothImage = useSetRecoilState(boothImageState);
   const [imageName, setImageName] = useState("X");
+  const [categoryName, setCategoryName] = useState("");
+  const { data: categoryList } = useCategoryList(boothId ?? "");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
@@ -58,6 +64,14 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
           placeholder="물품의 이름을 입력해주세요"
           setValue={setName}
           type="text"
+        />
+        <GoodsInfoInput
+          Icon={BiSolidCategory}
+          label="카테고리"
+          placeholder="물품의 카테고리를 선택해주세요"
+          setValue={setCategoryName}
+          type="select"
+          categoryData={categoryList}
         />
         <GoodsInfoInput
           Icon={MdOutlineDescription}

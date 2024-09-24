@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAccessToken } from "../../../Api/Util/token";
 
-interface CategoryData {
+export interface CategoryData {
   id: string;
   name: string;
   description: string;

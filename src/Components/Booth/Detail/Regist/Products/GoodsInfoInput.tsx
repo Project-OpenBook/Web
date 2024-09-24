@@ -1,14 +1,16 @@
 import { useRef } from "react";
 import { IconType } from "react-icons";
 import { MAIN_BLUE } from "../../../../../Constants/Color";
+import { CategoryData } from "../../../../../Hooks/Booth/Detail/useGetCategory";
 
 interface Props {
   label: string;
   placeholder?: string;
   setValue: (value: any) => void;
   Icon: IconType;
-  type: "text" | "image";
+  type: "text" | "image" | "select";
   imageName?: string;
+  categoryData?: CategoryData[];
 }
 
 export default function GoodsInfoInput({
@@ -18,6 +20,7 @@ export default function GoodsInfoInput({
   setValue,
   Icon,
   imageName,
+  categoryData,
 }: Props) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -40,6 +43,21 @@ export default function GoodsInfoInput({
           className="h-10 border-b-2 pl-1 mb-5 w-full"
           onChange={(e) => setValue(e.target.value)}
         />
+      )}
+      {type === "select" && (
+        <div className="flex w-full justify-between items-center mb-4">
+          <input
+            placeholder={placeholder}
+            type={type}
+            className="flex w-3/4 border-b-2 py-2 pl-1"
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <select className=" border-2 border-black h-8 w-1/4 hover:cursor-pointer rounded-md bg-white">
+            {categoryData?.map((category) => {
+              return <option value={category.id}>{category.name}</option>;
+            })}
+          </select>
+        </div>
       )}
       {type === "image" && (
         <div className="flex w-full justify-between items-center mb-4">
