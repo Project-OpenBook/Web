@@ -180,7 +180,7 @@ export default function BoothDetailPage() {
                 <div className="font-bold">판매 상품</div>
                 <div className="flex ml-auto gap-2">
                   <button>{renderProductManage()} </button>
-                  {!isUserHaveAuth && (
+                  {!isUserHaveAuth() && (
                     <button
                       onClick={() => setModalState(Modal_State.goodsManage)}
                       className="ml-auto bg-[#0064FF] text-white rounded-md px-2 "
@@ -202,7 +202,7 @@ export default function BoothDetailPage() {
                 <div className="font-bold">서비스 예약</div>
                 <div className="flex ml-auto gap-2">
                   <button>{renderServiceManage()} </button>
-                  {!isUserHaveAuth && (
+                  {!isUserHaveAuth() && (
                     <button
                       onClick={() => setModalState(Modal_State.serviceManage)}
                       className="ml-auto bg-[#0064FF] text-white rounded-md px-2 "
