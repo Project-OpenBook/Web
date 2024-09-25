@@ -1,5 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getAccessToken } from "../Api/Util/token";
+import { ContentType } from "../Components/Event/EventReviewList";
 
 export interface Review {
   reviewer: { id: number; nickname: string; role: string };
@@ -29,9 +30,12 @@ interface InfinityEventReview {
   content: Array<EventReview>;
 }
 
-const fetcher = (eventId: number, page: number) => {
+const fetcher = (type: ContentType, id: number, page: number) => {
+  const idKey = type === "events" ? "event_id" : "booth_id";
+  const contentType = type === "events" ? "event" : "booths";
+
   return fetch(
-    `http://52.79.91.214:8080/event/reviews?&event_id=${eventId}&page=${page}`,
+    `http://52.79.91.214:8080/${contentType}/reviews?&${idKey}=${id}&page=${page}`,
     {
       method: "GET",
       headers: {
@@ -44,10 +48,10 @@ const fetcher = (eventId: number, page: number) => {
   });
 };
 
-export function useEventReview(eventId: number) {
+export function useReview(contentType: ContentType, id: number) {
   const { data, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
-    queryKey: ["eventReview", eventId],
-    queryFn: ({ pageParam }) => fetcher(eventId, pageParam),
+    queryKey: ["review", id],
+    queryFn: ({ pageParam }) => fetcher(contentType, id, pageParam),
     getNextPageParam: (lastPage: InfinityEventReview) =>
       (lastPage.hasNext && lastPage.sliceNumber + 1) || undefined,
     initialPageParam: 0,

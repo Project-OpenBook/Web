@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 import EventInfo from "./EventInfo";
 import BoothInEventInfo from "./BoothsInEventInfo";
-import EventReviewList from "./EventReviewList";
+import ReviewList from "./EventReviewList";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import { getAccessToken } from "../../Api/Util/token";
@@ -113,7 +113,7 @@ export default function EventDetailPage() {
 
             <KakaoMap location={location} />
 
-            <EventReviewList eventId={eventId} />
+            <ReviewList id={eventId} type="events" />
           </div>
         </div>
       </div>

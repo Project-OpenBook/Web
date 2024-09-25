@@ -5,50 +5,37 @@ import ReviewStars from "./ReviewStars";
 import { CiImageOn } from "react-icons/ci";
 import { FaX } from "react-icons/fa6";
 import { getAccessToken } from "../../Api/Util/token";
-import { useEventReview } from "../../Hooks/useReview";
+import { useReview } from "../../Hooks/useReview";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useScrollDown } from "../../Hooks/useScrollDown";
 
+export type ContentType = "events" | "booths";
 interface Props {
-  eventId: number;
+  id: number;
+  type: ContentType;
 }
-
-const tempReviews = [
-  {
-    img: "",
-    rating: 3,
-    text: "리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용",
-  },
-  {
-    img: "",
-    rating: 1.5,
-    text: "리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 리뷰내용 ",
-  },
-  {
-    img: "",
-    rating: 5,
-    text: "리뷰내용 리뷰내용 리뷰내용 ",
-  },
-];
 
 const INIT_STAR_SCORE = 5;
 export const STAR_SCORE_UNIT = 0.5;
 
 const addReview = (
+  type: ContentType,
   id: number,
   star: number,
   content: string,
   images: File[]
 ) => {
+  const idKey = type === "events" ? "event_id" : "booth_id";
+  const contentType = type === "events" ? "event" : "booths";
   const form = new FormData();
-  form.append("event_id", `${id}`);
+  form.append(idKey, `${id}`);
   form.append("star", `${star}`);
   form.append("content", content);
   images.forEach((img) => {
     form.append("images", img);
   });
 
-  return fetch(`http://52.79.91.214:8080/event/review`, {
+  return fetch(`http://52.79.91.214:8080/${contentType}/review`, {
     method: "post",
     body: form,
     headers: {
@@ -57,14 +44,14 @@ const addReview = (
   });
 };
 
-export default function EventReviewList({ eventId }: Props) {
+export default function ReviewList({ id, type: contentType }: Props) {
   const [currentScore, setCurrentScore] = useState(INIT_STAR_SCORE);
   const [reviewImages, setReviewImages] = useState<File[]>([]);
 
   const { error, handleSubmit, onchange, value } = useInput({
     init: "",
     submitCallback(value) {
-      addReview(eventId, currentScore, value, reviewImages)
+      addReview(contentType, id, currentScore, value, reviewImages)
         .then(() => {
           setCurrentScore(INIT_STAR_SCORE);
           setReviewImages([]);
@@ -87,7 +74,7 @@ export default function EventReviewList({ eventId }: Props) {
     fetchNextPage,
     hasNextPage,
     refetch,
-  } = useEventReview(eventId);
+  } = useReview(contentType, id);
 
   useScrollDown({
     offset: 1,
@@ -114,7 +101,7 @@ export default function EventReviewList({ eventId }: Props) {
     setCurrentScore(scoreOnMouse);
   };
 
-  const hasReview = reviews && reviews?.pages[0].content.length > 1;
+  const hasReview = reviews && reviews?.pages[0].content.length >= 1;
 
   return (
     <div className="flex flex-col w-full gap-2">
@@ -191,11 +178,11 @@ export default function EventReviewList({ eventId }: Props) {
         >
           <section className="w-full flex flex-col gap-4">
             {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
-
-            {reviews?.pages.map((reviews) =>
-              reviews.content.map((review) => (
-                <EventReview review={review} refetch={refetch} />
-              ))
+            {reviews?.pages.map((reviewss) =>
+              reviewss.content.map((review) => {
+                console.log(review);
+                return <EventReview review={review} refetch={refetch} />;
+              })
             )}
           </section>
         </InfiniteScroll>
