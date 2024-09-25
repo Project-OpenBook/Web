@@ -193,7 +193,9 @@ export default function EventReviewList({ eventId }: Props) {
             {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
 
             {reviews?.pages.map((reviews) =>
-              reviews.content.map((review) => <EventReview review={review} />)
+              reviews.content.map((review) => (
+                <EventReview review={review} refetch={refetch} />
+              ))
             )}
           </section>
         </InfiniteScroll>

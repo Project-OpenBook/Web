@@ -4,13 +4,14 @@ import { getAccessToken, removeAccessToken } from "../Api/Util/token";
 interface AuthResponse {
   role: string;
   nickname: string;
+  id: number;
 }
 
 export function useAuth() {
   const [role, setRole] = useState<string | null>(null);
   const [nickname, setNickname] = useState<string | null>(null);
+  const [id, setId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchRole = async () => {
       try {
@@ -25,6 +26,8 @@ export function useAuth() {
         );
         if (response.ok) {
           const data: AuthResponse = await response.json();
+
+          setId(data.id);
           setRole(data.role);
           setNickname(data.nickname);
         } else {
@@ -43,5 +46,5 @@ export function useAuth() {
     fetchRole();
   }, []);
 
-  return { role, nickname, loading };
+  return { role, nickname, id, loading };
 }
