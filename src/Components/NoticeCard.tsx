@@ -7,10 +7,6 @@ interface Props {
 export default function NoticeCard({ notice, alignType = "column" }: Props) {
   const { content, title, imageUrl, type } = notice;
 
-  const className = alignType === "column" ? "flex-col" : "flex-row";
-
-  console.log(alignType);
-
   if (alignType === "row") {
     return (
       <div className={`flex flex-col p-2 pb-4 border-b-2 last:border-none`}>
