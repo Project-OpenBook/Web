@@ -12,7 +12,11 @@ interface BoothData {
   tags: string[];
   eventId: number;
   eventName: string;
-  isUserManager: boolean;
+  manager: {
+    id: string;
+    nickname: string;
+    role: string;
+  };
   event: {
     id: string;
     name: string;

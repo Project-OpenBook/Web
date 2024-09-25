@@ -20,10 +20,12 @@ import ManageProducts from "./Regist/Products/ManageProducts";
 import GoodsInfoInputPage from "./Regist/Products/GoodsInfoInputPage";
 import BoothNotice from "./BoothNotice";
 import { useReserveInput } from "../../../Hooks/Booth/Detail/useRegistReserve";
+import useGetUser from "../../../Hooks/Util/useGetUser";
 
 export default function BoothDetailPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
   let { boothId } = useParams();
+  const { data: userData } = useGetUser();
 
   const {
     mutate,
@@ -45,6 +47,11 @@ export default function BoothDetailPage() {
   if (isLoading) return <div>로딩중입니다...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
 
+  const isUserHaveAuth = () => {
+    if (userData && userData.id === data?.manager.id) return true;
+    return false;
+  };
+
   const formatDate = (input: string): string => {
     const date = new Date(input);
     const year = date.getFullYear();
@@ -63,29 +70,29 @@ export default function BoothDetailPage() {
   };
 
   const renderProductManage = () => {
-    //if (data?.isUserManager) {
-    return (
-      <div
-        onClick={() => setModalState(Modal_State.goodsManage)}
-        className="w-15 inline-flex shadow-md px-2 rounded-md text-white text-center bg-[#401F71]"
-      >
-        물품 관리
-      </div>
-    );
-    //}
+    if (isUserHaveAuth()) {
+      return (
+        <div
+          onClick={() => setModalState(Modal_State.goodsManage)}
+          className="w-15 inline-flex shadow-md px-2 rounded-md text-white text-center bg-[#401F71]"
+        >
+          물품 관리
+        </div>
+      );
+    }
   };
 
   const renderServiceManage = () => {
-    //if (data?.isUserManager) {
-    return (
-      <div
-        onClick={() => setModalState(Modal_State.serviceManage)}
-        className="w-15 inline-flex shadow-md px-2 rounded-md text-white text-center bg-[#401F71]"
-      >
-        서비스 관리
-      </div>
-    );
-    // }
+    if (isUserHaveAuth()) {
+      return (
+        <div
+          onClick={() => setModalState(Modal_State.serviceManage)}
+          className="w-15 inline-flex shadow-md px-2 rounded-md text-white text-center bg-[#401F71]"
+        >
+          서비스 관리
+        </div>
+      );
+    }
   };
 
   const tmpGoods = ["1", "2", "3"];
