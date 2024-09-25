@@ -4,9 +4,13 @@ import { useParams } from "react-router-dom";
 import { useGetServiceList } from "../../../../Hooks/Booth/Detail/useGetServices";
 interface Props {
   setModalState: (state: string) => void;
+  isManager: boolean;
 }
 
-export default function ServiceManagementPage({ setModalState }: Props) {
+export default function ServiceManagementPage({
+  setModalState,
+  isManager,
+}: Props) {
   let { boothId } = useParams();
   const { isError, data, isLoading } = useGetServiceList(boothId ?? "");
 

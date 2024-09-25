@@ -180,9 +180,14 @@ export default function BoothDetailPage() {
                 <div className="font-bold">판매 상품</div>
                 <div className="flex ml-auto gap-2">
                   <button>{renderProductManage()} </button>
-                  <button className="ml-auto bg-[#0064FF] text-white rounded-md px-2 ">
-                    모두 보기
-                  </button>
+                  {!isUserHaveAuth && (
+                    <button
+                      onClick={() => setModalState(Modal_State.goodsManage)}
+                      className="ml-auto bg-[#0064FF] text-white rounded-md px-2 "
+                    >
+                      모두 보기
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="w-full flex flex-col gap-2">
@@ -197,9 +202,14 @@ export default function BoothDetailPage() {
                 <div className="font-bold">서비스 예약</div>
                 <div className="flex ml-auto gap-2">
                   <button>{renderServiceManage()} </button>
-                  <button className="ml-auto bg-[#0064FF] text-white rounded-md px-2 ">
-                    모두 보기
-                  </button>
+                  {!isUserHaveAuth && (
+                    <button
+                      onClick={() => setModalState(Modal_State.serviceManage)}
+                      className="ml-auto bg-[#0064FF] text-white rounded-md px-2 "
+                    >
+                      모두 보기
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="w-full flex flex-col gap-2">
@@ -214,13 +224,19 @@ export default function BoothDetailPage() {
       {modalState !== "none" && (
         <Modal width="w-3/4" isOpen={true}>
           {modalState === Modal_State.goodsManage && (
-            <ManageProducts setModalState={setModalState} />
+            <ManageProducts
+              isManager={isUserHaveAuth()}
+              setModalState={setModalState}
+            />
           )}
           {modalState === Modal_State.goodsInput && (
             <GoodsInfoInputPage setModalState={setModalState} />
           )}
           {modalState === Modal_State.serviceManage && (
-            <ServiceManagementPage setModalState={setModalState} />
+            <ServiceManagementPage
+              isManager={isUserHaveAuth()}
+              setModalState={setModalState}
+            />
           )}
           {modalState === Modal_State.serviceInput && (
             <ServiceInfoInputPage

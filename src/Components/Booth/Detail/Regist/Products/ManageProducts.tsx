@@ -9,10 +9,11 @@ import CategoryModal from "./CategoryModal";
 import { useEffect, useRef } from "react";
 interface Props {
   setModalState: (state: string) => void;
+  isManager: boolean;
 }
 
 // 무한 스크롤 및 categoryGoodsList 데이터를 사용하는 코드
-export default function ManageProducts({ setModalState }: Props) {
+export default function ManageProducts({ setModalState, isManager }: Props) {
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false); // 카테고리 모달 상태 관리
   const [selectedOption, setSelectedOption] = useState<number>(0); // select 태그 상태 관리
   let { boothId } = useParams();
@@ -96,20 +97,22 @@ export default function ManageProducts({ setModalState }: Props) {
           </div>
 
           {/* 우측 상단에 물품 등록 버튼 */}
-          <div className="absolute top-4 right-8 flex gap-4">
-            <button
-              onClick={handleCategoryRegister}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md"
-            >
-              카테고리 등록
-            </button>
-            <button
-              onClick={() => setModalState(Modal_State.goodsInput)}
-              className="bg-green-500 text-white px-4 py-2 rounded-md"
-            >
-              물품 등록
-            </button>
-          </div>
+          {isManager && (
+            <div className="absolute top-4 right-8 flex gap-4">
+              <button
+                onClick={handleCategoryRegister}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                카테고리 등록
+              </button>
+              <button
+                onClick={() => setModalState(Modal_State.goodsInput)}
+                className="bg-green-500 text-white px-4 py-2 rounded-md"
+              >
+                물품 등록
+              </button>
+            </div>
+          )}
 
           {selectedOption === 0 ? (
             <div className="space-y-8">
