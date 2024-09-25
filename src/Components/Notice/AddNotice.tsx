@@ -6,8 +6,9 @@ import { MdStorefront } from "react-icons/md";
 interface Props {
   type: "events" | "booths";
   id: string | number;
+  refetch: () => void;
 }
-export default function AddNotice({ type, id }: Props) {
+export default function AddNotice({ type, id, refetch }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -31,7 +32,20 @@ export default function AddNotice({ type, id }: Props) {
       headers: {
         Authorization: `Bearer ${getAccessToken()}`,
       },
-    });
+    })
+      .then((res) => {
+        if (res.ok) {
+          alert("등록되었습니다");
+          setMainImage(null);
+          setIsModalOpen(false);
+          refetch();
+        } else {
+          throw new Error("등록 실패");
+        }
+      })
+      .catch((err) => {
+        alert("등록에 실패했습니다");
+      });
   };
 
   return (

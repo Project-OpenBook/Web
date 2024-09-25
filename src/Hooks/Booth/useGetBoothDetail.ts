@@ -13,6 +13,11 @@ interface BoothData {
   eventId: number;
   eventName: string;
   isUserManager: boolean;
+  manager: {
+    id: number;
+    nickname: string;
+    role: string;
+  };
 }
 
 export interface LocationData {

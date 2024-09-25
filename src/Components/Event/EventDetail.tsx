@@ -8,6 +8,7 @@ import { getAccessToken } from "../../Api/Util/token";
 import { IoIosSettings } from "react-icons/io";
 import KakaoMap from "./KakaoMap";
 import EventNotice from "./EventNotice";
+import { useAuth } from "../../Hooks/useAuth";
 
 export interface Event {
   id: number;
@@ -19,7 +20,12 @@ export interface Event {
   closeDate: string;
   layoutImageUrls: Array<string>;
   boothCount: number;
-  isUserManager: boolean;
+  // isUserManager: boolean;
+  eventManager: {
+    id: number;
+    nickname: string;
+    role: string;
+  };
   tags?: string[];
 }
 
@@ -38,7 +44,7 @@ export const eventFetcher = (id: string | undefined) => {
 
 export default function EventDetailPage() {
   const { id } = useParams();
-
+  const { id: userId } = useAuth();
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
@@ -65,7 +71,7 @@ export default function EventDetailPage() {
     closeDate,
     description,
     id: eventId,
-    isUserManager,
+    eventManager,
     layoutImageUrls,
     location,
     mainImageUrl,
@@ -86,7 +92,7 @@ export default function EventDetailPage() {
             >
               부스 신청
             </Link>
-            {data?.isUserManager && (
+            {eventManager.id === userId && (
               <Link
                 to={"manage"}
                 className="flex gap-2 items-center ml-auto p-2 rounded-md bg-orange-500 text-white"
