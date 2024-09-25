@@ -132,7 +132,7 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
                     </div>
 
                     {/* 제품 그리드 */}
-                    <div className="grid place-items-center grid-cols-5 gap-6">
+                    <div className="grid place-items-center grid-cols-4 gap-6">
                       {category.products.content.length > 0 ? (
                         category.products.content.map((product, prodIndex) => (
                           <GoodsInfoCard key={prodIndex} product={product} />
