@@ -6,10 +6,11 @@ import NoticeCard from "../NoticeCard";
 import { useQuery } from "@tanstack/react-query";
 import { Event, eventFetcher } from "./EventDetail";
 import AddNotice from "../Notice/AddNotice";
+import { useAuth } from "../../Hooks/useAuth";
 
 export default function EventNoticeList() {
   const { id } = useParams();
-
+  const { id: userId } = useAuth();
   const { data, fetchNextPage, hasNextPage, refetch } = useEventNotice(
     +(id ?? 1)
   );
@@ -34,7 +35,9 @@ export default function EventNoticeList() {
       }
       className="w-full max-w-screen-lg shadow-2xl h-full p-2 pt-10 mx-auto"
     >
-      {eventData?.isUserManager && <AddNotice id={+(id ?? 0)} type="events" />}
+      {eventData?.eventManager.id === userId && (
+        <AddNotice id={+(id ?? 0)} type="events" refetch={refetch} />
+      )}
 
       <section className="w-full flex flex-col gap-4">
         {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}

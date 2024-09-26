@@ -24,10 +24,10 @@ export default function BoothNotice({ boothId }: Props) {
       </div>
       <div className="flex flex-col w-full border-4 border-blue-200 p-2 rounded-md min-h-44">
         {data?.pages[0].content.length > 0 ? (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col">
             {data?.pages.map((notices) =>
               notices.content.map((notice) => (
-                <NoticeCard key={notice.id} notice={notice} />
+                <NoticeCard key={notice.id} notice={notice} alignType="row" />
               ))
             )}
           </div>
