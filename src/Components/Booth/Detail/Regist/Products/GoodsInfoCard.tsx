@@ -43,7 +43,7 @@ export default function GoodsInfoCard({ product }: Props) {
           제품명 : <span className="text-black">{product.name}</span>
         </div>
         <div className="text-gray-700">
-          카테고리 : <span className="text-black">{product.description}</span>
+          설명 : <span className="text-black">{product.description}</span>
         </div>
         <div className="text-gray-700">
           가격 :{" "}

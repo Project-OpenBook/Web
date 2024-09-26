@@ -25,11 +25,11 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
     setName,
     setPrice,
     setStock,
-  } = useGoodsInput(setModalState);
+    categoryId,
+  } = useGoodsInput();
   let { boothId } = useParams();
   const setBoothImage = useSetRecoilState(boothImageState);
   const [imageName, setImageName] = useState("X");
-  const [categoryName, setCategoryName] = useState("");
   const { data: categoryList } = useCategoryList(boothId ?? "");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +54,8 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
     }
   };
 
+  console.log(categoryId);
+
   return (
     <>
       <div className="flex flex-col w-1/2 p-3 justify-center items-center">
@@ -69,7 +71,7 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
           Icon={BiSolidCategory}
           label="카테고리"
           placeholder="물품의 카테고리를 선택해주세요"
-          setValue={setCategoryName}
+          setValue={setCategoryId}
           type="select"
           categoryData={categoryList}
         />

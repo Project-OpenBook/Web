@@ -42,7 +42,7 @@ const fetchCategoryData = async ({
 }): Promise<CategoryData> => {
   const token = getAccessToken();
   const response = await fetch(
-    `http://52.79.91.214:8080/booths/products/category?category_id=2&page=${pageParam}`,
+    `http://52.79.91.214:8080/booths/products/category?category_id=${categoryId}&page=${pageParam}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

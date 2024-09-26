@@ -43,7 +43,7 @@ const fetchGoodsInput = (goodsRegistData: GoodsRegistData): Promise<void> => {
   return response;
 };
 
-export const useGoodsInput = (setModalState: (state: string) => void) => {
+export const useGoodsInput = () => {
   const { boothId } = useParams() as { boothId: string };
   const [categoryId, setCategoryId] = useState("");
   const [name, setName] = useState("");
@@ -68,6 +68,15 @@ export const useGoodsInput = (setModalState: (state: string) => void) => {
       alert("상품 등록에 실패했습니다.");
     },
     onSuccess: () => {
+      console.log({
+        name,
+        description,
+        categoryId,
+        images,
+        price,
+        stock,
+        boothId,
+      });
       alert("상품이 등록되었습니다.");
     },
   });
@@ -80,5 +89,6 @@ export const useGoodsInput = (setModalState: (state: string) => void) => {
     setName,
     setStock,
     setPrice,
+    categoryId,
   };
 };

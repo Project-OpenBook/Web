@@ -33,12 +33,15 @@ interface Content {
 
 const fetchGoodsData = (boothId: string): Promise<GoodsData[]> => {
   const token = getAccessToken();
-  const response = fetch(`http://52.79.91.214:8080/booths/70/products`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((response) => {
+  const response = fetch(
+    `http://52.79.91.214:8080/booths/${boothId}/products`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  ).then((response) => {
     if (!response.ok) throw new Error("err");
     return response.json();
   });

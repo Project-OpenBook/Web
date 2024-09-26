@@ -78,7 +78,6 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
             부스 물품 관리
           </div>
 
-          {/* 좌측 상단에 select 태그 추가 */}
           <div className="absolute top-4 left-8">
             <label htmlFor="categorySelect" className="mr-2 font-bold">
               카테고리 :
@@ -97,22 +96,31 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
           </div>
 
           {/* 우측 상단에 물품 등록 버튼 */}
-          {isManager && (
-            <div className="absolute top-4 right-8 flex gap-4">
-              <button
-                onClick={handleCategoryRegister}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md"
-              >
-                카테고리 등록
-              </button>
-              <button
-                onClick={() => setModalState(Modal_State.goodsInput)}
-                className="bg-green-500 text-white px-4 py-2 rounded-md"
-              >
-                물품 등록
-              </button>
-            </div>
-          )}
+
+          <div className="absolute top-4 right-8 flex gap-4">
+            {isManager && (
+              <>
+                <button
+                  onClick={handleCategoryRegister}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                >
+                  카테고리 등록
+                </button>
+                <button
+                  onClick={() => setModalState(Modal_State.goodsInput)}
+                  className="bg-green-500 text-white px-4 py-2 rounded-md"
+                >
+                  물품 등록
+                </button>
+              </>
+            )}
+            <button
+              onClick={handleConfirm}
+              className=" bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              확인
+            </button>
+          </div>
 
           {selectedOption === 0 ? (
             <div className="space-y-8">
@@ -176,14 +184,7 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
             </div>
           )}
 
-          <div className="flex justify-center gap-4 mt-4 w-full">
-            <button
-              onClick={handleConfirm}
-              className="w-1/4 bg-blue-500 text-white py-2 rounded"
-            >
-              확인
-            </button>
-          </div>
+          <div className="flex justify-center gap-4 mt-4 w-full"></div>
         </div>
       </div>
 

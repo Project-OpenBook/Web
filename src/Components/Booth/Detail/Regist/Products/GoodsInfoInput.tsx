@@ -50,9 +50,13 @@ export default function GoodsInfoInput({
             placeholder={placeholder}
             type={type}
             className="flex w-3/4 border-b-2 py-2 pl-1"
-            onChange={(e) => setValue(e.target.value)}
           />
-          <select className=" border-2 border-black h-8 w-1/4 hover:cursor-pointer rounded-md bg-white">
+          <select
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+            className=" border-2 border-black h-8 w-1/4 hover:cursor-pointer rounded-md bg-white"
+          >
             {categoryData?.map((category) => {
               return <option value={category.id}>{category.name}</option>;
             })}
