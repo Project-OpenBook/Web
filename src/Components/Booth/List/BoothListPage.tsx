@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import BoothCard from "./BoothCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Booth, fetchBooths, OrderType } from "../../../Api/Util/BoothService";
-import { getAccessToken } from "../../../Api/Util/token";
+// import { getAccessToken } from "../../../Api/Util/token";
 import RadioButtons from "../../Event/List/RadioButtons";
 
 export default function BoothListPage() {
@@ -36,13 +36,13 @@ export default function BoothListPage() {
     fetchMoreBooths(true);
   }, [sortOrder]);
 
-  if (!getAccessToken()) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <h2>로그인 후 이용해주세요.</h2>
-      </div>
-    );
-  }
+  // if (!getAccessToken()) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <h2>로그인 후 이용해주세요.</h2>
+  //     </div>
+  //   );
+  // }
 
   if (isError) {
     return (
