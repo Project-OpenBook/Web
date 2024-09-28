@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import Tabs from "./Tabs";
 import OngoingEvents from "./OngoingEvents";
 import RecruitingEvents from "./RecruitingEvents";
@@ -7,12 +8,27 @@ import RadioButtons from "./RadioButtons";
 import DateRangeFilter from "./DateRangeFilter";
 import { Progress } from "./types";
 import { OrderType } from "../../../Api/Util/EventService";
+import { FcInfo } from "react-icons/fc";
 
 export default function EventListPage() {
   const [selectedTab, setSelectedTab] = useState<Progress>("진행중");
   const [sortOrder, setSortOrder] = useState<OrderType>("최신순");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
+
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const tabParam = searchParams.get("tab");
+    if (
+      tabParam &&
+      (tabParam === "모집중" ||
+        tabParam === "진행중" ||
+        tabParam === "종료된 행사")
+    ) {
+      setSelectedTab(tabParam as Progress);
+    }
+  }, [searchParams]);
 
   const handleDateFilter = (startDate: string, endDate: string) => {
     setStartDate(startDate);
@@ -74,7 +90,21 @@ export default function EventListPage() {
                 />
               </div>
             )}
-            {selectedTab !== "종료된 행사" && (
+            {selectedTab === "모집중" && (
+              <div className="flex justify-between items-center w-full">
+                <div className="flex items-center">
+                  <FcInfo className="mr-2 text-xl" />
+                  <p className="text-left font-bold underline decoration-wavy decoration-sky-500 underline-offset-4">
+                    부스 등록은 행사 상세 페이지에서 가능합니다.
+                  </p>
+                </div>
+                <RadioButtons
+                  sortOrder={sortOrder}
+                  onSortOrderChange={setSortOrder}
+                />
+              </div>
+            )}
+            {selectedTab === "진행중" && (
               <div className="flex justify-end w-full">
                 <RadioButtons
                   sortOrder={sortOrder}
