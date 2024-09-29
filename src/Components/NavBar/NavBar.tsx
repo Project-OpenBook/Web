@@ -156,7 +156,7 @@ export default function NavBar() {
               {!isLoggedIn && (
                 <Link
                   to="/register"
-                  className="flex justify-center items-center bg-[#0064FF] px-4 py-1 border-2 rounded-lg border-white font-bold text-white text-sm"
+                  className="flex justify-center items-center bg-blue-400 px-4 py-1 border-2 rounded-lg border-white font-bold text-white text-sm"
                 >
                   회원가입
                 </Link>
