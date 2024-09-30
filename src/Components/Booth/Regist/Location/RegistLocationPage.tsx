@@ -15,18 +15,6 @@ interface Props {
   setModalState: (state: string) => void;
 }
 
-interface Area {
-  id: number;
-  number: string;
-  status: "EMPTY" | "WAITING" | "COMPLETE";
-}
-
-// interface Data {
-//   layoutType: "ALPHABET" | "NUMBER";
-//   layoutImageUrls: string[];
-//   areas: { [key: string]: Area[] };
-// }
-
 export default function RegistLocationPage({
   eventId,
   selectedSeatIds,
@@ -108,13 +96,13 @@ export default function RegistLocationPage({
   };
 
   const renderSeats = () => {
-    if (!data) return null;
-    const layoutType = data.layoutType;
+    if (!data) return <>잘못된 접근입니다.</>;
+    const type = data.type;
     const seatRows: JSX.Element[] = [];
 
-    if (layoutType === "ALPHABET") {
+    if (type === "ALPHABET") {
       for (const row in data.areas) {
-        const seatElements: JSX.Element[] = data.areas[row].map((area) => {
+        const seatElements: JSX.Element[] = data.areas[row].map((area: any) => {
           const seatNumber = `${row}${area.number}`;
           return (
             <div
@@ -139,12 +127,12 @@ export default function RegistLocationPage({
           </div>
         );
       }
-    } else if (layoutType === "NUMBER") {
+    } else if (type === "NUMBER") {
       let rowCount = 0;
       let seatElements: JSX.Element[] = [];
 
       for (const row in data.areas) {
-        data.areas[row].forEach((area) => {
+        data.areas[row].forEach((area: any) => {
           const seatNumber = area.number;
           seatElements.push(
             <div
@@ -194,7 +182,7 @@ export default function RegistLocationPage({
           <div className="text-3xl font-bold">행사장 구조도</div>
           <div className="flex justify-center items-center w-full h-3/4">
             <img
-              src={data.layoutImageUrls[0]}
+              src={data.imageUrl}
               alt="Event Venue"
               className="w-full h-full object-contain px-5 pb-10 rounded mt-3"
             />

@@ -18,7 +18,7 @@ interface Props {
 export default function ShowEventList({ eventList, title }: Props) {
   return (
     <div className="flex justify-center">
-      <div className="px-10">
+      <div>
         <Carousel
           className="h-72"
           list={[

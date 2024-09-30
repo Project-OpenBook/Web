@@ -85,7 +85,9 @@ export default function MainPage({ state = "main" }: Props) {
               </button>
             ))}
           </div>
-          {listTabs[listTab]}
+          <div className="flex w-full">
+            {listTabs[listTab]}
+          </div>
         </div>
       </div>
     </section>

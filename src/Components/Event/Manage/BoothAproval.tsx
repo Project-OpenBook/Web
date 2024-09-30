@@ -7,6 +7,7 @@ import { Event, eventFetcher } from "../EventDetail";
 import BoothAprovalTable from "./BoothAprovalTable";
 import { useAproval } from "../../../Hooks/useAproval";
 import { useEffect } from "react";
+import { useAuth } from "../../../Hooks/useAuth";
 
 export type BoothAprovalContent = Array<{
   id: number;
@@ -67,6 +68,7 @@ const setBoothState = (boothId: number, status: string) =>
 
 export default function BoothAproval() {
   const { id } = useParams();
+  const { id: userId } = useAuth();
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ?? 1;
   const { data, isError, refetch } = useQuery<BoothAprovalType>({
@@ -113,7 +115,7 @@ export default function BoothAproval() {
     cs(eventIds, state);
   };
 
-  if (!eventLoading && !eventData?.isUserManager) {
+  if (!eventLoading && eventData?.eventManager.id !== userId) {
     alert("행사 관리자만 이용 가능합니다");
     window.history.back();
   }

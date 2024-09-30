@@ -19,6 +19,7 @@ export default function NavBar() {
 
   const handleLogout = () => {
     removeAccessToken();
+    navigate("/");
     window.location.reload();
   };
 
@@ -44,7 +45,7 @@ export default function NavBar() {
   }, []);
 
   return (
-    <div className="px-2 mb-2 bg-[#0064FF]">
+    <div className="px-2 mb-2 bg-blue-400">
       <div className="bg-cover bg-center p-6">
         <nav>
           <div className="flex justify-between items-center">
@@ -69,7 +70,7 @@ export default function NavBar() {
                 </div>
                 {showDropdown && (
                   <div
-                    className="absolute z-50 bg-[#0064FF] shadow-lg py-4 rounded-b-lg border border-transparent grid grid-cols-2 divide-x divide-white w-80 -translate-x-[4.5rem] translate-y-[2rem]"
+                    className="absolute z-50 bg-blue-400 shadow-lg py-4 rounded-b-lg border border-transparent grid grid-cols-2 divide-x-[2px] divide-white w-80 -translate-x-[4.5rem] translate-y-[2rem]"
                     onMouseEnter={() => {
                       if (timeoutRef.current) {
                         clearTimeout(timeoutRef.current);
@@ -80,13 +81,13 @@ export default function NavBar() {
                     <div className="flex flex-col space-y-2 px-4">
                       <Link
                         to="/EventListPage"
-                        className="block py-2 text-white text-center relative hover:underline decoration-2 underline-offset-8"
+                        className="block py-2 text-white font-semibold text-center relative hover:underline decoration-2 underline-offset-8"
                       >
                         행사 둘러보기
                       </Link>
                       <Link
                         to="/addEvent"
-                        className="block py-2 text-white text-center relative hover:underline decoration-2 underline-offset-8"
+                        className="block py-2 text-white font-semibold text-center relative hover:underline decoration-2 underline-offset-8"
                       >
                         행사 등록하기
                       </Link>
@@ -94,13 +95,13 @@ export default function NavBar() {
                     <div className="flex flex-col space-y-2 px-4">
                       <Link
                         to="/BoothListPage"
-                        className="block py-2 text-white text-center relative hover:underline decoration-2 underline-offset-8"
+                        className="block py-2 text-white font-semibold text-center relative hover:underline decoration-2 underline-offset-8"
                       >
                         부스 둘러보기
                       </Link>
                       <Link
-                        to="/boothRegist"
-                        className="block py-2 text-white text-center relative hover:underline decoration-2 underline-offset-8"
+                        to="/EventListPage?tab=모집중"
+                        className="block py-2 text-white font-semibold text-center relative hover:underline decoration-2 underline-offset-8"
                       >
                         부스 등록하기
                       </Link>
@@ -113,7 +114,7 @@ export default function NavBar() {
               {!loading && role === "ADMIN" ? (
                 <Link
                   to="/admin/eventmanage"
-                  className="flex items-center px-4 py-1 border-2 rounded-lg border-transparent font-bold text-sm text-white bg-sky-500 hover:bg-sky-700"
+                  className="flex items-center px-4 py-1 border-4 rounded-lg border-double border-blue-400 font-bold text-sm text-white bg-sky-600 hover:bg-sky-800"
                 >
                   관리자
                 </Link>
@@ -136,7 +137,7 @@ export default function NavBar() {
                   </button>
                   <Link
                     to="/mypage"
-                    className="flex justify-center items-center bg-[#0064FF] px-4 py-1 border-2 rounded-lg border-white font-bold text-white text-sm"
+                    className="flex justify-center items-center bg-blue-400 px-4 py-1 border-2 rounded-lg border-white font-bold text-white text-sm"
                   >
                     마이페이지
                   </Link>
@@ -155,7 +156,7 @@ export default function NavBar() {
               {!isLoggedIn && (
                 <Link
                   to="/register"
-                  className="flex justify-center items-center bg-[#0064FF] px-4 py-1 border-2 rounded-lg border-white font-bold text-white text-sm"
+                  className="flex justify-center items-center bg-blue-400 px-4 py-1 border-2 rounded-lg border-white font-bold text-white text-sm"
                 >
                   회원가입
                 </Link>

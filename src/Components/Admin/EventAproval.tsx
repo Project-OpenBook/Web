@@ -129,7 +129,9 @@ export default function EventAproval() {
                       checked={checkList[index] ?? false}
                     />
                   </td>
-                  <td className="py-2 px-4 border-b">{booth.name}</td>
+                  <td className="py-2 px-4 border-b text-nowrap">
+                    {booth.name}
+                  </td>
                   <td className="py-2 px-4 border-b">{booth.location}</td>
                   <td className="py-2 px-4 border-b">{booth.openDate}</td>
                   <td className="py-2 px-4 border-b">{booth.description}</td>

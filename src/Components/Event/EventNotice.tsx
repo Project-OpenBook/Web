@@ -28,7 +28,7 @@ export default function EventNotice({ eventId }: Props) {
           <div className="flex flex-col gap-4">
             {data?.pages.map((notices) =>
               notices.content.map((notice) => (
-                <NoticeCard key={notice.id} notice={notice} />
+                <NoticeCard key={notice.id} notice={notice} alignType="row" />
               ))
             )}
           </div>

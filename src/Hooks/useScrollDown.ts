@@ -10,22 +10,24 @@ export function useScrollDown({ onScrollDownToEnd, offset = 0 }: Option) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (
+      const isEndOfScroll =
         window.innerHeight + window.scrollY + offset >=
-        document.body.offsetHeight
-      ) {
-        setIsScrollDown(true);
-        onScrollDownToEnd && onScrollDownToEnd();
-      } else {
-        setIsScrollDown(false);
-      }
+        document.body.offsetHeight;
+      setIsScrollDown(isEndOfScroll);
     };
+
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    if (isScrollDown) {
+      onScrollDownToEnd && onScrollDownToEnd();
+    }
+  }, [isScrollDown, onScrollDownToEnd]);
 
   return isScrollDown;
 }

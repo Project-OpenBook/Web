@@ -12,7 +12,7 @@ export default function Modal({ isOpen, children, width }: Props) {
         shouldCloseOnOverlayClick={false}
         isOpen={isOpen}
         onRequestClose={() => {}}
-        className={`flex flex-col ${width} bg-white p-4 items-center justify-center`}
+        className={`flex flex-col ${width} bg-white px-4 items-center justify-center`}
         overlayClassName="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center"
       >
         {children}
