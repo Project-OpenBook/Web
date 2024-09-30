@@ -26,6 +26,8 @@ const fetchGoodsInput = (goodsRegistData: GoodsRegistData): Promise<void> => {
   }
   formData.append("price", goodsRegistData.price);
   formData.append("stock", goodsRegistData.stock);
+
+  console.log(goodsRegistData);
   const response = fetch(
     `http://52.79.91.214:8080/booths/${goodsRegistData.boothId}/products`,
     {

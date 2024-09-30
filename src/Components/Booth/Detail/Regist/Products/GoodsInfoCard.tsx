@@ -1,3 +1,4 @@
+import { useDeleteProduct } from "../../../../../Hooks/Booth/Detail/useDeleteProduct";
 interface Props {
   product: {
     id: string;
@@ -15,6 +16,8 @@ interface Image {
 }
 
 export default function GoodsInfoCard({ product }: Props) {
+  const { mutate } = useDeleteProduct(product.id);
+
   return (
     <div className="flex h-96 flex-col p-4 w-full gap-6 items-start rounded-lg font-semibold shadow-xl hover:shadow-2xl transition-transform duration-300 hover:scale-105">
       {/* 이미지 컨테이너 */}
@@ -61,7 +64,12 @@ export default function GoodsInfoCard({ product }: Props) {
         <button className="bg-blue-500 rounded-md w-full p-2 transition-all transform hover:scale-105 hover:bg-blue-600 duration-300">
           수정
         </button>
-        <button className="bg-red-600 rounded-md w-full p-2 transition-all transform hover:scale-105 hover:bg-red-700 duration-300">
+        <button
+          onClick={() => {
+            mutate();
+          }}
+          className="bg-red-600 rounded-md w-full p-2 transition-all transform hover:scale-105 hover:bg-red-700 duration-300"
+        >
           삭제
         </button>
       </div>
