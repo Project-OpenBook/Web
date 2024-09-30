@@ -27,7 +27,9 @@ import MyPage from "./Components/MyPage/MyPage";
 import EventNoticeList from "./Components/Event/EventNoticeList";
 import logo from "./Components/NavBar/logo_wide.png";
 import BoothNoticeList from "./Components/Booth/List/BoothNoticeList";
+import ItemList from "./test";
 import ScrollToTop from "./Components/Util/ScrollToTop";
+
 
 function App() {
   const location = useLocation();
@@ -79,6 +81,7 @@ function App() {
           <Route path="/boothRegist" element={<BoothRegistPage />} />
           <Route path="/booth/:boothId" element={<BoothDetailPage />} />
           <Route path="/booth/:id/notice" element={<BoothNoticeList />} />
+          <Route path="/test" element={<ItemList></ItemList>} />
         </Routes>
       </div>
       <footer className="flex items-center w-full h-44 bg-blue-300 text-white">

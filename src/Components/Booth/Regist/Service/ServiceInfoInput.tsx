@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { IconType } from "react-icons";
 import { MAIN_BLUE } from "../../../../Constants/Color";
+import { Modal_State } from "../BoothRegistPage";
 
 interface Props {
   label: string;
@@ -8,7 +9,9 @@ interface Props {
   setValue: (value: any) => void;
   Icon: IconType;
   type: "text" | "image" | "button";
+  value?: string;
   imageName?: string;
+  setModalState?: (state: string) => void;
 }
 
 export default function ServiceInfoInput({
@@ -18,6 +21,8 @@ export default function ServiceInfoInput({
   setValue,
   Icon,
   imageName,
+  setModalState,
+  value,
 }: Props) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -37,6 +42,7 @@ export default function ServiceInfoInput({
         <input
           placeholder={placeholder}
           type={type}
+          value={value}
           className="h-10 border-b-2 pl-1 mb-5 w-full"
           onChange={(e) => setValue(e.target.value)}
         />
@@ -47,9 +53,14 @@ export default function ServiceInfoInput({
             placeholder={placeholder}
             type="text"
             className="h-10 border-b-2 pl-1 mb-5 w-3/4"
-            onChange={(e) => setValue(e.target.value)}
+            value={value}
           />
-          <button className="h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white  mb-4">
+          <button
+            onClick={() => {
+              if (setModalState) setModalState(Modal_State.serviceTime);
+            }}
+            className="h-8 w-1/4 hover:cursor-pointer bg-[#0064FF] rounded-md text-white  mb-4"
+          >
             선택
           </button>
         </div>

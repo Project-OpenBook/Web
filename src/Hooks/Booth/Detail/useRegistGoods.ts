@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { getAccessToken } from "../../../Api/Util/token";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 interface GoodsRegistData {
@@ -16,10 +15,9 @@ interface GoodsRegistData {
 
 const fetchGoodsInput = (goodsRegistData: GoodsRegistData): Promise<void> => {
   const token = getAccessToken();
-  console.log(goodsRegistData.boothId);
   let formData = new FormData();
   formData.append("name", goodsRegistData.name);
-  formData.append("categoryId", "1");
+  formData.append("categoryId", goodsRegistData.categoryId);
   formData.append("description", goodsRegistData.description);
   if (goodsRegistData.images !== null) {
     goodsRegistData.images.forEach((image) => {
@@ -46,7 +44,6 @@ const fetchGoodsInput = (goodsRegistData: GoodsRegistData): Promise<void> => {
 };
 
 export const useGoodsInput = () => {
-  const navi = useNavigate();
   const { boothId } = useParams() as { boothId: string };
   const [categoryId, setCategoryId] = useState("");
   const [name, setName] = useState("");
@@ -72,7 +69,6 @@ export const useGoodsInput = () => {
     },
     onSuccess: () => {
       alert("상품이 등록되었습니다.");
-      navi("/");
     },
   });
 
@@ -84,5 +80,6 @@ export const useGoodsInput = () => {
     setName,
     setStock,
     setPrice,
+    categoryId,
   };
 };

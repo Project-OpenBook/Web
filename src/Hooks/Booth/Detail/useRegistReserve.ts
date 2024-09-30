@@ -3,6 +3,8 @@ import { getAccessToken } from "../../../Api/Util/token";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { isError } from "util";
+import { Modal_State } from "../../../Components/Booth/Regist/BoothRegistPage";
 
 interface ReserveRegistData {
   name: string;
@@ -29,6 +31,9 @@ const fetchReserveInput = (
   reserveRegistData.times.forEach((time) => {
     formData.append("times", time);
   });
+  reserveRegistData.date.forEach((date) => {
+    formData.append("date", date);
+  });
   const response = fetch(
     `http://52.79.91.214:8080/booths/${reserveRegistData.boothId}/reservation`,
     {
@@ -46,17 +51,27 @@ const fetchReserveInput = (
   return response;
 };
 
-export const useReserveInput = () => {
-  const navi = useNavigate();
+export const useReserveInput = (setModalState: (state: string) => void) => {
   const { boothId } = useParams() as { boothId: string };
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState<File | null>(null);
-  const [times, setTimes] = useState([]);
-  const [date, setDate] = useState([]);
+  const [timeList, setTimeList] = useState<string[]>([]);
+  const [selectedDates, setSelectedDates] = useState<string[]>([]);
+  const [imageName, setImageName] = useState("X");
 
-  const { mutate } = useMutation({
+  const resetVar = () => {
+    setName("");
+    setDescription("");
+    setPrice("");
+    setImage(null);
+    setTimeList([]);
+    setSelectedDates([]);
+    setImageName("X");
+  };
+
+  const { mutate, isError, isSuccess } = useMutation({
     mutationFn: () =>
       fetchReserveInput({
         name,
@@ -64,26 +79,37 @@ export const useReserveInput = () => {
         image,
         price,
         boothId,
-        times,
-        date,
+        times: timeList,
+        date: selectedDates,
       }),
 
     onError: () => {
-      alert("상품 등록에 실패했습니다.");
+      alert("서비스 등록에 실패했습니다.");
     },
     onSuccess: () => {
-      alert("상품이 등록되었습니다.");
-      navi("/");
+      alert("서비스가 등록되었습니다.");
+      resetVar();
+      setModalState(Modal_State.serviceManage);
     },
   });
 
   return {
     mutate,
-    setTimes,
-    setDate,
+    setTimeList,
+    selectedDates,
+    timeList,
+    setSelectedDates,
     setDescription,
     setImage,
     setName,
+    name,
+    description,
+    image,
+    price,
     setPrice,
+    imageName,
+    setImageName,
+    isError,
+    isSuccess,
   };
 };

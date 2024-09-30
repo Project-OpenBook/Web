@@ -17,18 +17,59 @@ import ServiceTimeAdd from "../Regist/Service/ServiceTimeAdd";
 import ManageProducts from "./Regist/Products/ManageProducts";
 import GoodsInfoInputPage from "./Regist/Products/GoodsInfoInputPage";
 import BoothNotice from "./BoothNotice";
+import { useReserveInput } from "../../../Hooks/Booth/Detail/useRegistReserve";
+import useGetUser from "../../../Hooks/Util/useGetUser";
 import ReviewList from "../../Event/EventReviewList";
 
 export default function BoothDetailPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
   let { boothId } = useParams();
+  const { data: userData } = useGetUser();
 
+  const {
+    mutate,
+    setName,
+    setPrice,
+    setDescription,
+    setImage,
+    name,
+    description,
+    price,
+    imageName,
+    setImageName,
+    selectedDates,
+    setSelectedDates,
+    setTimeList,
+    timeList,
+  } = useReserveInput(setModalState);
   const { isError, data, isLoading } = useGetBoothDetail(boothId ?? "");
   if (isLoading) return <div>로딩중입니다...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
 
+  const isUserHaveAuth = () => {
+    if (userData && userData.id === data?.manager.id) return true;
+    return false;
+  };
+
+  const formatDate = (input: string): string => {
+    const date = new Date(input);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}/${month}/${day}`;
+  };
+
+  const formatTime = (input: string): string => {
+    const date = new Date(input);
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${hours} : ${minutes}`;
+  };
+
   const renderProductManage = () => {
-    if (data?.isUserManager) {
+    if (isUserHaveAuth()) {
       return (
         <div
           onClick={() => setModalState(Modal_State.goodsManage)}
@@ -41,7 +82,7 @@ export default function BoothDetailPage() {
   };
 
   const renderServiceManage = () => {
-    if (data?.isUserManager) {
+    if (isUserHaveAuth()) {
       return (
         <div
           onClick={() => setModalState(Modal_State.serviceManage)}
@@ -60,22 +101,24 @@ export default function BoothDetailPage() {
     <div className="flex justify-center text-xl">
       {data ? (
         <div className="shadow-md w-full max-w-screen-xl m-2 flex flex-col items-center my-10 pb-5 p-2">
-          <div className="flex flex-col mt-10 items-center gap-4">
+          <div className="flex flex-col mt-10 items-center gap-4 lg:w-[900px]">
             <div className="text-3xl font-bold my-5 flex">
               <div>{data.name} </div>
             </div>
-            <div className="flex flex-col lg:flex-row w-full justify-center gap-5">
-              <img
-                className="w-full lg:w-60"
-                src={data.mainImageUrl}
-                alt="부스 이미지"
-              />
+            <div className="flex flex-col lg:flex-row w-full gap-5">
+              <div className="w-1/2 bg-white flex justify-center">
+                <img
+                  className="w-full lg:w-60"
+                  src={data.mainImageUrl}
+                  alt="부스 이미지"
+                />
+              </div>
               <div className="flex flex-col">
                 <div className="flex flex-col h-2/3 gap-3 mt-2">
                   <div>
                     <div className="flex gap-2 flex-col md:flex-row">
-                      <div className="font-bold text-nowrap">행사명 : </div>
-                      <EventName text={data.eventName} />
+                      <div className="font-bold text-nowrap">행사명 :</div>
+                      <EventName text={data.event.name} />
                     </div>
                   </div>
                   <div>
@@ -93,20 +136,30 @@ export default function BoothDetailPage() {
                   </div>
                   <div className="flex gap-2 flex-col md:flex-row">
                     <div className="font-bold text-nowrap">
-                      부스 운영시간 :{" "}
+                      부스 운영 날짜 :{" "}
                     </div>
                     <div className="flex gap-2 flex-wrap">
-                      <Time text={data.openTime} />
+                      <Time text={formatDate(data.openData)} />
                       <span> ~ </span>
-                      <Time text={data.closeTime} />
+                      <Time text={formatDate(data.closeData)} />
+                    </div>
+                  </div>
+                  <div className="flex gap-2 flex-col md:flex-row">
+                    <div className="font-bold text-nowrap">
+                      부스 운영 시간 :{" "}
+                    </div>
+                    <div className="flex gap-2 flex-wrap">
+                      <Time text={formatTime(data.openData)} />
+                      <span> ~ </span>
+                      <Time text={formatTime(data.closeData)} />
                     </div>
                   </div>
                   <div className="flex flex-col md:flex-row gap-2">
                     <div className="font-bold text-nowrap">부스 태그 : </div>
                     <div className="flex w-full gap-3 flex-wrap">
-                      <Tag text="로맨스" />
-                      <Tag text="액션" />
-                      <Tag text="공포" />
+                      {data.tags.map((tag) => {
+                        return <Tag text={tag} />;
+                      })}
                     </div>
                   </div>
                   <div className="flex flex-col gap-2 ">
@@ -126,9 +179,14 @@ export default function BoothDetailPage() {
                 <div className="font-bold">판매 상품</div>
                 <div className="flex ml-auto gap-2">
                   <button>{renderProductManage()} </button>
-                  <button className="ml-auto bg-[#0064FF] text-white rounded-md px-2 ">
-                    모두 보기
-                  </button>
+                  {!isUserHaveAuth() && (
+                    <button
+                      onClick={() => setModalState(Modal_State.goodsManage)}
+                      className="ml-auto bg-[#0064FF] text-white rounded-md px-2 "
+                    >
+                      모두 보기
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="w-full flex flex-col gap-2">
@@ -143,9 +201,14 @@ export default function BoothDetailPage() {
                 <div className="font-bold">서비스 예약</div>
                 <div className="flex ml-auto gap-2">
                   <button>{renderServiceManage()} </button>
-                  <button className="ml-auto bg-[#0064FF] text-white rounded-md px-2 ">
-                    모두 보기
-                  </button>
+                  {!isUserHaveAuth() && (
+                    <button
+                      onClick={() => setModalState(Modal_State.serviceManage)}
+                      className="ml-auto bg-[#0064FF] text-white rounded-md px-2 "
+                    >
+                      모두 보기
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="w-full flex flex-col gap-2">
@@ -161,25 +224,47 @@ export default function BoothDetailPage() {
       {modalState !== "none" && (
         <Modal width="w-3/4" isOpen={true}>
           {modalState === Modal_State.goodsManage && (
-            <ManageProducts setModalState={setModalState} />
+            <ManageProducts
+              isManager={isUserHaveAuth()}
+              setModalState={setModalState}
+            />
           )}
           {modalState === Modal_State.goodsInput && (
             <GoodsInfoInputPage setModalState={setModalState} />
           )}
           {modalState === Modal_State.serviceManage && (
-            <ServiceManagementPage setModalState={setModalState} />
-          )}
-          {modalState === Modal_State.serviceInput && (
-            <ServiceInfoInputPage setModalState={setModalState} />
-          )}
-          {modalState === Modal_State.serviceTime && (
-            <ServiceTimeAdd
-              startDate={new Date(2024, 5, 23)}
-              endDate={new Date(2024, 5, 30)}
+            <ServiceManagementPage
+              isManager={isUserHaveAuth()}
+              setModalState={setModalState}
             />
           )}
           {modalState === Modal_State.serviceInput && (
-            <ServiceInfoInputPage setModalState={setModalState} />
+            <ServiceInfoInputPage
+              mutate={mutate}
+              imageName={imageName}
+              setImageName={setImageName}
+              setModalState={setModalState}
+              description={description}
+              name={name}
+              price={price}
+              setDescription={setDescription}
+              setImage={setImage}
+              setName={setName}
+              setPrice={setPrice}
+              selectedDates={selectedDates}
+              timeList={timeList}
+            />
+          )}
+          {modalState === Modal_State.serviceTime && (
+            <ServiceTimeAdd
+              selectedDates={selectedDates}
+              setSelectedDates={setSelectedDates}
+              setTimeList={setTimeList}
+              timeList={timeList}
+              setModalState={setModalState}
+              startDate={new Date(2024, 1, 1)}
+              endDate={new Date(2025, 1, 30)}
+            />
           )}
         </Modal>
       )}

@@ -1,24 +1,54 @@
 import ServiceInfoInput from "./ServiceInfoInput";
-import { useSetRecoilState } from "recoil";
-import { useState } from "react";
-import { boothImageState } from "../../../../Recoil/Booth/boothRegistAtom";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { IoIosPricetags } from "react-icons/io";
 import { MdOutlineDescription } from "react-icons/md";
 import { FaRegImage } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa6";
 import { Modal_State } from "../BoothRegistPage";
+import { useReserveInput } from "../../../../Hooks/Booth/Detail/useRegistReserve";
 
 interface Props {
   setModalState: (state: string) => void;
+  setName: (name: string) => void;
+  setPrice: (price: string) => void;
+  setDescription: (des: string) => void;
+  setImage: (image: File | null) => void;
+  name: string;
+  description: string;
+  price: string;
+  imageName: string;
+  setImageName: (Iname: string) => void;
+  mutate: () => void;
+  selectedDates: string[];
+  timeList: string[];
 }
 
-export default function ServiceInfoInputPage({ setModalState }: Props) {
-  const setBoothImage = useSetRecoilState(boothImageState);
-  const [imageName, setImageName] = useState("X");
+export default function ServiceInfoInputPage({
+  setModalState,
+  description,
+  name,
+  price,
+  setDescription,
+  setImage,
+  setName,
+  setPrice,
+  imageName,
+  setImageName,
+  mutate,
+  selectedDates,
+  timeList,
+}: Props) {
+  const { isSuccess } = useReserveInput(setModalState);
 
   const handleConfirm = () => {
-    setModalState(Modal_State.serviceManage);
+    mutate();
+    if (isSuccess) {
+      setModalState(Modal_State.serviceManage);
+    }
+  };
+
+  const dateAndTimeValue = (dates: string[], times: string[]) => {
+    return `총 ${dates.length} 개의 날짜와 ${times.length} 개의 시간이 등록되었습니다.`;
   };
 
   const handleCancel = () => {
@@ -30,10 +60,10 @@ export default function ServiceInfoInputPage({ setModalState }: Props) {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
     if (selectedFile) {
-      setBoothImage(selectedFile);
+      setImage(selectedFile);
       setImageName(selectedFile.name);
     } else {
-      setBoothImage(null);
+      setImage(null);
       setImageName("X");
     }
   };
@@ -46,29 +76,34 @@ export default function ServiceInfoInputPage({ setModalState }: Props) {
           Icon={MdDriveFileRenameOutline}
           label="서비스명"
           placeholder="서비스명을 입력해 주세요"
-          setValue={() => {}}
+          setValue={setName}
+          value={name}
           type="text"
         />
         <ServiceInfoInput
           Icon={MdOutlineDescription}
           label="서비스 설명"
           placeholder="서비스에 대한 간략한 설명을 입력해 주세요"
-          setValue={() => {}}
+          setValue={setDescription}
+          value={description}
           type="text"
         />
         <ServiceInfoInput
           Icon={IoIosPricetags}
           label="이용 가격(원)"
           placeholder="서비스의 이용 가격을 숫자로 입력해 주세요"
-          setValue={() => {}}
+          setValue={setPrice}
+          value={price}
           type="text"
         />
         <ServiceInfoInput
           Icon={FaClock}
           label="서비스 시간"
           placeholder="서비스를 이용할 수 있는 시간대를 선택해 주세요"
-          setValue={() => {}}
+          value={dateAndTimeValue(selectedDates, timeList)}
           type="button"
+          setModalState={setModalState}
+          setValue={() => {}}
         />
         <ServiceInfoInput
           Icon={FaRegImage}

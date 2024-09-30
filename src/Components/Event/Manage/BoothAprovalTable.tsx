@@ -30,7 +30,7 @@ export default function BoothAprovalTable({
               checked={checkList[index]}
             />
           </td>
-          <td className="py-2 px-4 border-b">{booth.name}</td>
+          <td className="py-2 px-4 border-b text-nowrap">{booth.name}</td>
           <td className="py-2 px-4 border-b">
             {booth.boothLocationData?.map(({ classification, number }) => (
               <span>

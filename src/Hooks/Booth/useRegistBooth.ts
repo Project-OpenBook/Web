@@ -26,7 +26,7 @@ const fetchSignUp = (boothRegistData: BoothRegistData): Promise<void> => {
   formData.append("accountNumber", boothRegistData.accountNumber);
   formData.append("accountBankName", boothRegistData.accountBankName);
   boothRegistData.selectedSeatIds.forEach((location) => {
-    formData.append("layoutAreas", location.toString());
+    formData.append("requestAreas", location.toString());
   });
   boothRegistData.tagNames?.forEach((tag) => {
     formData.append("tags", tag);
