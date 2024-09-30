@@ -17,7 +17,7 @@ const fetchGoodsInput = (goodsRegistData: GoodsRegistData): Promise<void> => {
   const token = getAccessToken();
   let formData = new FormData();
   formData.append("name", goodsRegistData.name);
-  formData.append("categoryId", "1");
+  formData.append("categoryId", goodsRegistData.categoryId);
   formData.append("description", goodsRegistData.description);
   if (goodsRegistData.images !== null) {
     goodsRegistData.images.forEach((image) => {
@@ -26,8 +26,6 @@ const fetchGoodsInput = (goodsRegistData: GoodsRegistData): Promise<void> => {
   }
   formData.append("price", goodsRegistData.price);
   formData.append("stock", goodsRegistData.stock);
-
-  console.log(goodsRegistData);
   const response = fetch(
     `http://52.79.91.214:8080/booths/${goodsRegistData.boothId}/products`,
     {
@@ -70,15 +68,6 @@ export const useGoodsInput = () => {
       alert("상품 등록에 실패했습니다.");
     },
     onSuccess: () => {
-      console.log({
-        name,
-        description,
-        categoryId,
-        images,
-        price,
-        stock,
-        boothId,
-      });
       alert("상품이 등록되었습니다.");
     },
   });
