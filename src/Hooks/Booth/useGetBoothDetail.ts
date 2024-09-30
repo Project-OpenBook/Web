@@ -18,23 +18,23 @@ interface BoothData {
     nickname: string;
     role: string;
 
-  event: {
-    id: string;
-    name: string;
-    manager: {
+    event: {
       id: string;
+      name: string;
+      manager: {
+        id: string;
+        nickname: string;
+        role: string;
+      };
+    };
+
+    isUserManager: boolean;
+    manager: {
+      id: number;
       nickname: string;
       role: string;
     };
   };
-
-  isUserManager: boolean;
-  manager: {
-    id: number;
-    nickname: string;
-    role: string;
-  };
-
 }
 
 export interface LocationData {

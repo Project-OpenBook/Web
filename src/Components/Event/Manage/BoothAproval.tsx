@@ -115,11 +115,10 @@ export default function BoothAproval() {
     cs(eventIds, state);
   };
 
-
   if (!eventLoading && eventData?.eventManager.id !== userId) {
     alert("행사 관리자만 이용 가능합니다");
     window.history.back();
-  }*/
+  }
   if (!data || isError) return <>부스 데이터를 찾을 수 없습니다.</>;
 
   return (
