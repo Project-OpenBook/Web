@@ -30,9 +30,11 @@ export default function BoothNoticeList() {
       }
       className="w-full max-w-screen-lg h-full p-2 pt-10 mx-auto"
     >
-      {boothData?.manager.id === userId && (
+      {
+        /*boothData?.manager.id === userId && (*/
         <AddNotice type="booths" id={+(id ?? 0)} refetch={refetch} />
-      )}
+        /*)*/
+      }
       <section className="w-full flex flex-col gap-4">
         {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
 

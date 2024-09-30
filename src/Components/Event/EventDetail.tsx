@@ -101,8 +101,7 @@ export default function EventDetailPage() {
                 <IoIosSettings size={20} />
                 행사 관리
               </Link>
-              /*)*/
-            }
+            )}
 
             <EventInfo
               mainImageUrl={mainImageUrl}
