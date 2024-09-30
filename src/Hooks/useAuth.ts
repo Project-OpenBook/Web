@@ -12,6 +12,7 @@ export function useAuth() {
   const [nickname, setNickname] = useState<string | null>(null);
   const [id, setId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchRole = async () => {
       try {
@@ -19,6 +20,7 @@ export function useAuth() {
         const response = await fetch(
           "http://52.79.91.214:8080/user/access_token_info",
           {
+            method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -27,9 +29,18 @@ export function useAuth() {
         if (response.ok) {
           const data: AuthResponse = await response.json();
 
-          setId(data.id);
-          setRole(data.role);
-          setNickname(data.nickname);
+          // 여기서 상태 업데이트 전 변수에 값을 저장
+          const userId = data.id;
+          const userRole = data.role;
+          const userNickname = data.nickname;
+
+          // 필요한 로직 수행
+          console.log(userId); // 변수로 즉시 사용 가능
+
+          // 나중에 상태 업데이트
+          setId(userId);
+          setRole(userRole);
+          setNickname(userNickname);
         } else {
           throw new Error();
         }

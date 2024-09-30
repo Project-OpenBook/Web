@@ -115,6 +115,7 @@ export default function BoothAproval() {
     cs(eventIds, state);
   };
 
+  if (!userId) return <>Loading...</>;
   if (!eventLoading && eventData?.eventManager.id !== userId) {
     alert("행사 관리자만 이용 가능합니다");
     window.history.back();
