@@ -33,9 +33,6 @@ export const eventFetcher = (id: string | undefined) => {
   if (!id) return Promise.reject();
   return fetch(`http://52.79.91.214:8080/events/${id}`, {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
   }).then((response) => {
     if (response.ok) return response.json();
     else throw new Error();
@@ -44,7 +41,6 @@ export const eventFetcher = (id: string | undefined) => {
 
 export default function EventDetailPage() {
   const { id } = useParams();
-  const { id: userId } = useAuth();
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
@@ -93,7 +89,8 @@ export default function EventDetailPage() {
               부스 신청
             </Link>
 
-            {eventManager.id === userId && (
+            {
+              /*eventManager.id === userId && (*/
               <Link
                 to={"manage"}
                 className="flex gap-2 items-center ml-auto p-2 rounded-md bg-orange-500 text-white"
@@ -101,7 +98,8 @@ export default function EventDetailPage() {
                 <IoIosSettings size={20} />
                 행사 관리
               </Link>
-            )}
+              /*)*/
+            }
 
             <EventInfo
               mainImageUrl={mainImageUrl}
