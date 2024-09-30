@@ -28,7 +28,7 @@ export const eventFetcher = (id: string | undefined) => {
   return fetch(`http://52.79.91.214:8080/events/${id}`, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
+      Authorization: "asdfasdf",
     },
   }).then((response) => {
     if (response.ok) return response.json();
