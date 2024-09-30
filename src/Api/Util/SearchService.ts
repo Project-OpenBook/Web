@@ -1,4 +1,4 @@
-import { getAccessToken } from "./token";
+// import { getAccessToken } from "./token";
 
 export interface SearchEvent {
   id: number;
@@ -45,16 +45,16 @@ export const fetchSearchEvents = async (
   sortOrder: OrderType,
   sliceNumber: number
 ): Promise<SearchEventResponse> => {
-  const token = getAccessToken();
+  // const token = getAccessToken();
   const response = await fetch(
     `http://52.79.91.214:8080/events/search?page=${sliceNumber}&type=${type}&query=${encodeURIComponent(
       query
     )}&sort=${sortOrder === "최신순" ? "desc" : "asc"}`,
     {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // },
     }
   );
 
@@ -71,16 +71,16 @@ export const fetchSearchBooths = async (
   sliceNumber: number,
   sortOrder: OrderType
 ): Promise<SearchBoothResponse> => {
-  const token = getAccessToken();
+  // const token = getAccessToken();
   const response = await fetch(
     `http://52.79.91.214:8080/booths/search?page=${sliceNumber}&type=${type}&query=${encodeURIComponent(
       query
     )}&sort=${sortOrder === "최신순" ? "desc" : "asc"}`,
     {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // },
     }
   );
 

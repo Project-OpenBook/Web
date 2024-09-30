@@ -1,4 +1,4 @@
-import { getAccessToken } from "./token";
+// import { getAccessToken } from "./token";
 
 export interface Booth {
   id: number;
@@ -23,16 +23,16 @@ export const fetchBooths = async (
   sliceNumber: number,
   sortOrder: OrderType
 ): Promise<BoothResponse> => {
-  const token = getAccessToken();
+  // const token = getAccessToken();
   const response = await fetch(
     `http://52.79.91.214:8080/booths?page=${sliceNumber}&sort=openTime%2C${
       sortOrder === "최신순" ? "DESC" : "ASC"
     }&progress=ongoing`,
     {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // },
     }
   );
 

@@ -4,24 +4,18 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useScrollDown } from "../../../Hooks/useScrollDown";
 import NoticeCard from "../../NoticeCard";
 import AddNotice from "../../Notice/AddNotice";
+import { useAuth } from "../../../Hooks/useAuth";
+import { useGetBoothDetail } from "../../../Hooks/Booth/useGetBoothDetail";
 
 export default function BoothNoticeList() {
   const { id } = useParams();
+  const { id: userId } = useAuth();
+
+  const { data: boothData } = useGetBoothDetail(id ?? "");
 
   const { data, fetchNextPage, hasNextPage, refetch } = useBoothNotice(
     +(id ?? 1)
   );
-
-  //   const {
-  //     data: eventData,
-  //     isError,
-  //     isLoading,
-  //   } = useQuery<Event>({
-  //     queryKey: ["event", id],
-  //     enabled: !!id,
-  //     queryFn: () => eventFetcher(id),
-  //     retry: 1,
-  //   });
 
   useScrollDown({ offset: 0, onScrollDownToEnd: () => refetch() });
 
@@ -36,8 +30,9 @@ export default function BoothNoticeList() {
       }
       className="w-full max-w-screen-lg h-full p-2 pt-10 mx-auto"
     >
-      {/* TODO: 매니저인 경우에만 보일 것 */}
-      {true && <AddNotice type="booths" id={+(id ?? 0)} />}
+      {boothData?.manager.id === userId && (
+        <AddNotice type="booths" id={+(id ?? 0)} refetch={refetch} />
+      )}
       <section className="w-full flex flex-col gap-4">
         {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
 

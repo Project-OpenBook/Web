@@ -12,11 +12,12 @@ interface BoothData {
   tags: string[];
   eventId: number;
   eventName: string;
+
   manager: {
     id: string;
     nickname: string;
     role: string;
-  };
+
   event: {
     id: string;
     name: string;
@@ -26,6 +27,14 @@ interface BoothData {
       role: string;
     };
   };
+
+  isUserManager: boolean;
+  manager: {
+    id: number;
+    nickname: string;
+    role: string;
+  };
+
 }
 
 export interface LocationData {

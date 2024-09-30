@@ -1,10 +1,8 @@
-import { MdAnnouncement } from "react-icons/md";
 import { BsBasketFill } from "react-icons/bs";
 import { FaClock } from "react-icons/fa6";
 import ProductInfo from "./ProductInfo";
 import ServiceInfo from "./ServiceInfo";
 import Tag from "./Tag";
-import NoticeEvent from "./NoticeEvent";
 import Location from "./Location";
 import Time from "./Time";
 import { useParams } from "react-router-dom";
@@ -21,6 +19,7 @@ import GoodsInfoInputPage from "./Regist/Products/GoodsInfoInputPage";
 import BoothNotice from "./BoothNotice";
 import { useReserveInput } from "../../../Hooks/Booth/Detail/useRegistReserve";
 import useGetUser from "../../../Hooks/Util/useGetUser";
+import ReviewList from "../../Event/EventReviewList";
 
 export default function BoothDetailPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
@@ -218,6 +217,7 @@ export default function BoothDetailPage() {
                 })}
               </div>
             </div>
+            <ReviewList id={+(boothId ?? 0)} type="booths" />
           </div>
         </div>
       ) : null}

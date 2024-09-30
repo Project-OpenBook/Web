@@ -28,6 +28,8 @@ import EventNoticeList from "./Components/Event/EventNoticeList";
 import logo from "./Components/NavBar/logo_wide.png";
 import BoothNoticeList from "./Components/Booth/List/BoothNoticeList";
 import ItemList from "./test";
+import ScrollToTop from "./Components/Util/ScrollToTop";
+
 
 function App() {
   const location = useLocation();
@@ -36,6 +38,7 @@ function App() {
 
   return (
     <div>
+      <ScrollToTop />
       {!isAuthPage && <NavBar />}
       <div className="min-h-screen">
         <Routes>
