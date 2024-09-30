@@ -118,7 +118,7 @@ export default function BoothDetailPage() {
                   <div>
                     <div className="flex gap-2 flex-col md:flex-row">
                       <div className="font-bold text-nowrap">행사명 :</div>
-                      <EventName text={data.eventName} />
+                      <EventName text={data.event.name} />
                     </div>
                   </div>
                   <div>

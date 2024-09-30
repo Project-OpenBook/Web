@@ -12,28 +12,21 @@ interface BoothData {
   tags: string[];
   eventId: number;
   eventName: string;
+  event: {
+    id: string;
+    name: string;
+    manager: {
+      id: string;
+      nickname: string;
+      role: string;
+    };
+  };
 
+  isUserManager: boolean;
   manager: {
     id: string;
     nickname: string;
     role: string;
-
-    event: {
-      id: string;
-      name: string;
-      manager: {
-        id: string;
-        nickname: string;
-        role: string;
-      };
-    };
-
-    isUserManager: boolean;
-    manager: {
-      id: number;
-      nickname: string;
-      role: string;
-    };
   };
 }
 
