@@ -36,12 +36,8 @@ export interface LocationData {
 }
 
 const fetchBoothData = (boothId: string): Promise<BoothData> => {
-  const token = getAccessToken();
   const response = fetch(`http://52.79.91.214:8080/booths/${boothId}`, {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   }).then((response) => {
     if (!response.ok) throw new Error("err");
     return response.json();
