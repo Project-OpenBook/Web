@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 import { BoothAprovalContent } from "./BoothAproval";
+import { getSlicingText } from "../../Admin/EventAproval";
 
 interface Props {
   booths: BoothAprovalContent;
@@ -39,7 +40,9 @@ export default function BoothAprovalTable({
             ))}
           </td>
           <td className="py-2 px-4 border-b">{booth.registrationDate}</td>
-          <td className="py-2 px-4 border-b">{booth.description}</td>
+          <td className="py-2 px-4 border-b">
+            {getSlicingText(booth.description, 20)}
+          </td>
           <td
             className={`py-2 px-4 border-b ${
               booth.status === "REJECT"

@@ -48,6 +48,11 @@ const setEventState = (id: number, status: string) =>
     else throw new Error();
   });
 
+export const getSlicingText = (text: string, lastIndex: number) => {
+  const sliceText = text.slice(0, lastIndex);
+  return text.length > sliceText.length ? `${sliceText}...` : sliceText;
+};
+
 // TODO: 관리자 계정이 아닐경우 return
 export default function EventAproval() {
   const [searchParams] = useSearchParams();
@@ -144,7 +149,9 @@ export default function EventAproval() {
                   <td className="py-2 px-4 border-b">
                     {format(new Date(booth.registerDate), "yyyy-MM-dd")}
                   </td>
-                  <td className="py-2 px-4 border-b">{booth.description}</td>
+                  <td className="py-2 px-4 border-b">
+                    {getSlicingText(booth.description, 20)}
+                  </td>
                   <td
                     className={`py-2 px-4 border-b ${
                       booth.status === "REJECT"
