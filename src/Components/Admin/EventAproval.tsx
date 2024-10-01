@@ -6,6 +6,7 @@ import PageNation from "../Util/PageNation";
 import { useSearchParams } from "react-router-dom";
 import PleaseLogin from "../Login/PleaseLogin";
 import { useAproval } from "../../Hooks/useAproval";
+import { format } from "date-fns";
 
 interface EventAprovalType {
   content: Array<{
@@ -15,18 +16,24 @@ interface EventAprovalType {
     name: string;
     openDate: string;
     status: string;
+    registerDate: string;
   }>;
   pageNumber: number;
   totalPages: number;
 }
 
 const fetcher = (page: number) =>
-  fetch(`http://52.79.91.214:8080/admin/events?page=${page - 1}&status=all`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  }).then((response) => response.json());
+  fetch(
+    `http://52.79.91.214:8080/admin/events?page=${
+      page - 1
+    }&status=all&sort=registeredAt%2CDESC`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`,
+      },
+    }
+  ).then((response) => response.json());
 
 const setEventState = (id: number, status: string) =>
   fetch(`http://52.79.91.214:8080/admin/events/${id}/status`, {
@@ -83,6 +90,9 @@ export default function EventAproval() {
   }
 
   if (isError) return <>행사 요청 데이터를 가져오는데 실패했습니다.</>;
+
+  console.log(data);
+
   return (
     <div className="flex-1 w-full flex flex-col p-2">
       <div className="w-full inline-flex gap-3 p-2">
@@ -133,7 +143,9 @@ export default function EventAproval() {
                     {booth.name}
                   </td>
                   <td className="py-2 px-4 border-b">{booth.location}</td>
-                  <td className="py-2 px-4 border-b">{booth.openDate}</td>
+                  <td className="py-2 px-4 border-b">
+                    {format(new Date(booth.registerDate), "yyyy-MM-dd")}
+                  </td>
                   <td className="py-2 px-4 border-b">{booth.description}</td>
                   <td
                     className={`py-2 px-4 border-b ${
