@@ -11,11 +11,11 @@ export default function RequestLayout({ children, header, side }: Props) {
           <h2 className="font-extrabold text-4xl">{header}</h2>
         </div>
         <div className="flex">
-          {side && (
+          {/* {side && (
             <div className="w-32 shrink-1 border-r p-4 font-bold hidden lg:flex">
               {side}
             </div>
-          )}
+          )} */}
           {children}
         </div>
       </div>
