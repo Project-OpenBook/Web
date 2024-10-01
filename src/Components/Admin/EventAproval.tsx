@@ -91,8 +91,6 @@ export default function EventAproval() {
 
   if (isError) return <>행사 요청 데이터를 가져오는데 실패했습니다.</>;
 
-  console.log(data);
-
   return (
     <div className="flex-1 w-full flex flex-col p-2">
       <div className="w-full inline-flex gap-3 p-2">
