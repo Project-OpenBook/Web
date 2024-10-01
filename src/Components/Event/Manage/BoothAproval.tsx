@@ -145,7 +145,7 @@ export default function BoothAproval() {
               신청된 부스가 없습니다😂
             </div>
           ) : (
-            <table className="w-[800px] bg-white border-y border-gray-200">
+            <table className="bg-white border-y border-gray-200">
               <thead>
                 <tr className="border-b">
                   <th className="py-2 w-1">

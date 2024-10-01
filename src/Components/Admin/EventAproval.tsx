@@ -109,7 +109,7 @@ export default function EventAproval() {
       </div>
       <div className="overflow-x-auto">
         <div className="container mx-auto">
-          <table className="w-[800px] bg-white border-y border-gray-200">
+          <table className="bg-white border-y border-gray-200">
             <thead>
               <tr className="border-b">
                 <th className="py-2 w-1">
@@ -129,7 +129,7 @@ export default function EventAproval() {
             </thead>
             <tbody>
               {data?.content?.map((booth, index) => (
-                <tr key={index} className="text-center">
+                <tr key={index} className="text-center text-nowrap">
                   <td className="py-2 px-4 border-b">
                     <input
                       type="checkbox"
@@ -148,7 +148,7 @@ export default function EventAproval() {
                   <td
                     className={`py-2 px-4 border-b ${
                       booth.status === "REJECT"
-                        ? "ext-red-500"
+                        ? "text-red-500"
                         : booth.status === "APPROVE"
                         ? "text-green-500"
                         : ""
@@ -158,13 +158,13 @@ export default function EventAproval() {
                   </td>
                   <td className="py-2 px-4 border-b">
                     <button
-                      className="w-full text-white bg-green-400 shadow-md hover:underline mr-2 border rounded-md px-2 whitespace-nowrap"
+                      className="w-1/2 text-white bg-green-400 shadow-md hover:underline mr-2 border rounded-md px-2 whitespace-nowrap"
                       onClick={() => onAprove(booth.id)}
                     >
                       승인
                     </button>
                     <button
-                      className="w-full text-white bg-red-400 shadow-md hover:underline border rounded-md px-2 whitespace-nowrap"
+                      className="w-1/2 text-white bg-red-400 shadow-md hover:underline border rounded-md px-2 whitespace-nowrap"
                       onClick={() => onReject(booth.id)}
                     >
                       반려
