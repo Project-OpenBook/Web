@@ -1,16 +1,48 @@
-export default function ProductInfo() {
+import noimage from "../../../images/noimage.png";
+
+interface Props {
+  productData: {
+    id: string;
+    name: string;
+    description: string;
+    stock: number;
+    price: number;
+    images: {
+      id: string;
+      url: string;
+    }[];
+  };
+}
+
+export default function ProductInfo(product: Props) {
+  const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = noimage;
+  };
+
   return (
-    <div className="flex rounded-md justify-center items-center gap-5 p-3 shadow-md">
+    <div className="flex rounded-lg shadow-lg p-5 bg-gradient-to-r from-white via-gray-100 to-white hover:shadow-xl transition-shadow duration-300">
       <img
-        className="w-1/6"
-        src="https://via.placeholder.com/96"
+        className="w-32 h-32 object-cover rounded-lg border border-gray-300 shadow-sm"
+        src={product.productData.images[0]?.url || noimage}
         alt="부스 이미지"
+        onError={onErrorImg}
       />
-      <div className="flex flex-col w-5/6 gap-3">
-        <div>물품명 : 간장 닭꼬치</div>
-        <div>재고 : 100 개</div>
-        <div>설명 : 매운 닭꼬치입니다.</div>
-        <div>가격 : 3000 원</div>
+      <div className="flex flex-col w-2/3 gap-3 ml-5">
+        <h2 className="text-2xl font-semibold text-gray-900">
+          {product.productData.name}
+        </h2>
+        <p className="text-gray-600 leading-relaxed">
+          {product.productData.description}
+        </p>
+        <div className="flex justify-between items-center">
+          <div className="text-gray-700">
+            <span className="font-medium">재고:</span>{" "}
+            {product.productData.stock} 개
+          </div>
+          <div className="text-gray-900 font-bold text-lg">
+            {product.productData.price.toLocaleString()} 원
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -20,6 +20,7 @@ import BoothNotice from "./BoothNotice";
 import { useReserveInput } from "../../../Hooks/Booth/Detail/useRegistReserve";
 import useGetUser from "../../../Hooks/Util/useGetUser";
 import ReviewList from "../../Event/EventReviewList";
+import { useGetGoodsList } from "../../../Hooks/Booth/Detail/useGetGoods";
 
 export default function BoothDetailPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
@@ -43,6 +44,7 @@ export default function BoothDetailPage() {
     timeList,
   } = useReserveInput(setModalState);
   const { isError, data, isLoading } = useGetBoothDetail(boothId ?? "");
+  const { data: productData } = useGetGoodsList(boothId ?? "");
   if (isLoading) return <div>로딩중입니다...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
 
@@ -94,13 +96,12 @@ export default function BoothDetailPage() {
     }
   };
 
-  const tmpGoods = ["1", "2", "3"];
   const tmpServices = ["1", "2", "3"];
 
   return (
     <div className="flex justify-center text-xl">
       {data ? (
-        <div className="shadow-md w-full max-w-screen-xl m-2 flex flex-col items-center my-10 pb-5 p-2">
+        <div className=" bg-gradient-to-r from-white via-gray-100 to-white shadow-lg w-full max-w-screen-xl my-2 flex flex-col items-center my-10 pb-5 p-2">
           <div className="flex flex-col mt-10 items-center gap-4 lg:w-[900px]">
             <div className="text-3xl font-bold my-5 flex">
               <div>{data.name} </div>
@@ -190,9 +191,16 @@ export default function BoothDetailPage() {
                 </div>
               </div>
               <div className="w-full flex flex-col gap-2">
-                {tmpGoods.map((goods) => {
-                  return <ProductInfo />;
-                })}
+                {productData?.length === 0 && (
+                  <div className="my-10 text-center text-bold text-2xl">
+                    등록된 상품이 없습니다.
+                  </div>
+                )}
+                {productData?.length !== 0 &&
+                  productData &&
+                  productData[0].products.content?.map((goods, index) => {
+                    return <ProductInfo key={index} productData={goods} />;
+                  })}
               </div>
             </div>
             <div className="flex flex-col items-start w-full gap-2">
