@@ -23,10 +23,6 @@ export default function ServiceManagementPage({
     setModalState(Modal_State.none);
   };
 
-  // const handleCancel = () => {
-  //   setModalState(Modal_State.none);
-  // };
-
   return (
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-4">
@@ -40,16 +36,9 @@ export default function ServiceManagementPage({
           서비스 추가
         </button>
       </div>
-      {/* {data.map((product, index) => (
-        <ServiceInfoCard
-          key={index}
-          name={product.name}
-          price={product.price}
-          volume={product.volume}
-          description={product.description}
-          imageUrl={product.imageUrl}
-        />
-      ))} */}
+      {data.map((service, index) => (
+        <ServiceInfoCard ServiceData={service} />
+      ))}
       <div className="flex justify-center gap-4 mt-4 w-full">
         <button
           onClick={handleConfirm}
@@ -57,12 +46,6 @@ export default function ServiceManagementPage({
         >
           확인
         </button>
-        {/* <button
-          onClick={handleCancel}
-          className="w-1/4 bg-red-500 text-white py-2 rounded"
-        >
-          취소
-        </button> */}
       </div>
     </div>
   );

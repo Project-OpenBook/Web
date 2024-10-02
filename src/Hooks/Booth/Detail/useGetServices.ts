@@ -37,7 +37,7 @@ const fetchServiceData = (boothId: string): Promise<ServiceData[]> => {
 
 export function useGetServiceList(boothId: string) {
   const { isLoading, isError, data } = useQuery<ServiceData[]>({
-    queryKey: ["getGoodsList", boothId],
+    queryKey: ["getServiceList", boothId],
     queryFn: () => fetchServiceData(boothId),
   });
   return { isLoading, isError, data };

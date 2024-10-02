@@ -21,6 +21,7 @@ import { useReserveInput } from "../../../Hooks/Booth/Detail/useRegistReserve";
 import useGetUser from "../../../Hooks/Util/useGetUser";
 import ReviewList from "../../Event/EventReviewList";
 import { useGetGoodsList } from "../../../Hooks/Booth/Detail/useGetGoods";
+import { useGetServiceList } from "../../../Hooks/Booth/Detail/useGetServices";
 
 export default function BoothDetailPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
@@ -44,6 +45,7 @@ export default function BoothDetailPage() {
     timeList,
   } = useReserveInput(setModalState);
   const { isError, data, isLoading } = useGetBoothDetail(boothId ?? "");
+  const { data: services } = useGetServiceList(boothId ?? "");
   const { data: productData } = useGetGoodsList(boothId ?? "");
   if (isLoading) return <div>로딩중입니다...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
@@ -95,8 +97,6 @@ export default function BoothDetailPage() {
       );
     }
   };
-
-  const tmpServices = ["1", "2", "3"];
 
   return (
     <div className="flex justify-center text-xl">
@@ -191,16 +191,19 @@ export default function BoothDetailPage() {
                 </div>
               </div>
               <div className="w-full flex flex-col gap-2">
-                {productData?.length === 0 && (
+                {productData &&
+                productData.length > 0 &&
+                productData[0]?.products?.content?.length > 0 ? (
+                  productData[0].products.content
+                    .slice(0, 3)
+                    .map((goods, index) => {
+                      return <ProductInfo key={index} productData={goods} />;
+                    })
+                ) : (
                   <div className="my-10 text-center text-bold text-2xl">
                     등록된 상품이 없습니다.
                   </div>
                 )}
-                {productData?.length !== 0 &&
-                  productData &&
-                  productData[0].products.content?.map((goods, index) => {
-                    return <ProductInfo key={index} productData={goods} />;
-                  })}
               </div>
             </div>
             <div className="flex flex-col items-start w-full gap-2">
@@ -220,9 +223,15 @@ export default function BoothDetailPage() {
                 </div>
               </div>
               <div className="w-full flex flex-col gap-2">
-                {tmpServices.map((service) => {
-                  return <ServiceInfo />;
-                })}
+                {services?.length === 0 && (
+                  <div className="my-10 text-center text-bold text-2xl">
+                    등록된 서비스가 없습니다.
+                  </div>
+                )}
+                {services &&
+                  services.slice(0, 3).map((service) => {
+                    return <ServiceInfo serviceData={service} />;
+                  })}
               </div>
             </div>
             <ReviewList id={+(boothId ?? 0)} type="booths" />
