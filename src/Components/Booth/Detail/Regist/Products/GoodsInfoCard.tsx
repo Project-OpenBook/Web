@@ -1,4 +1,5 @@
 import { useDeleteProduct } from "../../../../../Hooks/Booth/Detail/useDeleteProduct";
+import noImage from "../../../../../images/noimage.png";
 interface Props {
   product: {
     id: string;
@@ -19,56 +20,53 @@ export default function GoodsInfoCard({ product }: Props) {
   const { mutate } = useDeleteProduct(product.id);
 
   return (
-    <div className="flex h-96 flex-col p-4 w-full gap-6 items-start rounded-lg font-semibold shadow-xl hover:shadow-2xl transition-transform duration-300 hover:scale-105">
-      {/* 이미지 컨테이너 */}
-      <div className="flex h-48 w-full bg-slate-100 rounded-lg justify-center items-center overflow-hidden relative">
+    <div className="flex h-96 flex-col p-4 w-64 gap-4 items-start rounded-lg font-medium shadow-md bg-white border border-gray-300">
+      <div className="flex h-40 w-full bg-gray-100 rounded-lg justify-center items-center overflow-hidden relative">
         {product.images.length > 0 ? (
           <img
-            alt={`${product.name} 이미지`}
-            className="object-contain h-full w-full transition-opacity duration-500 hover:opacity-90"
+            className="object-contain h-full w-full"
             src={product.images[0].url}
           />
         ) : (
           <div className="flex flex-col items-center justify-center text-gray-400">
             <img
               alt="기본 이미지"
-              className="object-contain h-20 w-20 mb-2"
-              src="images/boothRegist/noimage.png"
+              className="object-contain h-full w-full"
+              src={noImage}
             />
-            <span className="text-sm">이미지가 없습니다</span>
           </div>
         )}
       </div>
 
-      {/* 제품 정보 */}
-      <div className="text-xl flex flex-col gap-2 w-full">
+      <div className="text-base flex flex-col gap-2 w-full">
         <div className="text-gray-700">
-          제품명 : <span className="text-black">{product.name}</span>
+          <span className="font-semibold text-gray-800">제품명:</span>{" "}
+          <span className="text-black">{product.name}</span>
         </div>
         <div className="text-gray-700">
-          설명 : <span className="text-black">{product.description}</span>
+          <span className="font-semibold text-gray-800">설명:</span>{" "}
+          <span className="text-black">{product.description}</span>
         </div>
         <div className="text-gray-700">
-          가격 :{" "}
+          <span className="font-semibold text-gray-800">가격:</span>{" "}
           <span className="text-black">
             {product.price.toLocaleString()} 원
           </span>
         </div>
         <div className="text-gray-700">
-          재고 : <span className="font-semibol">{product.stock} 개</span>
+          <span className="font-semibold text-gray-800">재고:</span>{" "}
+          <span className="text-black font-semibold">{product.stock} 개</span>
         </div>
       </div>
-
-      {/* 수정/삭제 버튼 */}
-      <div className="flex justify-center gap-5 w-full text-white">
-        <button className="bg-blue-500 rounded-md w-full p-2 transition-all transform hover:scale-105 hover:bg-blue-600 duration-300">
+      <div className="flex justify-center gap-2 w-full text-white mt-auto">
+        <button className="bg-blue-500 rounded-md w-full p-1.5 transition-all hover:bg-blue-600 duration-300 shadow-md text-sm">
           수정
         </button>
         <button
           onClick={() => {
             mutate();
           }}
-          className="bg-red-600 rounded-md w-full p-2 transition-all transform hover:scale-105 hover:bg-red-700 duration-300"
+          className="bg-red-500 rounded-md w-full p-1.5 transition-all hover:bg-red-600 duration-300 shadow-md text-sm"
         >
           삭제
         </button>

@@ -25,8 +25,7 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
     setName,
     setPrice,
     setStock,
-    categoryId,
-  } = useGoodsInput();
+  } = useGoodsInput(setModalState);
   let { boothId } = useParams();
   const setBoothImage = useSetRecoilState(boothImageState);
   const [imageName, setImageName] = useState("X");
@@ -45,7 +44,6 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
 
   const handleConfirm = () => {
     mutate();
-    setModalState(Modal_State.goodsManage);
   };
 
   const handleCancel = () => {
@@ -53,8 +51,6 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
       setModalState(Modal_State.goodsManage);
     }
   };
-
-  console.log(categoryId);
 
   return (
     <>

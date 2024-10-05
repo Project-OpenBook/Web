@@ -190,7 +190,7 @@ export default function BoothDetailPage() {
                   )}
                 </div>
               </div>
-              <div className="w-full flex flex-col gap-2">
+              <div className="w-full flex flex-row gap-2">
                 {productData &&
                 productData.length > 0 &&
                 productData[0]?.products?.content?.length > 0 ? (

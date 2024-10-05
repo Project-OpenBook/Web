@@ -57,6 +57,7 @@ export default function GoodsInfoInput({
             }}
             className=" border-2 border-black h-8 w-1/4 hover:cursor-pointer rounded-md bg-white"
           >
+            <option value="none">카테고리 선택</option>;
             {categoryData?.map((category) => {
               return <option value={category.id}>{category.name}</option>;
             })}

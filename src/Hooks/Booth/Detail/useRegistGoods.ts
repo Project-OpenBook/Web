@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { getAccessToken } from "../../../Api/Util/token";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { Modal_State } from "../../../Components/Booth/Regist/BoothRegistPage";
 
 interface GoodsRegistData {
   categoryId: string;
@@ -43,9 +44,9 @@ const fetchGoodsInput = (goodsRegistData: GoodsRegistData): Promise<void> => {
   return response;
 };
 
-export const useGoodsInput = () => {
+export const useGoodsInput = (setModalState: (state: string) => void) => {
   const { boothId } = useParams() as { boothId: string };
-  const [categoryId, setCategoryId] = useState("");
+  const [categoryId, setCategoryId] = useState("none");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState("");
@@ -65,10 +66,13 @@ export const useGoodsInput = () => {
       }),
 
     onError: () => {
-      alert("상품 등록에 실패했습니다.");
+      if (categoryId === "none") {
+        alert("카테고리를 선택해 주세요");
+      } else alert("상품 등록에 실패했습니다.");
     },
     onSuccess: () => {
       alert("상품이 등록되었습니다.");
+      setModalState(Modal_State.goodsManage);
     },
   });
 
