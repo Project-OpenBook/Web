@@ -30,7 +30,6 @@ import BoothNoticeList from "./Components/Booth/List/BoothNoticeList";
 import ItemList from "./test";
 import ScrollToTop from "./Components/Util/ScrollToTop";
 
-
 function App() {
   const location = useLocation();
   const isAuthPage =
@@ -65,7 +64,7 @@ function App() {
           <Route
             path="/event/:id/manage"
             element={
-              <RequestLayout header="부스 신청" side="부스 신청 현황">
+              <RequestLayout header="부스 신청 현황">
                 <BoothAproval />
               </RequestLayout>
             }
@@ -73,7 +72,7 @@ function App() {
           <Route
             path="/admin/eventmanage"
             element={
-              <RequestLayout header="행사 신청" side="행사 신청 현황">
+              <RequestLayout header="행사 신청 현황">
                 <EventAproval />
               </RequestLayout>
             }

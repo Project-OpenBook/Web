@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRadioChecks } from "../../Hooks/useRadioChecks";
 import { getAccessToken } from "../../Api/Util/token";
 import PageNation from "../Util/PageNation";
 import { useSearchParams } from "react-router-dom";
 import PleaseLogin from "../Login/PleaseLogin";
 import { useAproval } from "../../Hooks/useAproval";
+import { format } from "date-fns";
+import AprovalDetailModal, { AprovalModalData } from "./AprovalDetailModal";
 
 interface EventAprovalType {
   content: Array<{
@@ -15,18 +17,24 @@ interface EventAprovalType {
     name: string;
     openDate: string;
     status: string;
+    registerDate: string;
   }>;
   pageNumber: number;
   totalPages: number;
 }
 
 const fetcher = (page: number) =>
-  fetch(`http://52.79.91.214:8080/admin/events?page=${page - 1}&status=all`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  }).then((response) => response.json());
+  fetch(
+    `http://52.79.91.214:8080/admin/events?page=${
+      page - 1
+    }&status=all&sort=registeredAt%2CDESC`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`,
+      },
+    }
+  ).then((response) => response.json());
 
 const setEventState = (id: number, status: string) =>
   fetch(`http://52.79.91.214:8080/admin/events/${id}/status`, {
@@ -41,10 +49,17 @@ const setEventState = (id: number, status: string) =>
     else throw new Error();
   });
 
+export const getSlicingText = (text: string, lastIndex: number) => {
+  const sliceText = text.slice(0, lastIndex);
+  return text.length > sliceText.length ? `${sliceText}...` : sliceText;
+};
+
 // TODO: 관리자 계정이 아닐경우 return
 export default function EventAproval() {
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ?? 1;
+  const [shouldOpenModal, setShouldOpenModal] = useState(false);
+  const [modalData, setModalData] = useState<AprovalModalData | null>(null);
   const { data, isError, refetch } = useQuery<EventAprovalType>({
     queryKey: ["event-aproval"],
     queryFn: () => fetcher(+page),
@@ -83,6 +98,7 @@ export default function EventAproval() {
   }
 
   if (isError) return <>행사 요청 데이터를 가져오는데 실패했습니다.</>;
+
   return (
     <div className="flex-1 w-full flex flex-col p-2">
       <div className="w-full inline-flex gap-3 p-2">
@@ -101,7 +117,7 @@ export default function EventAproval() {
       </div>
       <div className="overflow-x-auto">
         <div className="container mx-auto">
-          <table className="w-[800px] bg-white border-y border-gray-200">
+          <table className="bg-white border-y border-gray-200">
             <thead>
               <tr className="border-b">
                 <th className="py-2 w-1">
@@ -121,24 +137,45 @@ export default function EventAproval() {
             </thead>
             <tbody>
               {data?.content?.map((booth, index) => (
-                <tr key={index} className="text-center">
+                <tr
+                  key={index}
+                  className="text-center text-nowrap hover:bg-blue-50 hover:cursor-pointer"
+                  onClick={() => {
+                    setShouldOpenModal(true);
+                    setModalData({
+                      description: booth.description,
+                      location: booth.location,
+                      name: booth.name,
+                      registerDate: booth.registerDate,
+                      status: booth.status,
+                      id: booth.id,
+                    });
+                  }}
+                >
                   <td className="py-2 px-4 border-b">
                     <input
                       type="checkbox"
-                      onChange={(e) => clickCheckbox(e, index)}
+                      onChange={(e) => {
+                        clickCheckbox(e, index);
+                      }}
                       checked={checkList[index] ?? false}
+                      onClick={(e) => e.stopPropagation()}
                     />
                   </td>
                   <td className="py-2 px-4 border-b text-nowrap">
                     {booth.name}
                   </td>
                   <td className="py-2 px-4 border-b">{booth.location}</td>
-                  <td className="py-2 px-4 border-b">{booth.openDate}</td>
-                  <td className="py-2 px-4 border-b">{booth.description}</td>
+                  <td className="py-2 px-4 border-b">
+                    {format(new Date(booth.registerDate), "yyyy-MM-dd")}
+                  </td>
+                  <td className="py-2 px-4 border-b">
+                    {getSlicingText(booth.description, 20)}
+                  </td>
                   <td
                     className={`py-2 px-4 border-b ${
                       booth.status === "REJECT"
-                        ? "ext-red-500"
+                        ? "text-red-500"
                         : booth.status === "APPROVE"
                         ? "text-green-500"
                         : ""
@@ -148,14 +185,20 @@ export default function EventAproval() {
                   </td>
                   <td className="py-2 px-4 border-b">
                     <button
-                      className="w-full text-white bg-green-400 shadow-md hover:underline mr-2 border rounded-md px-2 whitespace-nowrap"
-                      onClick={() => onAprove(booth.id)}
+                      className="w-1/2 text-white bg-green-400 shadow-md hover:underline mr-2 border rounded-md px-2 whitespace-nowrap"
+                      onClick={(e) => {
+                        onAprove(booth.id);
+                        e.stopPropagation();
+                      }}
                     >
                       승인
                     </button>
                     <button
-                      className="w-full text-white bg-red-400 shadow-md hover:underline border rounded-md px-2 whitespace-nowrap"
-                      onClick={() => onReject(booth.id)}
+                      className="w-1/2 text-white bg-red-400 shadow-md hover:underline border rounded-md px-2 whitespace-nowrap"
+                      onClick={(e) => {
+                        onReject(booth.id);
+                        e.stopPropagation();
+                      }}
                     >
                       반려
                     </button>
@@ -171,6 +214,31 @@ export default function EventAproval() {
           maxPage={data.totalPages ?? 1}
           showPage={5}
           className="mt-5"
+        />
+      )}
+
+      {shouldOpenModal && modalData && (
+        <AprovalDetailModal
+          data={{
+            description: modalData.description,
+            location: modalData.location,
+            name: modalData.name,
+            registerDate: format(
+              new Date(modalData.registerDate),
+              "yyyy-MM-dd"
+            ),
+            status: modalData.status,
+            id: modalData.id,
+          }}
+          onClose={() => setShouldOpenModal(false)}
+          onAprove={() => {
+            setShouldOpenModal(false);
+            onAprove(modalData.id);
+          }}
+          onReject={() => {
+            setShouldOpenModal(false);
+            onReject(modalData.id);
+          }}
         />
       )}
     </div>
