@@ -15,7 +15,7 @@ enum BoothStatus {
   reject = "REJECT",
 }
 
-enum BoothSort {
+export enum BoothSort {
   desc = "DESC",
   asc = "ASC",
 }

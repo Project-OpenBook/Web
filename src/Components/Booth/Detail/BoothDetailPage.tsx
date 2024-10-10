@@ -21,6 +21,8 @@ import { useReserveInput } from "../../../Hooks/Booth/Detail/useRegistReserve";
 import useGetUser from "../../../Hooks/Util/useGetUser";
 import ReviewList from "../../Event/EventReviewList";
 
+import BookmarkIcon from "../../Bookmark/BookmarkIcon";
+
 export default function BoothDetailPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
   let { boothId } = useParams();
@@ -101,6 +103,7 @@ export default function BoothDetailPage() {
     <div className="flex justify-center text-xl">
       {data ? (
         <div className="shadow-md w-full max-w-screen-xl m-2 flex flex-col items-center my-10 pb-5 p-2">
+          <BookmarkIcon isBookmark={false} id={+(boothId || 0)} type="BOOTH" />
           <div className="flex flex-col mt-10 items-center gap-4 lg:w-[900px]">
             <div className="text-3xl font-bold my-5 flex">
               <div>{data.name} </div>

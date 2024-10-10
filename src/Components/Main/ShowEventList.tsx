@@ -2,7 +2,7 @@ import tempBanner from "../../logo.svg";
 import EventCard from "../Event/List/EventCard";
 import Carousel from "../Util/Carousel";
 
-export type Booth = {
+type Booth = {
   images: string[];
   title: string;
   id: string;
