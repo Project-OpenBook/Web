@@ -220,7 +220,7 @@ export default function BoothDetailPage() {
                 })}
               </div>
             </div>
-            <ReviewList id={+(boothId ?? 0)} type="booths" />
+            <ReviewList id={+(boothId ?? 0)} type="booth" />
           </div>
         </div>
       ) : null}

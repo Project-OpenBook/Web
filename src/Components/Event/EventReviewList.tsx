@@ -11,7 +11,7 @@ import { useScrollDown } from "../../Hooks/useScrollDown";
 import { useAuth } from "../../Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
-export type ContentType = "events" | "booths";
+export type ContentType = "events" | "booth";
 interface Props {
   id: number;
   type: ContentType;
@@ -54,13 +54,17 @@ export default function ReviewList({ id, type: contentType }: Props) {
     init: "",
     submitCallback(value) {
       addReview(contentType, id, currentScore, value, reviewImages)
-        .then(() => {
+        .then(async (res) => {
+          if (!res.ok) {
+            const data = await res.json();
+            throw new Error(data.message);
+          }
           setCurrentScore(INIT_STAR_SCORE);
           setReviewImages([]);
           refetch();
         })
-        .catch(() => {
-          alert("등록에 실패하였습니다");
+        .catch((error: any) => {
+          alert(`등록에 실패하였습니다: ${error}`);
         });
     },
     validateCallback: () => {
@@ -186,13 +190,12 @@ export default function ReviewList({ id, type: contentType }: Props) {
               모든 리뷰를 불러왔습니다
             </p>
           }
-          className="w-full max-w-screen-lg shadow-xl h-full p-2 pt-10 mx-auto rounded-md"
+          className="w-full max-w-screen-lg shadow-xl h-full p-2 pt-2 mx-auto rounded-md"
         >
-          <section className="w-full flex flex-col gap-4">
+          <section className="w-full flex flex-col">
             {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
             {reviews?.pages.map((reviewss) =>
               reviewss.content.map((review) => {
-                console.log(review);
                 return <EventReview review={review} refetch={refetch} />;
               })
             )}
