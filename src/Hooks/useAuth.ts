@@ -28,14 +28,10 @@ export function useAuth() {
         );
         if (response.ok) {
           const data: AuthResponse = await response.json();
-
           // 여기서 상태 업데이트 전 변수에 값을 저장
           const userId = data.id;
           const userRole = data.role;
           const userNickname = data.nickname;
-
-          // 필요한 로직 수행
-          console.log(userId); // 변수로 즉시 사용 가능
 
           // 나중에 상태 업데이트
           setId(userId);
