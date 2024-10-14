@@ -29,7 +29,7 @@ import logo from "./Components/NavBar/logo_wide.png";
 import BoothNoticeList from "./Components/Booth/List/BoothNoticeList";
 import ItemList from "./test";
 import ScrollToTop from "./Components/Util/ScrollToTop";
-
+import BoothPatchPage from "./Components/Booth/Regist/BoothPatchPage";
 
 function App() {
   const location = useLocation();
@@ -80,6 +80,7 @@ function App() {
           />
           <Route path="/boothRegist" element={<BoothRegistPage />} />
           <Route path="/booth/:boothId" element={<BoothDetailPage />} />
+          <Route path="/booth/patch/:boothId" element={<BoothPatchPage />} />
           <Route path="/booth/:id/notice" element={<BoothNoticeList />} />
           <Route path="/test" element={<ItemList></ItemList>} />
         </Routes>

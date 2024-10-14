@@ -142,7 +142,10 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
                       {category.products.content.length > 0 ? (
                         category.products.content.map((product, prodIndex) => (
                           <div className="w-1/5" key={prodIndex}>
-                            <GoodsInfoCard product={product} />
+                            <GoodsInfoCard
+                              product={product}
+                              setModalState={setModalState}
+                            />
                           </div>
                         ))
                       ) : (
@@ -167,7 +170,10 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
                   <div className="flex flex-wrap">
                     {page.products.content.map((product, prodIndex) => (
                       <div className="w-1/5" key={prodIndex}>
-                        <GoodsInfoCard product={product} />
+                        <GoodsInfoCard
+                          product={product}
+                          setModalState={setModalState}
+                        />
                       </div>
                     ))}
                   </div>

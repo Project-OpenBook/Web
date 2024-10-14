@@ -7,6 +7,8 @@ interface Props {
   setEndTime: (value: any) => void;
   Icon: IconType;
   imageName?: string;
+  startTimeValue?: string;
+  endTimeValue?: string;
 }
 
 export default function TimeInput({
@@ -14,6 +16,8 @@ export default function TimeInput({
   setStartTime,
   Icon,
   setEndTime,
+  startTimeValue,
+  endTimeValue,
 }: Props) {
   const INPUT_CLASSNAME = "h-10 border-b-2 pl-1 mb-5 w-full";
 
@@ -30,12 +34,14 @@ export default function TimeInput({
           type="time"
           className={INPUT_CLASSNAME}
           onChange={(e) => setStartTime(`${e.target.value}:00`)}
+          value={startTimeValue}
         />
         <div className="pb-3 font-bold"> ~ </div>
         <input
           type="time"
           className={INPUT_CLASSNAME}
           onChange={(e) => setEndTime(`${e.target.value}:00`)}
+          value={endTimeValue}
         />
       </div>
     </div>

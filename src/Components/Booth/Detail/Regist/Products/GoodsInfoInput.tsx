@@ -11,6 +11,7 @@ interface Props {
   type: "text" | "image" | "select";
   imageName?: string;
   categoryData?: CategoryData[];
+  value?: string;
 }
 
 export default function GoodsInfoInput({
@@ -21,6 +22,7 @@ export default function GoodsInfoInput({
   Icon,
   imageName,
   categoryData,
+  value,
 }: Props) {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -42,6 +44,7 @@ export default function GoodsInfoInput({
           type={type}
           className="h-10 border-b-2 pl-1 mb-5 w-full"
           onChange={(e) => setValue(e.target.value)}
+          value={value}
         />
       )}
       {type === "select" && (

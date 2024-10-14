@@ -22,12 +22,13 @@ import useGetUser from "../../../Hooks/Util/useGetUser";
 import ReviewList from "../../Event/EventReviewList";
 import { useGetGoodsList } from "../../../Hooks/Booth/Detail/useGetGoods";
 import { useGetServiceList } from "../../../Hooks/Booth/Detail/useGetServices";
+import { useNavigate } from "react-router-dom";
 
 export default function BoothDetailPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
   let { boothId } = useParams();
   const { data: userData } = useGetUser();
-
+  const navi = useNavigate();
   const {
     mutate,
     setName,
@@ -51,7 +52,11 @@ export default function BoothDetailPage() {
   if (isError) return <div>에러가 발생했습니다.</div>;
 
   const isUserHaveAuth = () => {
-    if (userData && userData.id === data?.manager.id) return true;
+    if (
+      userData?.role === "ADMIN" ||
+      (userData && userData.id === data?.manager.id)
+    )
+      return true;
     return false;
   };
 
@@ -105,6 +110,15 @@ export default function BoothDetailPage() {
           <div className="flex flex-col mt-10 items-center gap-4 lg:w-[900px]">
             <div className="text-3xl font-bold my-5 flex">
               <div>{data.name} </div>
+              {isUserHaveAuth() && (
+                <button
+                  onClick={() => {
+                    navi(`/booth/patch/${boothId}`);
+                  }}
+                >
+                  부스 정보 수정
+                </button>
+              )}
             </div>
             <div className="flex flex-col lg:flex-row w-full gap-5">
               <div className="w-1/2 bg-white flex justify-center">
