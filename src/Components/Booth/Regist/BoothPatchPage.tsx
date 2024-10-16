@@ -72,6 +72,10 @@ export default function BoothPatchPage() {
     setOpenTime,
     setTags,
     tags,
+    setTagToAdd,
+    setTagToDelete,
+    tagToAdd,
+    tagToDelete,
   } = usePatchBooth(boothData ?? mockBoothData, boothId ?? "");
 
   const [imageName, setImageName] = useState("X");
@@ -127,6 +131,10 @@ export default function BoothPatchPage() {
           placeholder="부스의 태그를 설정한 뒤 확인 버튼을 눌러주세요"
           tagNames={tags}
           setTagNames={setTags}
+          setAddTags={setTagToAdd}
+          setDelTags={setTagToDelete}
+          addTags={tagToAdd}
+          delTags={tagToDelete}
         />
         <AccountInput
           placeholder="사용하시는 은행 및 계좌번호를 입력해주세요"

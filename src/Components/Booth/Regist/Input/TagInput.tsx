@@ -5,12 +5,20 @@ interface Props {
   placeholder: string;
   tagNames: string[];
   setTagNames: (tag: string[]) => void;
+  addTags?: string[];
+  delTags?: string[];
+  setAddTags?: (tag: string[]) => void;
+  setDelTags?: (tag: string[]) => void;
 }
 
 export default function TagInput({
   placeholder,
   setTagNames,
   tagNames,
+  setAddTags,
+  setDelTags,
+  addTags,
+  delTags,
 }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -20,6 +28,10 @@ export default function TagInput({
       if (validateTag(newTag)) {
         setTagNames([...tagNames, newTag]);
         inputRef.current.value = "";
+      }
+      if (setAddTags && addTags) {
+        const newAddTag = [...addTags, newTag];
+        setAddTags(newAddTag);
       }
     }
   };
@@ -45,10 +57,15 @@ export default function TagInput({
     return true;
   };
 
-  const handleRemove = (index: number) => {
+  const handleRemove = (index: number, tag: string) => {
     const newTagNames = [...tagNames];
     newTagNames.splice(index, 1);
     setTagNames(newTagNames);
+
+    if (setDelTags && delTags) {
+      const delTagNames = [...delTags, tag];
+      setDelTags(delTagNames);
+    }
   };
 
   return (
@@ -78,7 +95,7 @@ export default function TagInput({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                handleRemove(index);
+                handleRemove(index, tag);
               }}
               className="ml-2 text-black"
             >

@@ -43,7 +43,8 @@ interface PatchData {
   mainImage: string;
   accountBankName: string;
   accountNumber: string;
-  tags: string[];
+  tagToAdd: string[];
+  tagToDelete: string[];
 }
 
 const fetchPatchData = (
@@ -59,8 +60,11 @@ const fetchPatchData = (
   }
   formData.append("openTime", patchData.openTime);
   formData.append("closeTime", patchData.closeTime);
-  patchData.tags.map((tag) => {
-    formData.append("tags", tag);
+  patchData.tagToAdd.map((addTags) => {
+    formData.append("tagToAdd", addTags);
+  });
+  patchData.tagToDelete.map((delTags) => {
+    formData.append("tagToDelete", delTags);
   });
   formData.append("accountBankName", patchData.accountBankName);
   formData.append("accountNumber", patchData.accountNumber);
@@ -83,6 +87,8 @@ export const usePatchBooth = (boothData: BoothData, boothId: string) => {
   const [openTime, setOpenTime] = useState(boothData.openData);
   const [closeTime, setCloseTime] = useState(boothData.closeData);
   const [tags, setTags] = useState(boothData.tags);
+  const [tagToAdd, setTagToAdd] = useState<string[]>([]);
+  const [tagToDelete, setTagToDelete] = useState<string[]>([]);
   const [accountNumber, setAccountNumber] = useState("3333090884128");
   const [accountBankName, setAccountBankName] = useState("카카오뱅크");
   const [mainImage, setMainImage] = useState(boothData.mainImageUrl);
@@ -97,7 +103,8 @@ export const usePatchBooth = (boothData: BoothData, boothId: string) => {
           description,
           mainImage,
           openTime,
-          tags,
+          tagToAdd,
+          tagToDelete,
         },
         boothId
       ),
@@ -127,5 +134,9 @@ export const usePatchBooth = (boothData: BoothData, boothId: string) => {
     setCloseTime,
     mainImage,
     setMainImage,
+    setTagToAdd,
+    setTagToDelete,
+    tagToAdd,
+    tagToDelete,
   };
 };
