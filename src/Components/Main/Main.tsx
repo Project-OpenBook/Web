@@ -1,7 +1,10 @@
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import tempBanner from "../Main/Banner/main_banner1.png";
 import tempBannerSmall from "../Main/Banner/main_banner_small.png";
 import ShowEventList from "./ShowEventList";
+import RecentEvent from "./RecentEvent";
+import OngoingEvent from "./OngoingEvent";
+import SoonEndEvent from "./SoonEndEvent";
 
 interface Props {
   state: "main" | "list";
@@ -19,13 +22,9 @@ enum MainListTab {
 
 const listTabs = {
   [MainListTab.popular]: <ShowEventList title="인기있는 부스" eventList={[]} />,
-  [MainListTab.recent]: <ShowEventList title="최근 열린 행사" eventList={[]} />,
-  [MainListTab.recruiting]: (
-    <ShowEventList title="부스 모집 중" eventList={[]} />
-  ),
-  [MainListTab.soonend]: (
-    <ShowEventList title="종료 예정인 행사" eventList={[]} />
-  ),
+  [MainListTab.recent]: <RecentEvent />,
+  [MainListTab.recruiting]: <OngoingEvent />,
+  [MainListTab.soonend]: <SoonEndEvent />,
 };
 
 export default function MainPage({ state = "main" }: Props) {
