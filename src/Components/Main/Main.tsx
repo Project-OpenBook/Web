@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import tempBanner from "../Main/Banner/main_banner1.png";
 import tempBannerSmall from "../Main/Banner/main_banner_small.png";
 import ShowEventList from "./ShowEventList";
@@ -32,6 +32,8 @@ export default function MainPage({ state = "main" }: Props) {
   const [listTab, setListTab] = useState<MainListTab>(MainListTab.popular);
 
   const ref = useRef(null);
+  const bannerRef = useRef<any>(null);
+  const bannerRef2 = useRef<any>(null);
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -53,15 +55,36 @@ export default function MainPage({ state = "main" }: Props) {
     }
   }, []);
 
+  const resizeBanner = useCallback(() => {
+    const h = window.innerHeight;
+    const MIN_HEADER_HEIGHT = 100;
+
+    if (bannerRef.current)
+      bannerRef.current.style.height = h - MIN_HEADER_HEIGHT + "px";
+    if (bannerRef2.current)
+      bannerRef2.current.style.height = h - MIN_HEADER_HEIGHT + "px";
+  }, []);
+
+  useEffect(() => {
+    resizeBanner();
+    window.addEventListener("resize", resizeBanner);
+
+    return () => {
+      window.removeEventListener("resize", resizeBanner);
+    };
+  }, [resizeBanner]);
+
   return (
     <section>
       <img
         className="w-full h-[600px] bg-white object-contain brightness-95 hidden lg:block"
+        ref={bannerRef}
         src={tempBanner}
         alt="메인 배너 캐러솔"
       />
       <img
         className="w-full h-[600px] bg-white object-cover brightness-95 lg:hidden"
+        ref={bannerRef2}
         src={tempBannerSmall}
         alt="메인 배너 캐러솔"
       />
@@ -85,9 +108,7 @@ export default function MainPage({ state = "main" }: Props) {
               </button>
             ))}
           </div>
-          <div className="flex w-full">
-            {listTabs[listTab]}
-          </div>
+          <div className="flex w-full">{listTabs[listTab]}</div>
         </div>
       </div>
     </section>
