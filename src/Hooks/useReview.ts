@@ -32,7 +32,7 @@ interface InfinityEventReview {
 
 const fetcher = (type: ContentType, id: number, page: number) => {
   const idKey = type === "events" ? "event_id" : "booth_id";
-  const contentType = type === "events" ? "event" : "booths";
+  const contentType = type === "events" ? "event" : "booth";
 
   return fetch(
     `http://52.79.91.214:8080/${contentType}/reviews?&${idKey}=${id}&page=${page}`,

@@ -3,6 +3,7 @@ import { getAccessToken } from "../../Api/Util/token";
 import { useAuth } from "../../Hooks/useAuth";
 import { Review } from "../../Hooks/useReview";
 import ReviewStars from "./ReviewStars";
+import { format } from "date-fns";
 
 interface Props {
   review: Review;
@@ -11,7 +12,7 @@ interface Props {
 
 export default function EventReview({ review, refetch }: Props) {
   const { id } = useAuth();
-  const imgUrl = review.images[0]?.url;
+  const imgUrl = review.images && review.images[0]?.url;
 
   const isMyReview = review.reviewer.id === id;
 
@@ -24,7 +25,19 @@ export default function EventReview({ review, refetch }: Props) {
       headers: {
         Authorization: `Bearer ${getAccessToken()}`,
       },
-    }).then(() => refetch());
+    })
+      .then((res) => {
+        if (res.ok) {
+          refetch();
+        } else {
+          console.log(res);
+
+          throw new Error();
+        }
+      })
+      .catch((data) => {
+        console.log(data);
+      });
   };
 
   const onClickEdit = () => {
@@ -40,38 +53,46 @@ export default function EventReview({ review, refetch }: Props) {
   };
 
   return (
-    <div className="flex gap-5 border-b border-blue-200 p-3 last:border-none">
-      <img
-        className={`w-32 aspect-square border rounded-md ${imgUrl ?? "hidden"}`}
-        alt="리뷰 이미지"
-        src={review.images[0]?.url}
-      />
+    <div className="flex gap-5 border-b border-blue-200 pb-2 px-2 last:border-none">
       <div className="flex flex-col w-full gap-2">
         <div className="flex w-full h-10 items-center gap-4">
-          <span>{review.reviewer.nickname}</span>
+          <span className="font-bold">{review.reviewer.nickname}</span>
           <ReviewStars
             currentScore={review.star}
             maxScore={5}
             className="ml-auto w-32"
           />
         </div>
-        <div className="flex flex-col flex-1">
+
+        <div className="flex flex-col flex-1 gap-2">
           {isEditing ? (
             <textarea className="border">{editingContent}</textarea>
           ) : (
             <p>{review.content}</p>
           )}
-          <div
-            className={`flex items-center ml-auto mt-auto gap-2 ${
-              isMyReview || "hidden"
+          <img
+            className={`w-32 aspect-square border rounded-md ${
+              imgUrl ?? "hidden"
             }`}
-          >
-            <button className="text-green-600" onClick={onClickEdit}>
-              수정
-            </button>
-            <button onClick={onDeleteReview} className="text-red-500">
-              삭제
-            </button>
+            alt="리뷰 이미지"
+            src={imgUrl}
+          />
+          <div className="flex">
+            <p className="mr-auto text-black/50">
+              {format(new Date(review.registerDate), "yyyy-MM-dd hh:mm")}
+            </p>
+            <div
+              className={`flex items-center mt-auto gap-2 ${
+                isMyReview || "hidden"
+              }`}
+            >
+              <button className="text-green-600" onClick={onClickEdit}>
+                수정
+              </button>
+              <button onClick={onDeleteReview} className="text-red-500">
+                삭제
+              </button>
+            </div>
           </div>
         </div>
       </div>
