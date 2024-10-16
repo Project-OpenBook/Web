@@ -7,7 +7,7 @@ export type ManageFilterStatus = "waiting" | "approved" | "rejected" | "all";
 export default function ManageTableFiltering({ setFilterStatus }: Props) {
   return (
     <div className="flex items-center ml-auto gap-5">
-      <label>
+      <label className="flex items-center gap-1">
         <input
           type="radio"
           name="filtering"
@@ -19,7 +19,7 @@ export default function ManageTableFiltering({ setFilterStatus }: Props) {
         />
         모두보기
       </label>
-      <label>
+      <label className="flex items-center gap-1">
         <input
           type="radio"
           name="filtering"
@@ -30,7 +30,7 @@ export default function ManageTableFiltering({ setFilterStatus }: Props) {
         />
         대기 중
       </label>
-      <label>
+      <label className="flex items-center gap-1">
         <input
           type="radio"
           name="filtering"
@@ -41,7 +41,7 @@ export default function ManageTableFiltering({ setFilterStatus }: Props) {
         />
         반려
       </label>
-      <label>
+      <label className="flex items-center gap-1">
         <input
           type="radio"
           name="filtering"
