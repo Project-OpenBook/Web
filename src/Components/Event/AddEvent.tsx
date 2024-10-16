@@ -213,7 +213,10 @@ export default function AddEventPage() {
   }
 
   return (
-    <form className="flex min-h-screen justify-center" onSubmit={onSubmit}>
+    <form
+      className="flex min-h-screen justify-center my-10"
+      onSubmit={onSubmit}
+    >
       {isAddressOpen && (
         <div
           className="fixed flex justify-center items-center top-0 w-full h-full bg-black/20"
@@ -253,6 +256,7 @@ export default function AddEventPage() {
                 value={eventDetails.location}
               />
               <button
+                type="button"
                 className="mt-7 border shadow-sm rounded-md p-1 w-24"
                 onClick={(e) => {
                   e.preventDefault();

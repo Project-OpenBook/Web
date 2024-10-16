@@ -25,9 +25,6 @@ export default function BoothNoticeList() {
       next={fetchNextPage}
       hasMore={hasNextPage}
       loader={<h4 className="text-center my-4">로딩 중...</h4>}
-      endMessage={
-        <p className="text-center font-bold my-4">모든 공지를 불러왔습니다</p>
-      }
       className="w-full max-w-screen-lg h-full p-2 pt-10 mx-auto"
     >
       {

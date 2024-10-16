@@ -6,8 +6,11 @@ import PageNation from "../../Util/PageNation";
 import { Event, eventFetcher } from "../EventDetail";
 import BoothAprovalTable from "./BoothAprovalTable";
 import { useAproval } from "../../../Hooks/useAproval";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../../Hooks/useAuth";
+import ManageTableFiltering, {
+  ManageFilterStatus,
+} from "./ManageTableFiltering";
 
 export type BoothAprovalContent = Array<{
   id: number;
@@ -36,14 +39,19 @@ export interface BoothAprovalType {
   }>;
 }
 
-const fetcher = (eventId: string | undefined) => {
+const fetcher = (eventId: string | undefined, status?: ManageFilterStatus) => {
   if (!eventId) return Promise.reject();
-  return fetch(`http://52.79.91.214:8080/events/${eventId}/managed/booths`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  }).then((response) => {
+  return fetch(
+    `http://52.79.91.214:8080/events/${eventId}/managed/booths?status=${
+      status || "all"
+    }`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`,
+      },
+    }
+  ).then((response) => {
     if (response.ok) return response.json();
     else throw new Error();
   });
@@ -67,14 +75,16 @@ const setBoothState = (boothId: number, status: string) =>
     });
 
 export default function BoothAproval() {
+  const [filterStatus, setFilterStatus] = useState<ManageFilterStatus>("all");
+
   const { id } = useParams();
   const { id: userId } = useAuth();
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ?? 1;
   const { data, isError, refetch } = useQuery<BoothAprovalType>({
-    queryKey: ["event-aproval"],
+    queryKey: ["event-aproval", filterStatus],
     enabled: !!id,
-    queryFn: () => fetcher(id), //TODO: page 추가
+    queryFn: () => fetcher(id, filterStatus), //TODO: page 추가
   });
 
   const {
@@ -126,17 +136,20 @@ export default function BoothAproval() {
     <div className="flex-1 w-full flex flex-col p-2">
       <div className="w-full inline-flex gap-3 p-2">
         <button
-          className="border p-2 px-4 rounded-md font-bold text-white bg-green-400"
+          className={`border p-2 px-4 rounded-md font-bold text-white bg-green-400 disabled:bg-green-400/50`}
+          disabled={!checkList.some((ischeck) => ischeck)}
           onClick={() => changeStates("APPROVE")}
         >
-          승인
+          모두승인
         </button>
         <button
-          className="border p-2 px-4 rounded-md font-bold text-white bg-red-400"
+          className="border p-2 px-4 rounded-md font-bold text-white bg-red-400 disabled:bg-red-400/50"
+          disabled={!checkList.some((ischeck) => ischeck)}
           onClick={() => changeStates("REJECT")}
         >
-          반려
+          모두반려
         </button>
+        <ManageTableFiltering setFilterStatus={setFilterStatus} />
       </div>
       <div className="overflow-x-auto">
         <div className="container mx-auto">

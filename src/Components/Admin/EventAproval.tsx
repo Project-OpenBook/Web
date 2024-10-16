@@ -8,6 +8,9 @@ import PleaseLogin from "../Login/PleaseLogin";
 import { useAproval } from "../../Hooks/useAproval";
 import { format } from "date-fns";
 import AprovalDetailModal, { AprovalModalData } from "./AprovalDetailModal";
+import ManageTableFiltering, {
+  ManageFilterStatus,
+} from "../Event/Manage/ManageTableFiltering";
 
 interface EventAprovalType {
   content: Array<{
@@ -22,12 +25,11 @@ interface EventAprovalType {
   pageNumber: number;
   totalPages: number;
 }
-
-const fetcher = (page: number) =>
+const fetcher = (page: number, status?: ManageFilterStatus) =>
   fetch(
-    `http://52.79.91.214:8080/admin/events?page=${
-      page - 1
-    }&status=all&sort=registeredAt%2CDESC`,
+    `http://52.79.91.214:8080/admin/events?page=${page - 1}&status=${
+      status || "all"
+    }&sort=registeredAt%2CDESC`,
     {
       method: "GET",
       headers: {
@@ -56,13 +58,14 @@ export const getSlicingText = (text: string, lastIndex: number) => {
 
 // TODO: 관리자 계정이 아닐경우 return
 export default function EventAproval() {
+  const [filterStatus, setFilterStatus] = useState<ManageFilterStatus>("all");
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ?? 1;
   const [shouldOpenModal, setShouldOpenModal] = useState(false);
   const [modalData, setModalData] = useState<AprovalModalData | null>(null);
   const { data, isError, refetch } = useQuery<EventAprovalType>({
-    queryKey: ["event-aproval"],
-    queryFn: () => fetcher(+page),
+    queryKey: ["event-aproval", filterStatus],
+    queryFn: () => fetcher(+page, filterStatus),
   });
 
   const {
@@ -103,17 +106,20 @@ export default function EventAproval() {
     <div className="flex-1 w-full flex flex-col p-2">
       <div className="w-full inline-flex gap-3 p-2">
         <button
-          className="border p-2 px-4 rounded-md font-bold text-white bg-green-400"
+          className={`border p-2 px-4 rounded-md font-bold text-white bg-green-400 disabled:bg-green-400/50`}
+          disabled={!checkList.some((ischeck) => ischeck)}
           onClick={() => changeStates("APPROVE")}
         >
-          승인
+          모두승인
         </button>
         <button
-          className="border p-2 px-4 rounded-md font-bold text-white bg-red-400"
+          className="border p-2 px-4 rounded-md font-bold text-white bg-red-400 disabled:bg-red-400/50"
+          disabled={!checkList.some((ischeck) => ischeck)}
           onClick={() => changeStates("REJECT")}
         >
-          반려
+          모두반려
         </button>
+        <ManageTableFiltering setFilterStatus={setFilterStatus} />
       </div>
       <div className="overflow-x-auto">
         <div className="container mx-auto">
