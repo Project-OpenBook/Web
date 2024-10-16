@@ -21,6 +21,15 @@ export default function TimeInput({
 }: Props) {
   const INPUT_CLASSNAME = "h-10 border-b-2 pl-1 mb-5 w-full";
 
+  function formatToHHMM(dateTimeString: string): string {
+    const date = new Date(dateTimeString);
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${hours}:${minutes}`;
+  }
+
+  if (!startTimeValue || !endTimeValue) return <div>잘못된 경로입니다.</div>;
+
   return (
     <div className="flex flex-col w-full max-w-screen-sm">
       <div className="flex gap-2 items-center h-full">
@@ -34,14 +43,14 @@ export default function TimeInput({
           type="time"
           className={INPUT_CLASSNAME}
           onChange={(e) => setStartTime(`${e.target.value}:00`)}
-          value={startTimeValue}
+          value={formatToHHMM(startTimeValue)}
         />
         <div className="pb-3 font-bold"> ~ </div>
         <input
           type="time"
           className={INPUT_CLASSNAME}
           onChange={(e) => setEndTime(`${e.target.value}:00`)}
-          value={endTimeValue}
+          value={formatToHHMM(endTimeValue)}
         />
       </div>
     </div>

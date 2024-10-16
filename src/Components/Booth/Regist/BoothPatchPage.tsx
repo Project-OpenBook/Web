@@ -74,9 +74,6 @@ export default function BoothPatchPage() {
     tags,
   } = usePatchBooth(boothData ?? mockBoothData, boothId ?? "");
 
-  console.log(boothData);
-  const eventId = state?.eventId;
-
   const [imageName, setImageName] = useState("X");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
