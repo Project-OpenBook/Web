@@ -253,6 +253,7 @@ export default function AddEventPage() {
                 value={eventDetails.location}
               />
               <button
+                type="button"
                 className="mt-7 border shadow-sm rounded-md p-1 w-24"
                 onClick={(e) => {
                   e.preventDefault();
