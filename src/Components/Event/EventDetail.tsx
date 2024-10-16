@@ -9,6 +9,7 @@ import { IoIosSettings } from "react-icons/io";
 import KakaoMap from "./KakaoMap";
 import EventNotice from "./EventNotice";
 import { useAuth } from "../../Hooks/useAuth";
+import BookmarkIcon from "../Bookmark/BookmarkIcon";
 
 export interface Event {
   id: number;
@@ -77,8 +78,14 @@ export default function EventDetailPage() {
 
   return (
     <div className="flex min-h-screen justify-center" onSubmit={onSubmit}>
-      <div className="w-full max-w-screen-lg shadow-2xl h-full p-2 pt-10">
-        <h2 className="text-2xl font-extrabold text-center">{name}</h2>
+      <div className="w-full max-w-screen-lg shadow-2xl h-full p-2">
+        <BookmarkIcon
+          id={eventId}
+          isBookmark={false}
+          type="EVENT"
+          className="flex justify-end"
+        />
+        <h2 className="text-2xl font-extrabold text-center pt-10">{name}</h2>
         <div className="flex flex-col mt-5">
           <div className="w-full px-10 py-4 flex flex-col gap-5">
             <Link

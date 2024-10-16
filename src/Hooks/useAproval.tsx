@@ -17,11 +17,17 @@ export function useAproval(
   });
 
   const onAprove = (id: number) => {
-    mutateAsync({ id, status: "APPROVE" }).then(() => refetch && refetch());
+    mutateAsync({ id, status: "APPROVE" }).then(() => {
+      alert("승인 되었습니다");
+      refetch && refetch();
+    });
   };
 
   const onReject = (id: number) => {
-    mutateAsync({ id, status: "REJECT" }).then(() => refetch && refetch());
+    mutateAsync({ id, status: "REJECT" }).then(() => {
+      alert("반려 되었습니다");
+      refetch && refetch();
+    });
   };
 
   const changeStates = async (

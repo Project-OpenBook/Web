@@ -23,6 +23,7 @@ import ReviewList from "../../Event/EventReviewList";
 import { useGetGoodsList } from "../../../Hooks/Booth/Detail/useGetGoods";
 import { useGetServiceList } from "../../../Hooks/Booth/Detail/useGetServices";
 import { useNavigate } from "react-router-dom";
+import BookmarkIcon from "../../Bookmark/BookmarkIcon";
 
 export default function BoothDetailPage() {
   const [modalState, setModalState] = useState(Modal_State.none);
@@ -106,7 +107,7 @@ export default function BoothDetailPage() {
   return (
     <div className="flex justify-center text-xl">
       {data ? (
-        <div className=" bg-gradient-to-r from-white via-gray-100 to-white shadow-lg w-full max-w-screen-xl my-2 flex flex-col items-center my-10 pb-5 p-2">
+        <div className="shadow-md w-full max-w-screen-xl m-2 flex flex-col items-center my-10 pb-5 p-2">
           <div className="flex flex-col mt-10 items-center gap-4 lg:w-[900px]">
             <div className="text-3xl font-bold my-5 flex">
               <div>{data.name} </div>
