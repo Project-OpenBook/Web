@@ -21,13 +21,14 @@ interface BoothData {
       role: string;
     };
   };
-
   isUserManager: boolean;
   manager: {
     id: string;
     nickname: string;
     role: string;
   };
+  accountNumber: string;
+  accountBankName: string;
 }
 
 export interface LocationData {

@@ -28,6 +28,8 @@ interface BoothData {
     nickname: string;
     role: string;
   };
+  accountNumber: string;
+  accountBankName: string;
 }
 
 interface LocationData {
@@ -40,7 +42,7 @@ interface PatchData {
   description: string;
   openTime: string;
   closeTime: string;
-  mainImage: string;
+  mainImageUrl: File | string | null;
   accountBankName: string;
   accountNumber: string;
   tagToAdd: string[];
@@ -53,17 +55,25 @@ const fetchPatchData = (
 ): Promise<void> => {
   const token = getAccessToken();
   let formData = new FormData();
+
+  const formatTime = (dateTimeString: string): string => {
+    const date = new Date(dateTimeString);
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${hours}:${minutes}:00`;
+  };
+
   formData.append("name", patchData.name);
   formData.append("description", patchData.description);
-  if (patchData.mainImage !== null) {
-    formData.append("mainImage", patchData.mainImage);
+  if (patchData.mainImageUrl !== null) {
+    formData.append("mainImage", patchData.mainImageUrl);
   }
-  formData.append("openTime", patchData.openTime);
-  formData.append("closeTime", patchData.closeTime);
-  patchData.tagToAdd.map((addTags) => {
+  formData.append("openTime", formatTime(patchData.openTime));
+  formData.append("closeTime", formatTime(patchData.closeTime));
+  patchData.tagToAdd.forEach((addTags) => {
     formData.append("tagToAdd", addTags);
   });
-  patchData.tagToDelete.map((delTags) => {
+  patchData.tagToDelete.forEach((delTags) => {
     formData.append("tagToDelete", delTags);
   });
   formData.append("accountBankName", patchData.accountBankName);
@@ -73,6 +83,7 @@ const fetchPatchData = (
       Authorization: `Bearer ${token}`,
     },
     method: "PATCH",
+    body: formData,
   }).then((response) => {
     if (!response.ok) throw new Error("err");
     return response.json();
@@ -89,9 +100,15 @@ export const usePatchBooth = (boothData: BoothData, boothId: string) => {
   const [tags, setTags] = useState(boothData.tags);
   const [tagToAdd, setTagToAdd] = useState<string[]>([]);
   const [tagToDelete, setTagToDelete] = useState<string[]>([]);
-  const [accountNumber, setAccountNumber] = useState("3333090884128");
-  const [accountBankName, setAccountBankName] = useState("카카오뱅크");
-  const [mainImage, setMainImage] = useState(boothData.mainImageUrl);
+  const [accountNumber, setAccountNumber] = useState<string>(
+    boothData.accountNumber
+  );
+  const [accountBankName, setAccountBankName] = useState<string>(
+    boothData.accountBankName
+  );
+  const [mainImageUrl, setMainImageUrl] = useState<File | string | null>(
+    boothData.mainImageUrl
+  );
   const { mutate } = useMutation({
     mutationFn: () =>
       fetchPatchData(
@@ -101,7 +118,7 @@ export const usePatchBooth = (boothData: BoothData, boothId: string) => {
           accountNumber,
           closeTime,
           description,
-          mainImage,
+          mainImageUrl,
           openTime,
           tagToAdd,
           tagToDelete,
@@ -132,8 +149,8 @@ export const usePatchBooth = (boothData: BoothData, boothId: string) => {
     openTime,
     setOpenTime,
     setCloseTime,
-    mainImage,
-    setMainImage,
+    mainImageUrl,
+    setMainImageUrl,
     setTagToAdd,
     setTagToDelete,
     tagToAdd,

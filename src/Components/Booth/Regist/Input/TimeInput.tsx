@@ -3,7 +3,7 @@ import { IconType } from "react-icons";
 interface Props {
   label: string;
   placeholder?: string;
-  setStartTime: (value: any) => void;
+  setStartTime: (value: string) => void;
   setEndTime: (value: any) => void;
   Icon: IconType;
   imageName?: string;
@@ -42,14 +42,15 @@ export default function TimeInput({
         <input
           type="time"
           className={INPUT_CLASSNAME}
-          onChange={(e) => setStartTime(`${e.target.value}:00`)}
+          onChange={(e) => setStartTime(`2024-10-31T${e.target.value}:00`)}
           value={formatToHHMM(startTimeValue)}
         />
+
         <div className="pb-3 font-bold"> ~ </div>
         <input
           type="time"
           className={INPUT_CLASSNAME}
-          onChange={(e) => setEndTime(`${e.target.value}:00`)}
+          onChange={(e) => setEndTime(`2024-10-31T${e.target.value}:00`)}
           value={formatToHHMM(endTimeValue)}
         />
       </div>

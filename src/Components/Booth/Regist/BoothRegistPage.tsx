@@ -49,28 +49,21 @@ export default function BoothRegistPage() {
     setTagNames,
     tagNames,
     accountBankName,
+    openTime,
+    endTime,
+    mainImage,
   } = useRegisteBooth(state?.name);
   const [modalState, setModalState] = useState(Modal_State.none);
-  const [imageName, setImageName] = useState("X");
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState<string[]>([]);
 
   if (!eventId) return <>잘못된 접근입니다.</>;
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files && event.target.files[0];
-    if (selectedFile) {
-      setMainImage(selectedFile);
-      setImageName(selectedFile.name);
-    } else {
-      setMainImage(null);
-      setImageName("X");
-    }
-  };
 
   const handleBoothSubmission = () => {
     setLinkedEvent(eventId);
     mutate();
   };
+
+  console.log(openTime);
 
   return (
     <div className="flex justify-center items-center min-h-screen ">
@@ -103,6 +96,8 @@ export default function BoothRegistPage() {
           label="부스 운영 시간"
           Icon={FaCalendarCheck}
           setStartTime={setOpenTime}
+          endTimeValue={endTime}
+          startTimeValue={openTime}
           setEndTime={setEndTime}
         />
         <LocationInput
@@ -113,8 +108,8 @@ export default function BoothRegistPage() {
         <ImageInput
           label="부스 대표이미지"
           Icon={FaRegImage}
-          setImage={handleFileChange}
-          imageName={imageName}
+          setImage={setMainImage}
+          value={mainImage}
         />
         <TextareaInput
           placeholder="부스에 대한 간단한 설명을 입력해주세요"

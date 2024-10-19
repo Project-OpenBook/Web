@@ -109,18 +109,20 @@ export default function BoothDetailPage() {
       {data ? (
         <div className="shadow-md w-full max-w-screen-xl m-2 flex flex-col items-center my-10 pb-5 p-2">
           <div className="flex flex-col mt-10 items-center gap-4 lg:w-[900px]">
-            <div className="text-3xl font-bold my-5 flex">
-              <div>{data.name} </div>
-              {isUserHaveAuth() && (
-                <button
-                  onClick={() => {
-                    navi(`/booth/patch/${boothId}`);
-                  }}
-                >
-                  부스 정보 수정
-                </button>
-              )}
+            <div className="relative w-full flex items-center justify-center my-5">
+              <div className="absolute left-0">
+                {isUserHaveAuth() && (
+                  <button
+                    onClick={() => navi(`/booth/patch/${boothId}`)}
+                    className="bg-[#0064FF]  text-white rounded-md px-4 py-2"
+                  >
+                    부스 정보 수정
+                  </button>
+                )}
+              </div>
+              <div className="text-3xl font-bold">{data.name}</div>
             </div>
+
             <div className="flex flex-col lg:flex-row w-full gap-5">
               <div className="w-1/2 bg-white flex justify-center">
                 <img

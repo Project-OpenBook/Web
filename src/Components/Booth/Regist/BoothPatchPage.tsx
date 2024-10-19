@@ -26,11 +26,11 @@ export default function BoothPatchPage() {
     openData: "2024-10-01 09:00",
     closeData: "2024-10-01 18:00",
     location: [
-      { classification: "A", number: "12" },
+      { classification: "A", number: "12" }, // This aligns with LocationData[]
       { classification: "B", number: "34" },
     ],
-    description: "This is a sample description for the booth.",
-    mainImageUrl: "https://example.com/sample-image.jpg",
+    description: "none",
+    mainImageUrl: "none",
     tags: ["Technology", "Innovation", "Expo"],
     eventId: 100,
     eventName: "Sample Expo 2024",
@@ -49,6 +49,8 @@ export default function BoothPatchPage() {
       nickname: "ExpoManager",
       role: "Event Manager",
     },
+    accountNumber: "none",
+    accountBankName: "none",
   };
 
   const { state } = useLocation();
@@ -59,7 +61,7 @@ export default function BoothPatchPage() {
     accountNumber,
     closeTime,
     description,
-    mainImage,
+    mainImageUrl,
     mutate,
     name,
     openTime,
@@ -67,7 +69,7 @@ export default function BoothPatchPage() {
     setAccountNumber,
     setCloseTime,
     setDescription,
-    setMainImage,
+    setMainImageUrl,
     setName,
     setOpenTime,
     setTags,
@@ -78,20 +80,13 @@ export default function BoothPatchPage() {
     tagToDelete,
   } = usePatchBooth(boothData ?? mockBoothData, boothId ?? "");
 
-  const [imageName, setImageName] = useState("X");
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files && event.target.files[0];
-    if (selectedFile) {
-      setImageName(selectedFile.name);
-    } else {
-      setImageName("X");
-    }
-  };
-
   const handleBoothSubmission = () => {
     mutate();
   };
+
+  console.log(mainImageUrl);
+
+  if (!mainImageUrl) return <div>오류</div>;
 
   return (
     <div className="flex justify-center items-center">
@@ -124,9 +119,10 @@ export default function BoothPatchPage() {
         <ImageInput
           label="부스 대표이미지"
           Icon={FaRegImage}
-          setImage={handleFileChange}
-          imageName={imageName}
+          setImage={setMainImageUrl}
+          value={mainImageUrl}
         />
+        ;
         <TagInput
           placeholder="부스의 태그를 설정한 뒤 확인 버튼을 눌러주세요"
           tagNames={tags}
@@ -140,6 +136,8 @@ export default function BoothPatchPage() {
           placeholder="사용하시는 은행 및 계좌번호를 입력해주세요"
           label="계좌번호"
           Icon={FaRegCreditCard}
+          accountNumber={accountNumber}
+          accountBankName={accountBankName}
           setAccountNumber={setAccountNumber}
           setAccountBankName={setAccountBankName}
         />
