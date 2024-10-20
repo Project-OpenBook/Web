@@ -79,6 +79,8 @@ export default function ProductPatchInputPage({
     }
   };
 
+  console.log(name, description);
+
   return (
     <>
       <div className="flex flex-col w-1/2 p-3 justify-center items-center">

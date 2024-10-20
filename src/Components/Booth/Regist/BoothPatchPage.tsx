@@ -31,7 +31,10 @@ export default function BoothPatchPage() {
     ],
     description: "none",
     mainImageUrl: "none",
-    tags: ["Technology", "Innovation", "Expo"],
+    tags: [
+      { id: "2", name: "imsiTag" },
+      { id: "2", name: "imsiTag" },
+    ],
     eventId: 100,
     eventName: "Sample Expo 2024",
     event: {
@@ -74,6 +77,8 @@ export default function BoothPatchPage() {
     setOpenTime,
     setTags,
     tags,
+    setTagNames,
+    tagNames,
     setTagToAdd,
     setTagToDelete,
     tagToAdd,
@@ -90,7 +95,7 @@ export default function BoothPatchPage() {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="flex w-full max-w-screen-sm flex-col h-full justify-center shadow-lg items-center mt-20 p-10 border border-slate-200 rounded-md">
+      <div className="flex w-full max-w-screen-sm flex-col mb-10 h-full justify-center shadow-lg items-center mt-10 p-10 border border-slate-200 rounded-md">
         <h1 className="font-bold text-3xl mb-5">부스 수정</h1>
         <p>◎ 이미 등록된 부스의 위치는 수정할 수 없습니다</p>
         <BoothRegistInput
@@ -125,8 +130,8 @@ export default function BoothPatchPage() {
         ;
         <TagInput
           placeholder="부스의 태그를 설정한 뒤 확인 버튼을 눌러주세요"
-          tagNames={tags}
-          setTagNames={setTags}
+          tagNames={tagNames}
+          setTagNames={setTagNames}
           setAddTags={setTagToAdd}
           setDelTags={setTagToDelete}
           addTags={tagToAdd}

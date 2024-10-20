@@ -9,7 +9,7 @@ interface BoothData {
   location: LocationData[];
   description: string;
   mainImageUrl: string;
-  tags: string[];
+  tags: { id: string; name: string }[];
   eventId: number;
   eventName: string;
   event: {

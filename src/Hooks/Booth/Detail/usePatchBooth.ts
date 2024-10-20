@@ -10,7 +10,7 @@ interface BoothData {
   location: LocationData[];
   description: string;
   mainImageUrl: string;
-  tags: string[];
+  tags: { id: string; name: string }[];
   eventId: number;
   eventName: string;
   event: {
@@ -97,6 +97,11 @@ export const usePatchBooth = (boothData: BoothData, boothId: string) => {
   const [description, setDescription] = useState(boothData.description);
   const [openTime, setOpenTime] = useState(boothData.openData);
   const [closeTime, setCloseTime] = useState(boothData.closeData);
+  const [tagNames, setTagNames] = useState(
+    boothData.tags.map((tag) => {
+      return tag.name;
+    })
+  );
   const [tags, setTags] = useState(boothData.tags);
   const [tagToAdd, setTagToAdd] = useState<string[]>([]);
   const [tagToDelete, setTagToDelete] = useState<string[]>([]);
@@ -155,5 +160,7 @@ export const usePatchBooth = (boothData: BoothData, boothId: string) => {
     setTagToDelete,
     tagToAdd,
     tagToDelete,
+    tagNames,
+    setTagNames,
   };
 };

@@ -176,7 +176,7 @@ export default function BoothDetailPage() {
                     <div className="font-bold text-nowrap">부스 태그 : </div>
                     <div className="flex w-full gap-3 flex-wrap">
                       {data.tags.map((tag) => {
-                        return <Tag text={tag} />;
+                        return <Tag text={tag.name} />;
                       })}
                     </div>
                   </div>
