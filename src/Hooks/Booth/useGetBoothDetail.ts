@@ -9,7 +9,7 @@ interface BoothData {
   location: LocationData[];
   description: string;
   mainImageUrl: string;
-  tags: string[];
+  tags: { id: string; name: string }[];
   eventId: number;
   eventName: string;
   event: {
@@ -21,13 +21,14 @@ interface BoothData {
       role: string;
     };
   };
-
   isUserManager: boolean;
   manager: {
     id: string;
     nickname: string;
     role: string;
   };
+  accountNumber: string;
+  accountBankName: string;
 }
 
 export interface LocationData {

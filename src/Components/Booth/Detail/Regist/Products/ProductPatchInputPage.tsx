@@ -11,12 +11,31 @@ import { Modal_State } from "../../../Regist/BoothRegistPage";
 import { BiSolidCategory } from "react-icons/bi";
 import { useParams } from "react-router-dom";
 import { useCategoryList } from "../../../../../Hooks/Booth/Detail/useGetCategory";
-import { useGoodsInput } from "../../../../../Hooks/Booth/Detail/useRegistGoods";
+import { usePatchProduct } from "../../../../../Hooks/Booth/Detail/usePatchProduct";
+
 interface Props {
   setModalState: (state: string) => void;
+  setPatchModal: (state: boolean) => void;
+  product: {
+    id: string;
+    name: string;
+    description: string;
+    stock: number;
+    price: number;
+    images: Image[];
+  };
 }
 
-export default function GoodsInfoInputPage({ setModalState }: Props) {
+interface Image {
+  id: string;
+  url: string;
+}
+
+export default function ProductPatchInputPage({
+  setModalState,
+  product,
+  setPatchModal,
+}: Props) {
   const {
     mutate,
     setCategoryId,
@@ -25,7 +44,14 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
     setName,
     setPrice,
     setStock,
-  } = useGoodsInput(setModalState);
+    name,
+    categoryId,
+    categoryId2,
+    description,
+    images,
+    price,
+    stock,
+  } = usePatchProduct(product, "37");
   let { boothId } = useParams();
   const setBoothImage = useSetRecoilState(boothImageState);
   const [imageName, setImageName] = useState("X");
@@ -48,19 +74,23 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
 
   const handleCancel = () => {
     if (window.confirm("취소하시겠습니까?")) {
+      setPatchModal(false);
       setModalState(Modal_State.goodsManage);
     }
   };
 
+  console.log(name, description);
+
   return (
     <>
       <div className="flex flex-col w-1/2 p-3 justify-center items-center">
-        <h1 className="font-bold text-3xl mb-5">물품 등록</h1>
+        <h1 className="font-bold text-3xl mb-5">물품 수정</h1>
         <GoodsInfoInput
           Icon={MdDriveFileRenameOutline}
           label="물품명"
           placeholder="물품의 이름을 입력해주세요"
           setValue={setName}
+          value={name}
           type="text"
         />
         <GoodsInfoInput
@@ -77,6 +107,7 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
           placeholder="물품에 대한 간략한 설명을 입력해주세요"
           setValue={setDescription}
           type="text"
+          value={description}
         />
         <GoodsInfoInput
           Icon={IoIosPricetags}
@@ -84,6 +115,7 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
           placeholder="물품의 개당 가격(원)을 숫자로 입력해주세요"
           setValue={setPrice}
           type="text"
+          value={price.toString()}
         />
         <GoodsInfoInput
           Icon={TbNumber123}
@@ -91,6 +123,7 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
           placeholder="물품의 재고 수를 입력해주세요"
           setValue={setStock}
           type="text"
+          value={stock.toString()}
         />
         <GoodsInfoInput
           Icon={FaRegImage}
@@ -104,7 +137,7 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
             onClick={handleConfirm}
             className="py-1 font-bold w-full h-10 hover:cursor-pointer bg-[#0064FF] rounded-md text-white mb-4"
           >
-            물품 등록
+            수정
           </button>
           <button
             onClick={handleCancel}

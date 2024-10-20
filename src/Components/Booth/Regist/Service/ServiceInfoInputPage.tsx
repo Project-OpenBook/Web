@@ -70,7 +70,7 @@ export default function ServiceInfoInputPage({
 
   return (
     <>
-      <div className="flex flex-col w-full h-full justify-center items-center">
+      <div className="flex flex-col w-full pt-5 h-full justify-center items-center">
         <h1 className="font-bold text-3xl mb-5">서비스 등록</h1>
         <ServiceInfoInput
           Icon={MdDriveFileRenameOutline}

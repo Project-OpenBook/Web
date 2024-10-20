@@ -28,7 +28,7 @@ interface Content {
   images: {
     id: string;
     url: string;
-  }[]; // 배열로 변경
+  }[];
 }
 
 const fetchGoodsData = (boothId: string): Promise<GoodsData[]> => {

@@ -95,8 +95,6 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
             </select>
           </div>
 
-          {/* 우측 상단에 물품 등록 버튼 */}
-
           <div className="absolute top-4 right-8 flex gap-4">
             {isManager && (
               <>
@@ -123,12 +121,12 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
           </div>
 
           {selectedOption === 0 ? (
-            <div className="space-y-8">
+            <div className="space-y-4">
               {/* 전체 상품 데이터 출력 */}
               {data.length > 0 ? (
                 data.map((category, catIndex) => (
                   <div key={catIndex} className="space-y-4">
-                    <div className="flex gap-2 items-center">
+                    <div className="flex gap-1 items-center">
                       <h3 className="font-bold text-2xl text-left mb-4">
                         {category.category.name}
                       </h3>
@@ -139,14 +137,19 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
                       )}
                     </div>
 
-                    {/* 제품 그리드 */}
-                    <div className="grid place-items-center grid-cols-4 gap-6">
+                    {/* flex 레이아웃을 사용하여 카드 배치 */}
+                    <div className="flex flex-wrap">
                       {category.products.content.length > 0 ? (
                         category.products.content.map((product, prodIndex) => (
-                          <GoodsInfoCard key={prodIndex} product={product} />
+                          <div className="w-1/5" key={prodIndex}>
+                            <GoodsInfoCard
+                              product={product}
+                              setModalState={setModalState}
+                            />
+                          </div>
                         ))
                       ) : (
-                        <div className="col-span-5 text-center">
+                        <div className="w-full text-center">
                           등록된 물품이 없습니다.
                         </div>
                       )}
@@ -160,13 +163,18 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
               )}
             </div>
           ) : (
-            <div className="space-y-8">
+            <div className="space-y-4">
               {/* 선택된 카테고리 상품 데이터 출력 */}
               {categoryGoodsList?.pages.map((page, pageIndex) => (
                 <div key={pageIndex} className="space-y-4">
-                  <div className="grid place-items-center grid-cols-5 gap-6">
+                  <div className="flex flex-wrap">
                     {page.products.content.map((product, prodIndex) => (
-                      <GoodsInfoCard key={prodIndex} product={product} />
+                      <div className="w-1/5" key={prodIndex}>
+                        <GoodsInfoCard
+                          product={product}
+                          setModalState={setModalState}
+                        />
+                      </div>
                     ))}
                   </div>
                 </div>
