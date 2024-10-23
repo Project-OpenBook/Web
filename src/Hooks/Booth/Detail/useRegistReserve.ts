@@ -32,7 +32,7 @@ const fetchReserveInput = (
     formData.append("times", time);
   });
   reserveRegistData.date.forEach((date) => {
-    formData.append("date", date);
+    formData.append("dates", date);
   });
   const response = fetch(
     `http://52.79.91.214:8080/booths/${reserveRegistData.boothId}/reservation`,
