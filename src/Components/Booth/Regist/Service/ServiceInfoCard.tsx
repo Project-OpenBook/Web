@@ -40,10 +40,13 @@ export default function ServiceInfoCard(service: Props) {
               {service.ServiceData.price.toLocaleString()}원
             </p>
           </div>
-          <div className="flex space-x-4">
+          <div className="flex gap-2">
             {/* <button className="px-3 py-1 text-sm font-medium text-blue-600 border border-blue-500 rounded-md hover:bg-blue-50">
               수정
             </button> */}
+            <button className="px-3 py-1 text-sm font-medium text-white rounded-md bg-blue-400 hover:bg-blue-500">
+              예약 내용 보기
+            </button>
             <button className="px-3 py-1 text-sm font-medium text-red-600 border border-red-500 rounded-md hover:bg-red-50">
               삭제
             </button>

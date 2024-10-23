@@ -38,10 +38,7 @@ export default function ServiceManagementPage({
       </div>
 
       {/* 스크롤 영역 */}
-      <div
-        className="flex flex-col gap-1 w-full overflow-y-auto"
-        style={{ maxHeight: "600px" }}
-      >
+      <div className="flex flex-col gap-1 w-full overflow-y-auto max-h-96">
         {data.map((service, index) => (
           <ServiceInfoCard ServiceData={service} key={index} />
         ))}
