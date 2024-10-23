@@ -21,7 +21,7 @@ interface Props {
 
 export default function ServiceInfoCard(service: Props) {
   return (
-    <div className="w-full border p-6 rounded-lg flex relative bg-white hover:shadow-sm">
+    <div className="w-full border p-2 rounded-lg flex relative bg-white hover:shadow-sm">
       <img
         src={service.ServiceData.imageUrl || noImage}
         className="w-32 h-32 object-cover rounded-lg"
@@ -41,9 +41,9 @@ export default function ServiceInfoCard(service: Props) {
             </p>
           </div>
           <div className="flex space-x-4">
-            <button className="px-3 py-1 text-sm font-medium text-blue-600 border border-blue-500 rounded-md hover:bg-blue-50">
+            {/* <button className="px-3 py-1 text-sm font-medium text-blue-600 border border-blue-500 rounded-md hover:bg-blue-50">
               수정
-            </button>
+            </button> */}
             <button className="px-3 py-1 text-sm font-medium text-red-600 border border-red-500 rounded-md hover:bg-red-50">
               삭제
             </button>
