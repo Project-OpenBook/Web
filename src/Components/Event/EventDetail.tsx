@@ -81,8 +81,8 @@ export default function EventDetailPage() {
   const isRecruiting = new Date() < new Date(data.openDate);
 
   return (
-    <div className="flex min-h-screen justify-center" onSubmit={onSubmit}>
-      <div className="w-full max-w-screen-lg shadow-2xl h-full p-2">
+    <div className="flex min-h-screen justify-center my-10" onSubmit={onSubmit}>
+      <div className="w-full max-w-screen-lg shadow-md h-full p-2">
         <BookmarkIcon
           id={eventId}
           isBookmark={false}
