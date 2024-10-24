@@ -145,6 +145,7 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
                             <GoodsInfoCard
                               product={product}
                               setModalState={setModalState}
+                              category={category.category.id}
                             />
                           </div>
                         ))

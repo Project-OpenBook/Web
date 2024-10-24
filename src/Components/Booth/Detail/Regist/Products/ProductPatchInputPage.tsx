@@ -24,6 +24,7 @@ interface Props {
     price: number;
     images: Image[];
   };
+  category?: string;
 }
 
 interface Image {
@@ -35,23 +36,24 @@ export default function ProductPatchInputPage({
   setModalState,
   product,
   setPatchModal,
+  category,
 }: Props) {
   const {
     mutate,
-    setCategoryId,
+    setCategoryId2,
     setDescription,
     setImages,
     setName,
     setPrice,
     setStock,
     name,
-    categoryId,
     categoryId2,
     description,
     images,
     price,
     stock,
-  } = usePatchProduct(product, "37");
+  } = usePatchProduct(product, category || "");
+
   let { boothId } = useParams();
   const setBoothImage = useSetRecoilState(boothImageState);
   const [imageName, setImageName] = useState("X");
@@ -79,8 +81,6 @@ export default function ProductPatchInputPage({
     }
   };
 
-  console.log(name, description);
-
   return (
     <>
       <div className="flex flex-col w-1/2 p-3 justify-center items-center">
@@ -96,10 +96,11 @@ export default function ProductPatchInputPage({
         <GoodsInfoInput
           Icon={BiSolidCategory}
           label="카테고리"
-          placeholder="물품의 카테고리를 선택해주세요"
-          setValue={setCategoryId}
+          placeholder="우측에서 물품의 카테고리를 선택해주세요"
+          setValue={setCategoryId2}
           type="select"
           categoryData={categoryList}
+          value={categoryId2}
         />
         <GoodsInfoInput
           Icon={MdOutlineDescription}

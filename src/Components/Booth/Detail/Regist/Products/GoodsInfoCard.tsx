@@ -13,6 +13,7 @@ interface Props {
     images: Image[] | [];
   };
   setModalState: (state: string) => void;
+  category?: string;
 }
 
 interface Image {
@@ -20,7 +21,11 @@ interface Image {
   url: string;
 }
 
-export default function GoodsInfoCard({ product, setModalState }: Props) {
+export default function GoodsInfoCard({
+  product,
+  setModalState,
+  category,
+}: Props) {
   const { mutate } = useDeleteProduct(product.id);
   const [patchModal, setPatchModal] = useState<boolean>(false);
 
@@ -86,6 +91,7 @@ export default function GoodsInfoCard({ product, setModalState }: Props) {
           setModalState={setModalState}
           product={product}
           setPatchModal={setPatchModal}
+          category={category}
         />
       </Modal>
     </div>

@@ -51,22 +51,27 @@ export default function GoodsInfoInput({
         <div className="flex w-full justify-between items-center mb-4">
           <input
             placeholder={placeholder}
-            type={type}
+            type="text"
             className="flex w-3/4 border-b-2 py-2 pl-1"
           />
           <select
+            value={value || "none"} // 초기 값이 없을 때 "none"을 사용
             onChange={(e) => {
+              console.log(e.target.value);
               setValue(e.target.value);
-            }}
-            className=" border-2 border-black h-8 w-1/4 hover:cursor-pointer rounded-md bg-white"
+            }} // 문자열로 전달
+            className="border-2 border-black h-8 w-1/4 hover:cursor-pointer rounded-md bg-white"
           >
-            <option value="none">카테고리 선택</option>;
-            {categoryData?.map((category) => {
-              return <option value={category.id}>{category.name}</option>;
-            })}
+            <option value="none">카테고리 선택</option>
+            {categoryData?.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
           </select>
         </div>
       )}
+
       {type === "image" && (
         <div className="flex w-full justify-between items-center mb-4">
           <div className="flex w-3/4 border-b-2 py-2 pl-1">
