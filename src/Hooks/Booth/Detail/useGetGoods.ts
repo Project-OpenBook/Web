@@ -25,10 +25,12 @@ interface Content {
   description: string;
   stock: number; // 숫자형으로 변경
   price: number; // 숫자형으로 변경
-  images: {
-    id: string;
-    url: string;
-  }[];
+  images:
+    | {
+        id: string;
+        url: string;
+      }[]
+    | [];
 }
 
 const fetchGoodsData = (boothId: string): Promise<GoodsData[]> => {

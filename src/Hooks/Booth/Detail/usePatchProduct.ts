@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { getAccessToken } from "../../../Api/Util/token";
 import { useState } from "react";
+import noImage from "../../../images/noimage.png";
 
 interface Product {
   id: string;
@@ -70,7 +71,7 @@ export const usePatchProduct = (product: Product, categoryId2: string) => {
   const [stock, setStock] = useState(product.stock);
   const [price, setPrice] = useState(product.price);
   const [images, setImages] = useState<File[] | null | string>(
-    product.images[0].url
+    product.images[0]?.url || noImage
   );
   const id = product.id;
   const { mutate } = useMutation({

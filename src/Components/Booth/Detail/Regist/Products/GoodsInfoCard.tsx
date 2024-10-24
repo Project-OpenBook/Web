@@ -10,7 +10,7 @@ interface Props {
     description: string;
     stock: number;
     price: number;
-    images: Image[];
+    images: Image[] | [];
   };
   setModalState: (state: string) => void;
 }

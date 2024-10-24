@@ -132,6 +132,8 @@ export default function BoothPatchPage() {
           placeholder="부스의 태그를 설정한 뒤 확인 버튼을 눌러주세요"
           tagNames={tagNames}
           setTagNames={setTagNames}
+          setTags={setTags}
+          tags={tags}
           setAddTags={setTagToAdd}
           setDelTags={setTagToDelete}
           addTags={tagToAdd}
