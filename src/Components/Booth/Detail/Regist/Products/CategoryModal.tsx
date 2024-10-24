@@ -67,9 +67,10 @@ export default function CategoryModal({ onClose }: CategoryModalProps) {
           <h3 className="font-semibold">등록된 카테고리</h3>
           <ul className="list-disc ml-4">
             {localCategoryList.map((category, index) => (
-              <li
-                key={index}
-              >{`${category.name} - ${category.description}`}</li>
+              <li key={index}>
+                {category.name}
+                {category.description ? ` - ${category.description}` : ""}
+              </li>
             ))}
           </ul>
         </div>

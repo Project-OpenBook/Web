@@ -24,8 +24,8 @@ export default function ServiceManagementPage({
   };
 
   return (
-    <div className="flex flex-col mx-auto p-6 w-full">
-      <div className="flex justify-between items-center mb-4 w-full">
+    <div className="flex flex-col mx-auto p-6 w-full ">
+      <div className="flex justify-between items-center mb-10 w-full">
         <h1 className="text-2xl font-bold mx-auto">서비스 관리</h1>
         <button
           onClick={() => {
@@ -36,11 +36,14 @@ export default function ServiceManagementPage({
           서비스 추가
         </button>
       </div>
-      <div className="flex flex-col gap-2 w-full">
+
+      {/* 스크롤 영역 */}
+      <div className="flex flex-col gap-1 w-full overflow-y-auto max-h-96">
         {data.map((service, index) => (
           <ServiceInfoCard ServiceData={service} key={index} />
         ))}
       </div>
+
       <div className="flex justify-center gap-4 mt-4 w-full">
         <button
           onClick={handleConfirm}

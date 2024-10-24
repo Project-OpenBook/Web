@@ -7,25 +7,22 @@ interface Props {
     description: string;
     stock: number;
     price: number;
-    images: {
-      id: string;
-      url: string;
-    }[];
+    images:
+      | {
+          id: string;
+          url: string;
+        }[]
+      | [];
   };
 }
 
 export default function ProductInfoVertical(product: Props) {
-  const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.src = noimage;
-  };
-
   return (
     <div className="w-72 h-96 flex flex-col items-center rounded-lg shadow-lg p-5 bg-gradient-to-r from-white via-gray-100 to-white hover:shadow-xl transition-shadow duration-300">
       <img
         className="w-40 h-40 object-cover rounded-lg border border-gray-300 shadow-sm mb-5"
         src={product.productData.images[0]?.url || noimage}
         alt="부스 이미지"
-        onError={onErrorImg}
       />
       <h2 className="text-2xl font-semibold text-gray-900 mb-3 truncate">
         {product.productData.name}
