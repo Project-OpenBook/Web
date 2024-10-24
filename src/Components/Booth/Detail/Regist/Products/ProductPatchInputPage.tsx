@@ -12,6 +12,7 @@ import { BiSolidCategory } from "react-icons/bi";
 import { useParams } from "react-router-dom";
 import { useCategoryList } from "../../../../../Hooks/Booth/Detail/useGetCategory";
 import { usePatchProduct } from "../../../../../Hooks/Booth/Detail/usePatchProduct";
+import { useCategoryGoodsInfinite } from "../../../../../Hooks/Booth/Detail/useGetGoodsCategory";
 
 interface Props {
   setModalState: (state: string) => void;
@@ -25,6 +26,7 @@ interface Props {
     images: Image[];
   };
   category?: string;
+  totalRefech?: () => void;
 }
 
 interface Image {
@@ -37,6 +39,7 @@ export default function ProductPatchInputPage({
   product,
   setPatchModal,
   category,
+  totalRefech,
 }: Props) {
   const {
     mutate,
@@ -72,6 +75,7 @@ export default function ProductPatchInputPage({
 
   const handleConfirm = () => {
     mutate();
+    setModalState(Modal_State.goodsManage);
   };
 
   const handleCancel = () => {

@@ -2,6 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { getAccessToken } from "../../../Api/Util/token";
 import { useState } from "react";
 import noImage from "../../../images/noimage.png";
+import { useCategoryGoodsInfinite } from "./useGetGoodsCategory";
+import { useGetGoodsList } from "./useGetGoods";
 
 interface Product {
   id: string;
@@ -73,6 +75,8 @@ export const usePatchProduct = (product: Product, categoryId: string) => {
     product.images[0]?.url || noImage
   );
   const id = product.id;
+  const { refetch } = useCategoryGoodsInfinite(categoryId2);
+  const { refetch: total } = useGetGoodsList("98");
   const { mutate } = useMutation({
     mutationFn: () =>
       fetchPatchData(
@@ -81,6 +85,8 @@ export const usePatchProduct = (product: Product, categoryId: string) => {
       ),
     onSuccess: () => {
       alert("물품이 성공적으로 수정되었습니다.");
+      refetch();
+      total();
     },
     onError: () => {
       alert("물품 수정에 실패했습니다.");

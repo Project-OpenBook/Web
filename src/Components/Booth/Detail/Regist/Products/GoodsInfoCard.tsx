@@ -14,6 +14,8 @@ interface Props {
   };
   setModalState: (state: string) => void;
   category?: string;
+  totalRefetch?: () => void;
+  refetch?: () => void;
 }
 
 interface Image {
@@ -25,6 +27,8 @@ export default function GoodsInfoCard({
   product,
   setModalState,
   category,
+  refetch,
+  totalRefetch,
 }: Props) {
   const { mutate } = useDeleteProduct(product.id);
   const [patchModal, setPatchModal] = useState<boolean>(false);
@@ -92,6 +96,7 @@ export default function GoodsInfoCard({
           product={product}
           setPatchModal={setPatchModal}
           category={category}
+          totalRefech={totalRefetch}
         />
       </Modal>
     </div>

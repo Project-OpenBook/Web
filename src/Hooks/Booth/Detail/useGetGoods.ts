@@ -51,9 +51,9 @@ const fetchGoodsData = (boothId: string): Promise<GoodsData[]> => {
 };
 
 export function useGetGoodsList(boothId: string) {
-  const { isLoading, isError, data } = useQuery<GoodsData[]>({
+  const { isLoading, isError, data, refetch } = useQuery<GoodsData[]>({
     queryKey: ["getGoodsList", boothId],
     queryFn: () => fetchGoodsData(boothId),
   });
-  return { isLoading, isError, data };
+  return { isLoading, isError, data, refetch };
 }
