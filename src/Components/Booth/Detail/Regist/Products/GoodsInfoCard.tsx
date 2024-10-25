@@ -90,7 +90,7 @@ export default function GoodsInfoCard({
           삭제
         </button>
       </div>
-      <Modal width="w-3/4" isOpen={patchModal}>
+      <Modal width="w-2 /4" isOpen={patchModal}>
         <ProductPatchInputPage
           setModalState={setModalState}
           product={product}

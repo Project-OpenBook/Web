@@ -52,6 +52,7 @@ export default function GoodsInfoInput({
           <input
             placeholder={placeholder}
             type="text"
+            disabled
             className="flex w-3/4 border-b-2 py-2 pl-1"
           />
           <select
