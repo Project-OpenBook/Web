@@ -123,7 +123,7 @@ export default function EventAproval() {
       </div>
       <div className="overflow-x-auto">
         <div className="container mx-auto">
-          <table className="bg-white border-y border-gray-200">
+          <table className="bg-white border-y border-gray-200 min-w-full">
             <thead>
               <tr className="border-b">
                 <th className="py-2 w-1">

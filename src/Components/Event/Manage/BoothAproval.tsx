@@ -133,68 +133,70 @@ export default function BoothAproval() {
   if (!data || isError) return <>부스 데이터를 찾을 수 없습니다.</>;
 
   return (
-    <div className="flex-1 w-full flex flex-col p-2">
-      <div className="w-full inline-flex gap-3 p-2">
-        <button
-          className={`border p-2 px-4 rounded-md font-bold text-white bg-green-400 disabled:bg-green-400/50`}
-          disabled={!checkList.some((ischeck) => ischeck)}
-          onClick={() => changeStates("APPROVE")}
-        >
-          모두승인
-        </button>
-        <button
-          className="border p-2 px-4 rounded-md font-bold text-white bg-red-400 disabled:bg-red-400/50"
-          disabled={!checkList.some((ischeck) => ischeck)}
-          onClick={() => changeStates("REJECT")}
-        >
-          모두반려
-        </button>
-        <ManageTableFiltering setFilterStatus={setFilterStatus} />
-      </div>
-      <div className="overflow-x-auto">
-        <div className="container mx-auto">
-          {data.content.length === 0 ? (
-            <div className="text-center text-2xl bold mt-20">
-              신청된 부스가 없습니다😂
-            </div>
-          ) : (
-            <table className="bg-white border-y border-gray-200">
-              <thead>
-                <tr className="border-b">
-                  <th className="py-2 w-1">
-                    <input
-                      type="checkbox"
-                      checked={isCheckAll}
-                      onChange={clickCheckAll}
-                    />
-                  </th>
-                  <th className="py-2 px-4">부스명</th>
-                  <th className="py-2 px-4">부스 위치</th>
-                  <th className="py-2 px-4">부스 신청일</th>
-                  <th className="py-2 px-4">부스 설명</th>
-                  <th className="py-2 px-4">상태</th>
-                  <th className="py-2 px-4">관리</th>
-                </tr>
-              </thead>
-
-              <BoothAprovalTable
-                booths={data?.content}
-                checkList={checkList}
-                clickCheckbox={clickCheckbox}
-                onAprove={onAprove}
-                onReject={onReject}
-              />
-            </table>
-          )}
+    <>
+      <div className="flex-1 w-full flex flex-col p-2">
+        <div className="w-full inline-flex gap-3 p-2">
+          <button
+            className={`border p-2 px-4 rounded-md font-bold text-white bg-green-400 disabled:bg-green-400/50`}
+            disabled={!checkList.some((ischeck) => ischeck)}
+            onClick={() => changeStates("APPROVE")}
+          >
+            모두승인
+          </button>
+          <button
+            className="border p-2 px-4 rounded-md font-bold text-white bg-red-400 disabled:bg-red-400/50"
+            disabled={!checkList.some((ischeck) => ischeck)}
+            onClick={() => changeStates("REJECT")}
+          >
+            모두반려
+          </button>
+          <ManageTableFiltering setFilterStatus={setFilterStatus} />
         </div>
+        <div className="overflow-x-auto">
+          <div className="container mx-auto">
+            {data.content.length === 0 ? (
+              <div className="text-center text-2xl bold mt-20">
+                신청된 부스가 없습니다😂
+              </div>
+            ) : (
+              <table className="bg-white border-y border-gray-200 min-w-full">
+                <thead>
+                  <tr className="border-b">
+                    <th className="py-2 w-1">
+                      <input
+                        type="checkbox"
+                        checked={isCheckAll}
+                        onChange={clickCheckAll}
+                      />
+                    </th>
+                    <th className="py-2 px-4">부스명</th>
+                    <th className="py-2 px-4">부스 위치</th>
+                    <th className="py-2 px-4">부스 신청일</th>
+                    <th className="py-2 px-4">부스 설명</th>
+                    <th className="py-2 px-4">상태</th>
+                    <th className="py-2 px-4">관리</th>
+                  </tr>
+                </thead>
+
+                <BoothAprovalTable
+                  booths={data?.content}
+                  checkList={checkList}
+                  clickCheckbox={clickCheckbox}
+                  onAprove={onAprove}
+                  onReject={onReject}
+                />
+              </table>
+            )}
+          </div>
+        </div>
+        {data && (
+          <PageNation
+            maxPage={data.totalPages ?? 1}
+            showPage={5}
+            className="mt-5"
+          />
+        )}
       </div>
-      {data && (
-        <PageNation
-          maxPage={data.totalPages ?? 1}
-          showPage={5}
-          className="mt-5"
-        />
-      )}
-    </div>
+    </>
   );
 }

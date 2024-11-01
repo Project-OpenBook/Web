@@ -30,6 +30,8 @@ import BoothNoticeList from "./Components/Booth/List/BoothNoticeList";
 import ItemList from "./test";
 import ScrollToTop from "./Components/Util/ScrollToTop";
 import BoothPatchPage from "./Components/Booth/Regist/BoothPatchPage";
+import BoothManage from "./Components/Event/Manage/BoothManage";
+import EventManage from "./Components/Event/Manage/EventManage";
 
 function App() {
   const location = useLocation();
@@ -62,22 +64,8 @@ function App() {
           <Route path="/event/:id" element={<EventDetailPage />} />
           <Route path="/event/:id/notice" element={<EventNoticeList />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route
-            path="/event/:id/manage"
-            element={
-              <RequestLayout header="부스 신청 현황">
-                <BoothAproval />
-              </RequestLayout>
-            }
-          />
-          <Route
-            path="/admin/eventmanage"
-            element={
-              <RequestLayout header="행사 신청 현황">
-                <EventAproval />
-              </RequestLayout>
-            }
-          />
+          <Route path="/event/:id/manage" element={<BoothManage />} />
+          <Route path="/admin/eventmanage" element={<EventManage />} />
           <Route path="/boothRegist" element={<BoothRegistPage />} />
           <Route path="/booth/:boothId" element={<BoothDetailPage />} />
           <Route path="/booth/patch/:boothId" element={<BoothPatchPage />} />
