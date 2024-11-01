@@ -92,7 +92,7 @@ export default function EventDetailPage() {
         <h2 className="text-2xl font-extrabold text-center pt-10">{name}</h2>
         <div className="flex flex-col mt-5">
           <div className="w-full px-10 py-4 flex flex-col gap-5">
-            {isRecruiting && (
+            {isRecruiting && userId && (
               <Link
                 to={"/boothRegist"}
                 className="flex gap-2 items-center ml-auto p-2 rounded-md bg-green-500 text-white"
