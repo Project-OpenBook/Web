@@ -25,7 +25,7 @@ import MoreEventHashtagPage from "./Components/Search/MorePage/MoreEventHashtagP
 import MoreBoothHashtagPage from "./Components/Search/MorePage/MoreBoothHashtagPage";
 import MyPage from "./Components/MyPage/MyPage";
 import EventNoticeList from "./Components/Event/EventNoticeList";
-import logo from "./Components/NavBar/logo_wide.png";
+import logo from "./Components/NavBar/logo_white.png";
 import BoothNoticeList from "./Components/Booth/List/BoothNoticeList";
 import ItemList from "./test";
 import ScrollToTop from "./Components/Util/ScrollToTop";
@@ -85,35 +85,40 @@ function App() {
           <Route path="/test" element={<ItemList></ItemList>} />
         </Routes>
       </div>
-      <footer className="flex items-center w-full h-44 bg-blue-300 text-white">
-        <img src={logo} className="w-44 object-contain" alt="footerlogo" />
-        <div className="flex items-center justify-around w-full gap-2 font-bold">
-          <div className="footer-section">
-            <h4>Contact Information</h4>
-            <p>Email: contact@yourcompany.com</p>
-            <p>Phone: +1 234 567 890</p>
-            <p>Address: 1234 Main Street, Anytown, USA</p>
+      <footer className="flex justify-center items-center w-full h-44 bg-blue-300 text-white px-12">
+        <div className="flex justify-between items-center w-full max-w-6xl gap-8 font-bold">
+          <div className="footer-section flex items-center">
+            <img src={logo} className="w-56 object-contain" alt="footerlogo" />
           </div>
-
-          <div className="footer-section">
-            <h4>Quick Links</h4>
-            <ul>
-              <li>
-                <a href="#">Home</a>
-              </li>
-              <li>
-                <a href="#">Services</a>
-              </li>
-              <li>
-                <a href="#">About Us</a>
-              </li>
-              <li>
-                <a href="#">Contact</a>
-              </li>
-              <li>
-                <a href="#">Privacy Policy</a>
-              </li>
-            </ul>
+          <div className="footer-section text-left flex items-center">
+            <div>
+              <h4>Contact Information</h4>
+              <p>Email: contact@yourcompany.com</p>
+              <p>Phone: +1 234 567 890</p>
+              <p>Address: 1234 Main Street, Anytown, USA</p>
+            </div>
+          </div>
+          <div className="footer-section text-left flex items-center">
+            <div>
+              <h4>Quick Links</h4>
+              <ul>
+                <li>
+                  <a href="#">Home</a>
+                </li>
+                <li>
+                  <a href="#">Services</a>
+                </li>
+                <li>
+                  <a href="#">About Us</a>
+                </li>
+                <li>
+                  <a href="#">Contact</a>
+                </li>
+                <li>
+                  <a href="#">Privacy Policy</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </footer>
