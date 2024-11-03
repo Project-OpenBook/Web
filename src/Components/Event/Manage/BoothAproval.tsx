@@ -150,7 +150,10 @@ export default function BoothAproval() {
           >
             모두반려
           </button>
-          <ManageTableFiltering setFilterStatus={setFilterStatus} />
+          <ManageTableFiltering
+            filterStatus={filterStatus}
+            setFilterStatus={setFilterStatus}
+          />
         </div>
         <div className="overflow-x-auto">
           <div className="container mx-auto">

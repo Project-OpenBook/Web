@@ -1,10 +1,14 @@
 interface Props {
+  filterStatus: ManageFilterStatus;
   setFilterStatus: (status: ManageFilterStatus) => void;
 }
 
 export type ManageFilterStatus = "waiting" | "approved" | "rejected" | "all";
 
-export default function ManageTableFiltering({ setFilterStatus }: Props) {
+export default function ManageTableFiltering({
+  filterStatus,
+  setFilterStatus,
+}: Props) {
   return (
     <div className="flex items-center ml-auto gap-5">
       <label className="flex items-center gap-1">
@@ -13,6 +17,7 @@ export default function ManageTableFiltering({ setFilterStatus }: Props) {
           name="filtering"
           value={"all"}
           defaultChecked
+          checked={filterStatus === "all"}
           onChange={() => {
             setFilterStatus("all");
           }}
@@ -24,6 +29,7 @@ export default function ManageTableFiltering({ setFilterStatus }: Props) {
           type="radio"
           name="filtering"
           value={"waiting"}
+          checked={filterStatus === "waiting"}
           onChange={() => {
             setFilterStatus("waiting");
           }}
@@ -35,6 +41,7 @@ export default function ManageTableFiltering({ setFilterStatus }: Props) {
           type="radio"
           name="filtering"
           value={"rejected"}
+          checked={filterStatus === "rejected"}
           onChange={() => {
             setFilterStatus("rejected");
           }}
@@ -46,6 +53,7 @@ export default function ManageTableFiltering({ setFilterStatus }: Props) {
           type="radio"
           name="filtering"
           value={"approved"}
+          checked={filterStatus === "approved"}
           onChange={() => {
             setFilterStatus("approved");
           }}
