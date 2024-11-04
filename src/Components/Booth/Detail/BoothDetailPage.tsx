@@ -192,7 +192,7 @@ export default function BoothDetailPage() {
             </div>
 
             <div className="flex flex-col items-start w-full gap-2">
-              <div className="flex gap-2 items-center w-full">
+              <div className="flex gap-2 items-center w-full pt-2">
                 <BsBasketFill size={25} color="#0064FF" />
                 <div className="font-bold">판매 상품</div>
                 <div className="flex ml-auto gap-2">

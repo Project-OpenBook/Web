@@ -2,10 +2,15 @@ import noImage from "../../../../images/noimage.png";
 import { useState } from "react";
 import ReserveTable from "./ReserveTable";
 
+interface ReserveInfo {
+  date: string;
+  times: Timeslot[];
+}
+
 interface Timeslot {
   id: number;
   times: string;
-  status: string;
+  status: "COMPLETE" | "EMPTY" | string;
 }
 
 interface Props {
@@ -13,11 +18,10 @@ interface Props {
     id: number;
     name: string;
     description: string | null;
-    date: string;
-    details: Timeslot[];
     price: number;
     imageUrl: string | null;
     boothManagerId: number;
+    reserveInfo: ReserveInfo[];
   };
 }
 
@@ -38,7 +42,7 @@ export default function ServiceInfoCard(service: Props) {
                 {service.ServiceData.name}
               </h3>
               <p className="text-sm text-gray-500 mb-2">
-                {service.ServiceData.date}
+                {service.ServiceData.reserveInfo[0].date}
               </p>
               <p className="text-xl font-semibold text-gray-800">
                 {service.ServiceData.price.toLocaleString()}원
@@ -67,7 +71,10 @@ export default function ServiceInfoCard(service: Props) {
         </div>
       </div>
       {isTableModalOpen && (
-        <ReserveTable onClose={() => setTableModalOpen(false)} />
+        <ReserveTable
+          reserveInfo={service.ServiceData.reserveInfo}
+          onClose={() => setTableModalOpen(false)}
+        />
       )}
     </>
   );

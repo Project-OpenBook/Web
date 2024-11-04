@@ -7,21 +7,26 @@ interface Timeslot {
   status: string;
 }
 
+interface ReserveInfo {
+  date: string;
+  times: Timeslot[];
+}
+
 interface ServiceData {
   id: number;
   name: string;
   description: string | null;
-  date: string;
-  details: Timeslot[];
   price: number;
   imageUrl: string | null;
   boothManagerId: number;
+  reserveInfo: ReserveInfo[];
 }
 
 const fetchServiceData = (boothId: string): Promise<ServiceData[]> => {
   const token = getAccessToken();
   const response = fetch(
     `http://52.79.91.214:8080/booths/${boothId}/reservations`,
+    //`http://52.79.91.214:8080/booths/68/reservations`,
     {
       method: "GET",
       headers: {

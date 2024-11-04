@@ -3,7 +3,12 @@ import noimage from "../../../images/noimage.png";
 interface Timeslot {
   id: number;
   times: string;
-  status: string;
+  status: "COMPLETE" | "EMPTY" | string;
+}
+
+interface ReserveInfo {
+  date: string;
+  times: Timeslot[];
 }
 
 interface Props {
@@ -11,11 +16,10 @@ interface Props {
     id: number;
     name: string;
     description: string | null;
-    date: string;
-    details: Timeslot[];
     price: number;
     imageUrl: string | null;
     boothManagerId: number;
+    reserveInfo: ReserveInfo[];
   };
 }
 
@@ -41,8 +45,8 @@ export default function ServiceInfo(service: Props) {
         </p>
         <div className="flex justify-between items-center">
           <div className="text-gray-700">
-            <span className="font-medium">날짜:</span>{" "}
-            {service.serviceData.date}
+            <span className="font-medium">날짜: </span>
+            {service.serviceData.reserveInfo[0].date}
           </div>
           <div className="text-gray-900 font-bold text-lg">
             {service.serviceData.price.toLocaleString()} 원
