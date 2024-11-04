@@ -6,7 +6,7 @@ import {
   MdOutlineDescription,
 } from "react-icons/md";
 import { FaRegImage, FaCalendarCheck, FaRegCreditCard } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRegisteBooth } from "../../../Hooks/Booth/useRegistBooth";
 import { useLocation } from "react-router-dom";
 import RegistLocationPage from "./Location/RegistLocationPage";
@@ -55,10 +55,15 @@ export default function BoothPatchPage() {
     accountNumber: "none",
     accountBankName: "none",
   };
-
   const { state } = useLocation();
   const { boothId } = useParams();
-  const { data: boothData } = useGetBoothDetail(boothId ?? "");
+  const {
+    data: boothData,
+    isLoading,
+    isError,
+  } = useGetBoothDetail(boothId ?? "");
+  const [initialDataLoaded, setInitialDataLoaded] = useState(false);
+
   const {
     accountBankName,
     accountNumber,
@@ -85,13 +90,40 @@ export default function BoothPatchPage() {
     tagToDelete,
   } = usePatchBooth(boothData ?? mockBoothData, boothId ?? "");
 
+  // 부스 데이터에서 초기 데이터를 한 번만 로드합니다
+  useEffect(() => {
+    if (boothData && !initialDataLoaded) {
+      setName(boothData.name);
+      setDescription(boothData.description);
+      setOpenTime(boothData.openData);
+      setCloseTime(boothData.closeData);
+      setMainImageUrl(boothData.mainImageUrl);
+      setTags(boothData.tags);
+      setTagNames(boothData.tags.map((tag) => tag.name));
+      setAccountNumber(boothData.accountNumber);
+      setAccountBankName(boothData.accountBankName);
+      setInitialDataLoaded(true);
+    }
+  }, [
+    boothData,
+    initialDataLoaded,
+    setName,
+    setDescription,
+    setOpenTime,
+    setCloseTime,
+    setMainImageUrl,
+    setTags,
+    setTagNames,
+    setAccountNumber,
+    setAccountBankName,
+  ]);
+
   const handleBoothSubmission = () => {
     mutate();
   };
 
-  console.log(mainImageUrl);
-
-  if (!mainImageUrl) return <div>오류</div>;
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError || !boothData) return <div>오류</div>;
 
   return (
     <div className="flex justify-center items-center">
@@ -127,7 +159,6 @@ export default function BoothPatchPage() {
           setImage={setMainImageUrl}
           value={mainImageUrl}
         />
-        ;
         <TagInput
           placeholder="부스의 태그를 설정한 뒤 확인 버튼을 눌러주세요"
           tagNames={tagNames}
