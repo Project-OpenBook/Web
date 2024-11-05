@@ -11,6 +11,7 @@ import AprovalDetailModal, { AprovalModalData } from "./AprovalDetailModal";
 import ManageTableFiltering, {
   ManageFilterStatus,
 } from "../Event/Manage/ManageTableFiltering";
+import { getFormatDate } from "../../Util/data";
 
 interface EventAprovalType {
   content: Array<{
@@ -119,11 +120,14 @@ export default function EventAproval() {
         >
           모두반려
         </button>
-        <ManageTableFiltering setFilterStatus={setFilterStatus} />
+        <ManageTableFiltering
+          filterStatus={filterStatus}
+          setFilterStatus={setFilterStatus}
+        />
       </div>
       <div className="overflow-x-auto">
         <div className="container mx-auto">
-          <table className="bg-white border-y border-gray-200">
+          <table className="bg-white border-y border-gray-200 min-w-full">
             <thead>
               <tr className="border-b">
                 <th className="py-2 w-1">
@@ -173,7 +177,7 @@ export default function EventAproval() {
                   </td>
                   <td className="py-2 px-4 border-b">{booth.location}</td>
                   <td className="py-2 px-4 border-b">
-                    {format(new Date(booth.registerDate), "yyyy-MM-dd")}
+                    {getFormatDate(booth.registerDate)}
                   </td>
                   <td className="py-2 px-4 border-b">
                     {getSlicingText(booth.description, 20)}

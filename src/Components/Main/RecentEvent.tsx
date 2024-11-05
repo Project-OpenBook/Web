@@ -5,7 +5,7 @@ import { fetchEvents } from "../../Api/Util/EventService";
 export default function RecentEvent() {
   const { data } = useQuery({
     queryKey: ["main", "recentevent"],
-    queryFn: () => fetchEvents(0, "최신순", "recruiting"),
+    queryFn: () => fetchEvents(0, "최신순", "ongoing"),
   });
 
   const eventList = data ? data?.content : [];

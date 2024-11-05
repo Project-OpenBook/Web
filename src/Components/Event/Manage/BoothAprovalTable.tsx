@@ -49,6 +49,7 @@ export default function BoothAprovalTable({
               type="checkbox"
               onChange={(e) => clickCheckbox(e, index)}
               checked={checkList[index]}
+              onClick={(e) => e.stopPropagation()}
             />
           </td>
           <td className="py-2 px-4 border-b text-nowrap">{booth.name}</td>

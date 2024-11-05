@@ -16,12 +16,22 @@ interface InfinityEventNotice {
 }
 
 const fetcher = (boothid: number) => {
-  return fetch(`http://52.79.91.214:8080/booths/${boothid}/notices`, {
+  const token = getAccessToken();
+
+  const option: any = {
     method: "GET",
-    headers: {
+  };
+
+  if (token) {
+    option.headers = {
       Authorization: `Bearer ${getAccessToken()}`,
-    },
-  }).then((response) => {
+    };
+  }
+
+  return fetch(
+    `http://52.79.91.214:8080/booths/${boothid}/notices`,
+    option
+  ).then((response) => {
     if (response.ok) return response.json();
     else throw new Error();
   });

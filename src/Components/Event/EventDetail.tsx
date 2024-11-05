@@ -83,16 +83,11 @@ export default function EventDetailPage() {
   return (
     <div className="flex min-h-screen justify-center my-10" onSubmit={onSubmit}>
       <div className="w-full max-w-screen-lg shadow-md h-full p-2">
-        <BookmarkIcon
-          id={eventId}
-          isBookmark={false}
-          type="EVENT"
-          className="flex justify-end"
-        />
+        <BookmarkIcon id={eventId} type="EVENT" className="flex justify-end" />
         <h2 className="text-2xl font-extrabold text-center pt-10">{name}</h2>
         <div className="flex flex-col mt-5">
           <div className="w-full px-10 py-4 flex flex-col gap-5">
-            {isRecruiting && (
+            {isRecruiting && userId && (
               <Link
                 to={"/boothRegist"}
                 className="flex gap-2 items-center ml-auto p-2 rounded-md bg-green-500 text-white"
@@ -125,6 +120,7 @@ export default function EventDetailPage() {
             <BoothInEventInfo
               boothCount={boothCount}
               layoutImageUrls={layoutImageUrls}
+              eventId={eventId}
             />
 
             <KakaoMap location={location} />

@@ -21,20 +21,21 @@ export type OrderType = "최신순" | "오래된순";
 
 export const fetchBooths = async (
   sliceNumber: number,
-  sortOrder: OrderType
+  sortOrder: OrderType,
+  event?: number | string | null
 ): Promise<BoothResponse> => {
-  // const token = getAccessToken();
-  const response = await fetch(
-    `http://52.79.91.214:8080/booths?page=${sliceNumber}&sort=openTime%2C${
-      sortOrder === "최신순" ? "DESC" : "ASC"
-    }&progress=ongoing`,
-    {
-      method: "GET",
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      // },
-    }
-  );
+  let query = `http://52.79.91.214:8080/booths?page=${sliceNumber}&sort=openTime%2C${
+    sortOrder === "최신순" ? "DESC" : "ASC"
+  }&progress=ongoing`;
+  if (event) {
+    query += `&event=${event}`;
+  }
+  const response = await fetch(query, {
+    method: "GET",
+    // headers: {
+    //   Authorization: `Bearer ${token}`,
+    // },
+  });
 
   if (!response.ok) {
     throw new Error("Network response was not ok");

@@ -22,10 +22,6 @@ const MENUS: MENU = {
     menu: "북마크",
     view: <Bookmark />,
   },
-  purchase: {
-    menu: "구매 내역 확인",
-    view: <PurchaseDetails />,
-  },
   myevent: {
     menu: "내 행사 리스트",
     view: <MyEvent />,

@@ -5,6 +5,7 @@ import ShowEventList from "./ShowEventList";
 import RecentEvent from "./RecentEvent";
 import OngoingEvent from "./OngoingEvent";
 import SoonEndEvent from "./SoonEndEvent";
+import MainBanner from "./Banner/MainBanner";
 
 interface Props {
   state: "main" | "list";
@@ -16,19 +17,17 @@ const buttonStyle =
 enum MainListTab {
   recent = "최근 열린 행사",
   soonend = "종료 예정인 행사",
-  popular = "인기있는 부스",
   recruiting = "부스 모집 중",
 }
 
 const listTabs = {
-  [MainListTab.popular]: <ShowEventList title="인기있는 부스" eventList={[]} />,
   [MainListTab.recent]: <RecentEvent />,
   [MainListTab.recruiting]: <OngoingEvent />,
   [MainListTab.soonend]: <SoonEndEvent />,
 };
 
 export default function MainPage({ state = "main" }: Props) {
-  const [listTab, setListTab] = useState<MainListTab>(MainListTab.popular);
+  const [listTab, setListTab] = useState<MainListTab>(MainListTab.recruiting);
 
   const ref = useRef(null);
   const bannerRef = useRef<any>(null);
@@ -74,8 +73,8 @@ export default function MainPage({ state = "main" }: Props) {
   }, [resizeBanner]);
 
   return (
-    <section>
-      <img
+    <section className="bg-blue-300">
+      {/* <img
         className="w-full h-[600px] bg-white object-contain brightness-95 hidden lg:block"
         ref={bannerRef}
         src={tempBanner}
@@ -86,7 +85,8 @@ export default function MainPage({ state = "main" }: Props) {
         ref={bannerRef2}
         src={tempBannerSmall}
         alt="메인 배너 캐러솔"
-      />
+      /> */}
+      <MainBanner />
       {/* 🎈⏱🌎🎨🥇🎲📢🔔🥇 */}
       <div className="py-32 px-2 bg-blue-400 overflow-x-hidden">
         <div

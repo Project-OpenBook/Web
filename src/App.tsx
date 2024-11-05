@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import LoginPage from "./Components/Login/LoginPage";
 import RegisterPage from "./Components/Register/RegisterPage";
 import MainPage from "./Components/Main/Main";
@@ -7,17 +7,9 @@ import EventDetailPage from "./Components/Event/EventDetail";
 import AddEventPage from "./Components/Event/AddEvent";
 import BoothRegistPage from "./Components/Booth/Regist/BoothRegistPage";
 import BoothDetailPage from "./Components/Booth/Detail/BoothDetailPage";
-import ManageProducts from "./Components/Booth/Detail/Regist/Products/ManageProducts";
-import GoodsInfoInputPage from "./Components/Booth/Detail/Regist/Products/GoodsInfoInputPage";
-import ServiceInfoInputPage from "./Components/Booth/Regist/Service/ServiceInfoInputPage";
-import ServiceManagementPage from "./Components/Booth/Regist/Service/ServiceManagementPage";
 import EventListPage from "./Components/Event/List/EventListPage";
 import BoothListPage from "./Components/Booth/List/BoothListPage";
 import SearchResultPage from "./Components/Search/SearchResultPage";
-import RequestLayout from "./Components/Layout/RequestLayout";
-import BoothAproval from "./Components/Event/Manage/BoothAproval";
-import EventAproval from "./Components/Admin/EventAproval";
-import ServiceTimeAdd from "./Components/Booth/Regist/Service/ServiceTimeAdd";
 import NavBar from "./Components/NavBar/NavBar";
 import MoreEventPage from "./Components/Search/MorePage/MoreEventPage";
 import MoreBoothPage from "./Components/Search/MorePage/MoreBoothPage";
@@ -30,6 +22,8 @@ import BoothNoticeList from "./Components/Booth/List/BoothNoticeList";
 import ItemList from "./test";
 import ScrollToTop from "./Components/Util/ScrollToTop";
 import BoothPatchPage from "./Components/Booth/Regist/BoothPatchPage";
+import BoothManage from "./Components/Event/Manage/BoothManage";
+import EventManage from "./Components/Event/Manage/EventManage";
 
 function App() {
   const location = useLocation();
@@ -62,22 +56,8 @@ function App() {
           <Route path="/event/:id" element={<EventDetailPage />} />
           <Route path="/event/:id/notice" element={<EventNoticeList />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route
-            path="/event/:id/manage"
-            element={
-              <RequestLayout header="부스 신청 현황">
-                <BoothAproval />
-              </RequestLayout>
-            }
-          />
-          <Route
-            path="/admin/eventmanage"
-            element={
-              <RequestLayout header="행사 신청 현황">
-                <EventAproval />
-              </RequestLayout>
-            }
-          />
+          <Route path="/event/:id/manage" element={<BoothManage />} />
+          <Route path="/admin/eventmanage" element={<EventManage />} />
           <Route path="/boothRegist" element={<BoothRegistPage />} />
           <Route path="/booth/:boothId" element={<BoothDetailPage />} />
           <Route path="/booth/patch/:boothId" element={<BoothPatchPage />} />
