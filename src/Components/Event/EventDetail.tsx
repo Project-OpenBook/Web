@@ -120,6 +120,7 @@ export default function EventDetailPage() {
             <BoothInEventInfo
               boothCount={boothCount}
               layoutImageUrls={layoutImageUrls}
+              eventId={eventId}
             />
 
             <KakaoMap location={location} />
