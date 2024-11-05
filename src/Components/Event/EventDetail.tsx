@@ -40,26 +40,6 @@ export const eventFetcher = (id: string | undefined) => {
   });
 };
 
-export const bookmarkFercher = (
-  id: string | undefined,
-  type: "EVENT" | "BOOTH"
-) => {
-  if (!id) return Promise.reject();
-
-  return fetch(
-    `http://52.79.91.214:8080/bookmark?type=${type}&resourceId=${id}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
-      },
-    }
-  ).then((response) => {
-    if (response.ok) return response.json();
-    else throw new Error();
-  });
-};
-
 export default function EventDetailPage() {
   const { id } = useParams();
   const onSubmit = (e: FormEvent) => {
@@ -74,12 +54,6 @@ export default function EventDetailPage() {
   });
 
   const { id: userId } = useAuth();
-
-  const { data: bookmarkData, refetch } = useQuery<{ bookmark: boolean }>({
-    queryKey: ["bookmark", id],
-    enabled: !!id,
-    queryFn: () => bookmarkFercher(id, "EVENT"),
-  });
 
   if (isError) {
     alert("존재하지 않는 행사입니다.");
@@ -109,13 +83,7 @@ export default function EventDetailPage() {
   return (
     <div className="flex min-h-screen justify-center my-10" onSubmit={onSubmit}>
       <div className="w-full max-w-screen-lg shadow-md h-full p-2">
-        <BookmarkIcon
-          id={eventId}
-          isBookmark={bookmarkData?.bookmark ?? false}
-          type="EVENT"
-          className="flex justify-end"
-          refetch={refetch}
-        />
+        <BookmarkIcon id={eventId} type="EVENT" className="flex justify-end" />
         <h2 className="text-2xl font-extrabold text-center pt-10">{name}</h2>
         <div className="flex flex-col mt-5">
           <div className="w-full px-10 py-4 flex flex-col gap-5">
