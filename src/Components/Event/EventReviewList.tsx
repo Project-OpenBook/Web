@@ -8,8 +8,10 @@ import { getAccessToken } from "../../Api/Util/token";
 import { useReview } from "../../Hooks/useReview";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useScrollDown } from "../../Hooks/useScrollDown";
+import { useAuth } from "../../Hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
-export type ContentType = "events" | "booths";
+export type ContentType = "events" | "booth";
 interface Props {
   id: number;
   type: ContentType;
@@ -52,13 +54,17 @@ export default function ReviewList({ id, type: contentType }: Props) {
     init: "",
     submitCallback(value) {
       addReview(contentType, id, currentScore, value, reviewImages)
-        .then(() => {
+        .then(async (res) => {
+          if (!res.ok) {
+            const data = await res.json();
+            throw new Error(data.message);
+          }
           setCurrentScore(INIT_STAR_SCORE);
           setReviewImages([]);
           refetch();
         })
-        .catch(() => {
-          alert("등록에 실패하였습니다");
+        .catch((error: any) => {
+          alert(`등록에 실패하였습니다: ${error}`);
         });
     },
     validateCallback: () => {
@@ -103,6 +109,9 @@ export default function ReviewList({ id, type: contentType }: Props) {
 
   const hasReview = reviews && reviews?.pages[0].content.length >= 1;
 
+  const { id: userId } = useAuth();
+  const navi = useNavigate();
+
   return (
     <div className="flex flex-col w-full gap-2">
       <h2 className="mb-4 text-2xl font-extrabold">리뷰</h2>
@@ -135,9 +144,16 @@ export default function ReviewList({ id, type: contentType }: Props) {
               className={`p-2 flex-1 border border-r-0 ${
                 error ? "border-red-700" : "border-blue-200"
               }`}
-              placeholder="내용을 입력하세요"
+              placeholder={
+                userId ? "내용을 입력하세요" : "로그인 후 이용해주세요"
+              }
               onChange={onchange}
               value={value}
+              onClick={() => {
+                if (!userId) {
+                  navi("/login");
+                }
+              }}
             />
             <button className="p-2 px-7 border" type="submit">
               입력
@@ -174,13 +190,12 @@ export default function ReviewList({ id, type: contentType }: Props) {
               모든 리뷰를 불러왔습니다
             </p>
           }
-          className="w-full max-w-screen-lg shadow-xl h-full p-2 pt-10 mx-auto rounded-md"
+          className="w-full max-w-screen-lg shadow-xl h-full p-2 pt-2 mx-auto rounded-md"
         >
-          <section className="w-full flex flex-col gap-4">
+          <section className="w-full flex flex-col">
             {/* <RadioButtons sortOrder={eventSort} onSortOrderChange={setEventSort} /> */}
             {reviews?.pages.map((reviewss) =>
               reviewss.content.map((review) => {
-                console.log(review);
                 return <EventReview review={review} refetch={refetch} />;
               })
             )}

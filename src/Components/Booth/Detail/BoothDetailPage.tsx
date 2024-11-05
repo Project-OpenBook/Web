@@ -108,6 +108,11 @@ export default function BoothDetailPage() {
     <div className="flex justify-center text-xl">
       {data ? (
         <div className="shadow-md w-full max-w-screen-xl m-2 flex flex-col items-center my-10 pb-5 p-2">
+          <BookmarkIcon
+            id={+(boothId ?? 0)}
+            type="BOOTH"
+            className="flex justify-end"
+          />
           <div className="flex flex-col mt-10 items-center gap-4 lg:w-[900px]">
             <div className="relative w-full flex items-center justify-center my-5">
               <div className="absolute left-0">
@@ -122,7 +127,6 @@ export default function BoothDetailPage() {
               </div>
               <div className="text-3xl font-bold">{data.name}</div>
             </div>
-
             <div className="flex flex-col lg:flex-row w-full gap-5">
               <div className="w-1/2 bg-white flex justify-center">
                 <img
@@ -190,7 +194,6 @@ export default function BoothDetailPage() {
             <div className="flex flex-col items-start w-full gap-2">
               <BoothNotice boothId={+(boothId ?? 0)} />
             </div>
-
             <div className="flex flex-col items-start w-full gap-2">
               <div className="flex gap-2 items-center w-full pt-2">
                 <BsBasketFill size={25} color="#0064FF" />
@@ -251,7 +254,7 @@ export default function BoothDetailPage() {
                   })}
               </div>
             </div>
-            <ReviewList id={+(boothId ?? 0)} type="booths" />
+            <ReviewList id={+(boothId ?? 0)} type="booth" />
           </div>
         </div>
       ) : null}

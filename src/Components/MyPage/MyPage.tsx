@@ -22,10 +22,6 @@ const MENUS: MENU = {
     menu: "북마크",
     view: <Bookmark />,
   },
-  purchase: {
-    menu: "구매 내역 확인",
-    view: <PurchaseDetails />,
-  },
   myevent: {
     menu: "내 행사 리스트",
     view: <MyEvent />,
@@ -49,11 +45,13 @@ export default function MyPage() {
     <RequestLayout header="마이페이지">
       <section className="flex flex-col w-full h-full p-2">
         <div className="flex">
-          <div className="flex flex-col gap-2 w-32 border-r py-4">
+          <div className="flex flex-col w-32 border-r">
             {Object.keys(MENUS).map((sidebar) => (
               <button
                 onClick={() => onClickSideBar(sidebar)}
-                className={currentSideMenu === sidebar ? "font-bold" : ""}
+                className={`${
+                  currentSideMenu === sidebar ? "font-bold" : ""
+                } border-b py-6 hover:shadow-sm hover:bg-blue-50/20`}
               >
                 {MENUS[sidebar].menu}
               </button>

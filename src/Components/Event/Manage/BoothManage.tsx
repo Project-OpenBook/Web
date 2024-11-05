@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
+import BoothAproval from "./BoothAproval";
 import ManageMenu from "./ManageMenu";
-import EventAproval from "../../Admin/EventAproval";
 
 const MENU_CONTENT_MAP: {
   [key: string]: {
@@ -10,13 +10,18 @@ const MENU_CONTENT_MAP: {
   };
 } = {
   aprove: {
-    title: "행사 관리",
-    content: <EventAproval />,
+    title: "부스 신청 현황",
+    content: <BoothAproval />,
     index: 0,
+  },
+  edit: {
+    title: "행사 수정",
+    content: <></>,
+    index: 1,
   },
 };
 
-export default function EventManage() {
+export default function BoothManage() {
   const [searchParams] = useSearchParams();
   const type = searchParams.get("type") ?? "aprove";
   const content = MENU_CONTENT_MAP[type];
@@ -30,10 +35,10 @@ export default function EventManage() {
         <div className="flex items-center gap-20 border-b p-7">
           <h2 className="font-extrabold text-4xl">{content.title}</h2>
         </div>
-        <div className="flex">{content.content}</div>
+        <div className="flex">{type === "edit" ? <></> : content.content}</div>
       </div>
 
-      {/* <ManageMenu clickedMenuIndex={content.index} /> */}
+      <ManageMenu clickedMenuIndex={content.index} />
     </section>
   );
 }

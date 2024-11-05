@@ -45,7 +45,7 @@ export default function NavBar() {
   }, []);
 
   return (
-    <div className="px-2 mb-2 bg-blue-400">
+    <div className="px-2 bg-blue-400">
       <div className="bg-cover bg-center p-6">
         <nav>
           <div className="flex justify-between items-center">

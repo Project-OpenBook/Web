@@ -53,6 +53,8 @@ export default function EventDetailPage() {
     retry: 1,
   });
 
+  const { id: userId } = useAuth();
+
   if (isError) {
     alert("존재하지 않는 행사입니다.");
     window.history.back();
@@ -76,28 +78,26 @@ export default function EventDetailPage() {
     openDate,
   } = data;
 
+  const isRecruiting = new Date() < new Date(data.openDate);
+
   return (
-    <div className="flex min-h-screen justify-center" onSubmit={onSubmit}>
-      <div className="w-full max-w-screen-lg shadow-2xl h-full p-2">
-        <BookmarkIcon
-          id={eventId}
-          isBookmark={false}
-          type="EVENT"
-          className="flex justify-end"
-        />
+    <div className="flex min-h-screen justify-center my-10" onSubmit={onSubmit}>
+      <div className="w-full max-w-screen-lg shadow-md h-full p-2">
+        <BookmarkIcon id={eventId} type="EVENT" className="flex justify-end" />
         <h2 className="text-2xl font-extrabold text-center pt-10">{name}</h2>
         <div className="flex flex-col mt-5">
           <div className="w-full px-10 py-4 flex flex-col gap-5">
-            <Link
-              to={"/boothRegist"}
-              className="flex gap-2 items-center ml-auto p-2 rounded-md bg-green-500 text-white"
-              state={{ name, eventId }}
-            >
-              부스 신청
-            </Link>
+            {isRecruiting && userId && (
+              <Link
+                to={"/boothRegist"}
+                className="flex gap-2 items-center ml-auto p-2 rounded-md bg-green-500 text-white"
+                state={{ name, eventId }}
+              >
+                부스 신청
+              </Link>
+            )}
 
-            {
-              /*eventManager.id === userId && (*/
+            {eventManager.id === userId && (
               <Link
                 to={"manage"}
                 className="flex gap-2 items-center ml-auto p-2 rounded-md bg-orange-500 text-white"
@@ -105,8 +105,7 @@ export default function EventDetailPage() {
                 <IoIosSettings size={20} />
                 행사 관리
               </Link>
-              /*)*/
-            }
+            )}
 
             <EventInfo
               mainImageUrl={mainImageUrl}
@@ -121,6 +120,7 @@ export default function EventDetailPage() {
             <BoothInEventInfo
               boothCount={boothCount}
               layoutImageUrls={layoutImageUrls}
+              eventId={eventId}
             />
 
             <KakaoMap location={location} />

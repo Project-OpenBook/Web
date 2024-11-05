@@ -1,7 +1,11 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import tempBanner from "../Main/Banner/main_banner1.png";
 import tempBannerSmall from "../Main/Banner/main_banner_small.png";
 import ShowEventList from "./ShowEventList";
+import RecentEvent from "./RecentEvent";
+import OngoingEvent from "./OngoingEvent";
+import SoonEndEvent from "./SoonEndEvent";
+import MainBanner from "./Banner/MainBanner";
 
 interface Props {
   state: "main" | "list";
@@ -13,25 +17,21 @@ const buttonStyle =
 enum MainListTab {
   recent = "최근 열린 행사",
   soonend = "종료 예정인 행사",
-  popular = "인기있는 부스",
   recruiting = "부스 모집 중",
 }
 
 const listTabs = {
-  [MainListTab.popular]: <ShowEventList title="인기있는 부스" eventList={[]} />,
-  [MainListTab.recent]: <ShowEventList title="최근 열린 행사" eventList={[]} />,
-  [MainListTab.recruiting]: (
-    <ShowEventList title="부스 모집 중" eventList={[]} />
-  ),
-  [MainListTab.soonend]: (
-    <ShowEventList title="종료 예정인 행사" eventList={[]} />
-  ),
+  [MainListTab.recent]: <RecentEvent />,
+  [MainListTab.recruiting]: <OngoingEvent />,
+  [MainListTab.soonend]: <SoonEndEvent />,
 };
 
 export default function MainPage({ state = "main" }: Props) {
-  const [listTab, setListTab] = useState<MainListTab>(MainListTab.popular);
+  const [listTab, setListTab] = useState<MainListTab>(MainListTab.recruiting);
 
   const ref = useRef(null);
+  const bannerRef = useRef<any>(null);
+  const bannerRef2 = useRef<any>(null);
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -53,18 +53,40 @@ export default function MainPage({ state = "main" }: Props) {
     }
   }, []);
 
+  const resizeBanner = useCallback(() => {
+    const h = window.innerHeight;
+    const MIN_HEADER_HEIGHT = 100;
+
+    if (bannerRef.current)
+      bannerRef.current.style.height = h - MIN_HEADER_HEIGHT + "px";
+    if (bannerRef2.current)
+      bannerRef2.current.style.height = h - MIN_HEADER_HEIGHT + "px";
+  }, []);
+
+  useEffect(() => {
+    resizeBanner();
+    window.addEventListener("resize", resizeBanner);
+
+    return () => {
+      window.removeEventListener("resize", resizeBanner);
+    };
+  }, [resizeBanner]);
+
   return (
-    <section>
-      <img
+    <section className="bg-blue-300">
+      {/* <img
         className="w-full h-[600px] bg-white object-contain brightness-95 hidden lg:block"
+        ref={bannerRef}
         src={tempBanner}
         alt="메인 배너 캐러솔"
       />
       <img
         className="w-full h-[600px] bg-white object-cover brightness-95 lg:hidden"
+        ref={bannerRef2}
         src={tempBannerSmall}
         alt="메인 배너 캐러솔"
-      />
+      /> */}
+      <MainBanner />
       {/* 🎈⏱🌎🎨🥇🎲📢🔔🥇 */}
       <div className="py-32 px-2 bg-blue-400 overflow-x-hidden">
         <div
@@ -85,9 +107,7 @@ export default function MainPage({ state = "main" }: Props) {
               </button>
             ))}
           </div>
-          <div className="flex w-full">
-            {listTabs[listTab]}
-          </div>
+          <div className="flex w-full">{listTabs[listTab]}</div>
         </div>
       </div>
     </section>

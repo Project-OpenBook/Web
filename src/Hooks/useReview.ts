@@ -32,16 +32,23 @@ interface InfinityEventReview {
 
 const fetcher = (type: ContentType, id: number, page: number) => {
   const idKey = type === "events" ? "event_id" : "booth_id";
-  const contentType = type === "events" ? "event" : "booths";
+  const contentType = type === "events" ? "event" : "booth";
+
+  const token = getAccessToken();
+
+  const option: any = {
+    method: "GET",
+  };
+
+  if (token) {
+    option.headers = {
+      Authorization: `Bearer ${getAccessToken()}`,
+    };
+  }
 
   return fetch(
     `http://52.79.91.214:8080/${contentType}/reviews?&${idKey}=${id}&page=${page}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
-      },
-    }
+    option
   ).then((response) => {
     if (response.ok) return response.json();
     else throw new Error();
