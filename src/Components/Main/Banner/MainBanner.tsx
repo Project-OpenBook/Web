@@ -37,7 +37,10 @@ export default function MainBanner() {
   }, [bannerIndex]);
 
   return (
-    <div className="relative flex w-full overflow-hidden" ref={ref}>
+    <div
+      className="relative flex w-full overflow-hidden max-w-screen-xl mx-auto"
+      ref={ref}
+    >
       {bannerList.map((banner, index) => (
         <img
           src={banner}

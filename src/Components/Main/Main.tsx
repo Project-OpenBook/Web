@@ -73,7 +73,7 @@ export default function MainPage({ state = "main" }: Props) {
   }, [resizeBanner]);
 
   return (
-    <section>
+    <section className="bg-blue-300">
       {/* <img
         className="w-full h-[600px] bg-white object-contain brightness-95 hidden lg:block"
         ref={bannerRef}
