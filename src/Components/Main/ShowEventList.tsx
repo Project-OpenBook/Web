@@ -19,7 +19,7 @@ interface Props {
 export default function ShowEventList({ eventList, title }: Props) {
   const elementList = eventList.map((event) => (
     <EventCard
-      endDate={event.recruitEndDate}
+      endDate={event.closeDate}
       id={event.id}
       image={event.mainImageUrl}
       name={event.name}

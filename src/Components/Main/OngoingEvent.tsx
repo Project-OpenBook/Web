@@ -5,7 +5,7 @@ import { fetchEvents } from "../../Api/Util/EventService";
 export default function OngoingEvent() {
   const { data } = useQuery({
     queryKey: ["main", "ongoin"],
-    queryFn: () => fetchEvents(0, "최신순", "ongoing"),
+    queryFn: () => fetchEvents(0, "최신순", "recruiting"),
   });
 
   const eventList = data ? data?.content : [];
