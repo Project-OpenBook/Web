@@ -73,20 +73,30 @@ export default function ReserveTable({
                     className="flex items-center gap-2 my-1"
                   >
                     <span>{timeSlot.times}</span>
-                    {timeSlot.status === "EMPTY" ? (
-                      <button
-                        onClick={() => handleReserve(timeSlot.id.toString())}
-                        className="px-2 py-1 rounded text-white bg-green-400"
-                      >
-                        예약 신청
-                      </button>
-                    ) : (
+                    {timeSlot.status === "EMPTY" && (
+                      <>
+                        <button
+                          onClick={() => handleReserve(timeSlot.id.toString())}
+                          className="px-2 py-1 rounded text-white bg-green-400"
+                        >
+                          예약 신청
+                        </button>
+                      </>
+                    )}
+                    {(timeSlot.status === "COMPLETE" ||
+                      timeSlot.status === "WAITING") && (
                       <button
                         disabled
                         className="px-2 py-1 rounded text-white bg-red-500"
                       >
                         예약 불가
                       </button>
+                    )}
+                    {timeSlot.applyUser && (
+                      <>
+                        <button> 승인 </button>
+                        <button> 거절 </button>
+                      </>
                     )}
                   </div>
                 ))}
