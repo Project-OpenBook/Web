@@ -1,28 +1,56 @@
+import { useState, useEffect } from "react";
 import { info } from "console";
 import { useApplyReserve } from "../../../../Hooks/Booth/Detail/useApplyReserve";
 
-interface ReserveInfo {
-  date: string;
-  times: Timeslot[];
+interface CategoryModalProps {
+  reserveInfo: { date: string; times: ReservationTime[] }[];
+
+  onClose: () => void;
 }
 
-interface Timeslot {
+interface ApplyUser {
+  id: string;
+  name: string;
+  nickname: string;
+  role: string;
+}
+
+interface ReservationTime {
   id: number;
   times: string;
-  status: "COMPLETE" | "EMPTY" | string;
-}
-
-interface CategoryModalProps {
-  onClose: () => void;
-  reserveInfo: ReserveInfo[];
+  status: "EMPTY" | "RESERVED" | string;
+  applyUser?: ApplyUser;
 }
 
 export default function ReserveTable({
   onClose,
-  reserveInfo,
+  reserveInfo: initialReserveInfo,
 }: CategoryModalProps) {
+  const [reserveInfo, setReserveInfo] = useState(initialReserveInfo);
   const { mutate } = useApplyReserve();
-  console.log(reserveInfo);
+
+  useEffect(() => {
+    setReserveInfo(initialReserveInfo);
+  }, [initialReserveInfo]);
+
+  const handleReserve = (id: string) => {
+    mutate(id, {
+      onSuccess: (updatedInfo) => {
+        // 성공 후 reserveInfo 업데이트
+        setReserveInfo((prev) =>
+          prev.map((info) => ({
+            ...info,
+            times: info.times.map((timeSlot) =>
+              timeSlot.id.toString() === id
+                ? { ...timeSlot, status: "COMPLETE" }
+                : timeSlot
+            ),
+          }))
+        );
+      },
+    });
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="flex flex-col items-center bg-white w-1/2 p-6 rounded-lg shadow-lg relative gap-2">
@@ -47,25 +75,16 @@ export default function ReserveTable({
                     <span>{timeSlot.times}</span>
                     {timeSlot.status === "EMPTY" ? (
                       <button
-                        onClick={() => {
-                          mutate(timeSlot.id.toString());
-                        }}
-                        className={`px-2 py-1 rounded text-white 
-                            bg-green-400
-                        `}
+                        onClick={() => handleReserve(timeSlot.id.toString())}
+                        className="px-2 py-1 rounded text-white bg-green-400"
                       >
                         예약 신청
                       </button>
                     ) : (
                       <button
                         disabled
-                        onClick={() => {
-                          mutate(timeSlot.id.toString());
-                        }}
-                        className={`px-2 py-1 rounded text-white bg-red-500
-                        `}
+                        className="px-2 py-1 rounded text-white bg-red-500"
                       >
-                        {" "}
                         예약 불가
                       </button>
                     )}

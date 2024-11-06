@@ -13,7 +13,12 @@ interface Props {
   };
   isManager: boolean;
 }
-
+interface ApplyUser {
+  id: string;
+  name: string;
+  nickname: string;
+  role: string;
+}
 interface ReservationDate {
   date: string;
   times: ReservationTime[];
@@ -23,6 +28,7 @@ interface ReservationTime {
   id: number;
   times: string;
   status: "EMPTY" | "RESERVED" | string;
+  applyUser?: ApplyUser;
 }
 
 export default function ServiceInfoCard({ serviceData, isManager }: Props) {
@@ -42,6 +48,12 @@ export default function ServiceInfoCard({ serviceData, isManager }: Props) {
                 {serviceData.name}
               </h3>
               <p className="text-sm text-gray-500 mb-2">
+                {
+                  serviceData.reservations[serviceData.reservations.length - 1]
+                    .date
+                }
+
+                {" ~ "}
                 {serviceData.reservations[0].date}
               </p>
               <p className="text-xl font-semibold text-gray-800">
@@ -74,7 +86,7 @@ export default function ServiceInfoCard({ serviceData, isManager }: Props) {
       </div>
       {isTableModalOpen && (
         <ReserveTable
-          reserveInfo={serviceData.reservations}
+          reserveInfo={serviceData.reservations.reverse()}
           onClose={() => setTableModalOpen(false)}
         />
       )}

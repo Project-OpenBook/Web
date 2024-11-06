@@ -10,6 +10,13 @@ interface ServiceData {
   reservations: ReservationDate[];
 }
 
+interface ApplyUser {
+  id: string;
+  name: string;
+  nickname: string;
+  role: string;
+}
+
 interface ReservationDate {
   date: string;
   times: ReservationTime[];
@@ -19,6 +26,7 @@ interface ReservationTime {
   id: number;
   times: string;
   status: "EMPTY" | "RESERVED" | string;
+  applyUser?: ApplyUser;
 }
 
 const fetchServiceAdminData = (boothId: string): Promise<ServiceData[]> => {

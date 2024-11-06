@@ -18,7 +18,7 @@ export default function ServiceManagementPage({
     data: userServiceList,
     isLoading,
   } = useGetServiceList(boothId ?? "");
-  const { data: adminServiceList } = useGetServiceAdmin(boothId ?? "68");
+  const { data: adminServiceList } = useGetServiceAdmin(boothId ?? "");
   console.log(adminServiceList);
 
   if (isLoading) return <div>로딩중입니다...</div>;
