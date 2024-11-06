@@ -27,8 +27,7 @@ export default function ReserveTable({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="flex flex-col items-center bg-white w-1/2 p-6 rounded-lg shadow-lg relative gap-2">
         <div className="font-bold text-xl mb-4">예약 현황</div>
-        {/* 예약 정보 리스트 */}
-        <div className="w-full">
+        <div className="w-full max-h-96 overflow-y-scroll">
           {reserveInfo.map((info, index) => (
             <div
               key={index}
@@ -46,18 +45,30 @@ export default function ReserveTable({
                     className="flex items-center gap-2 my-1"
                   >
                     <span>{timeSlot.times}</span>
-                    <span
-                      onClick={() => {
-                        mutate(timeSlot.id.toString());
-                      }}
-                      className={`px-2 py-1 rounded text-white ${
-                        timeSlot.status === "COMPLETE"
-                          ? "bg-red-500"
-                          : "bg-green-400"
-                      }`}
-                    >
-                      {timeSlot.status === "EMPTY" ? "예약 신청" : "예약 불가"}
-                    </span>
+                    {timeSlot.status === "EMPTY" ? (
+                      <button
+                        onClick={() => {
+                          mutate(timeSlot.id.toString());
+                        }}
+                        className={`px-2 py-1 rounded text-white 
+                            bg-green-400
+                        `}
+                      >
+                        예약 신청
+                      </button>
+                    ) : (
+                      <button
+                        disabled
+                        onClick={() => {
+                          mutate(timeSlot.id.toString());
+                        }}
+                        className={`px-2 py-1 rounded text-white bg-red-500
+                        `}
+                      >
+                        {" "}
+                        예약 불가
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -68,9 +79,9 @@ export default function ReserveTable({
         <div className="flex justify-end gap-4 mt-6">
           <button
             onClick={onClose}
-            className="bg-gray-400 text-white px-10 py-2 rounded-md"
+            className="bg-blue-400 text-white px-10 py-2 rounded-md"
           >
-            취소
+            확인
           </button>
         </div>
       </div>
