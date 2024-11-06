@@ -17,7 +17,7 @@ interface CategoryModalProps {
   reserveInfo: ReserveInfo[];
 }
 
-export default function ReserveTable({
+export default function ReserveTableAdmin({
   onClose,
   reserveInfo,
 }: CategoryModalProps) {

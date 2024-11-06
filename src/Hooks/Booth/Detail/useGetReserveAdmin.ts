@@ -21,11 +21,10 @@ interface ReservationTime {
   status: "EMPTY" | "RESERVED" | string;
 }
 
-const fetchServiceData = (boothId: string): Promise<ServiceData[]> => {
+const fetchServiceAdminData = (boothId: string): Promise<ServiceData[]> => {
   const token = getAccessToken();
   const response = fetch(
-    `http://52.79.91.214:8080/booths/${boothId}/reservations`,
-    //`http://52.79.91.214:8080/booths/68/reservations`,
+    `http://52.79.91.214:8080/manage/booths/${boothId}/reservations`,
     {
       method: "GET",
       headers: {
@@ -39,10 +38,10 @@ const fetchServiceData = (boothId: string): Promise<ServiceData[]> => {
   return response;
 };
 
-export function useGetServiceList(boothId: string) {
+export function useGetServiceAdmin(boothId: string) {
   const { isLoading, isError, data } = useQuery<ServiceData[]>({
-    queryKey: ["getServiceList", boothId],
-    queryFn: () => fetchServiceData(boothId),
+    queryKey: ["getServiceAdmin", boothId],
+    queryFn: () => fetchServiceAdminData(boothId),
   });
   return { isLoading, isError, data };
 }
