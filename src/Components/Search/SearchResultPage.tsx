@@ -220,6 +220,7 @@ export default function SearchResultPage() {
               numberOfElements={eventNumberOfElements}
               onMoreClick={handleMoreEventClick}
             />
+            <hr className="w-full border-t-2 border-gray-400" />
             <BoothSearchSection
               title="부스"
               items={boothItems}
@@ -228,6 +229,7 @@ export default function SearchResultPage() {
               numberOfElements={boothNumberOfElements}
               onMoreClick={handleMoreBoothClick}
             />
+            <hr className="w-full border-t-2 border-gray-400" />
             <EventSearchSection
               title={`#${searchQuery}_행사`}
               items={eventTagItems}
@@ -236,6 +238,7 @@ export default function SearchResultPage() {
               numberOfElements={eventTagNumberOfElements}
               onMoreClick={handleMoreEventHashtagClick}
             />
+            <hr className="w-full border-t-2 border-gray-400" />
             <BoothSearchSection
               title={`#${searchQuery}_부스`}
               items={boothTagItems}
