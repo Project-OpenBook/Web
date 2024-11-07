@@ -28,7 +28,7 @@ const listTabs = {
 
 export default function MainPage({ state = "main" }: Props) {
   const [listTab, setListTab] = useState<MainListTab>(MainListTab.recruiting);
-
+  const [bannerIndex, setBannerIndex] = useState(0);
   const ref = useRef(null);
   const bannerRef = useRef<any>(null);
   const bannerRef2 = useRef<any>(null);
@@ -72,8 +72,16 @@ export default function MainPage({ state = "main" }: Props) {
     };
   }, [resizeBanner]);
 
+  const bannerBackgrounds: {
+    [key: number] : string;
+  } = {
+    0: "bg-[#333bb0]",
+    1: "bg-[#057e59]",
+    2: "bg-[#95e1fd]"
+  };
+
   return (
-    <section className="bg-blue-300">
+    <section className={`${bannerBackgrounds[bannerIndex] ?? "bg-blue-300"}`}>
       {/* <img
         className="w-full h-[600px] bg-white object-contain brightness-95 hidden lg:block"
         ref={bannerRef}
@@ -86,7 +94,7 @@ export default function MainPage({ state = "main" }: Props) {
         src={tempBannerSmall}
         alt="메인 배너 캐러솔"
       /> */}
-      <MainBanner />
+      <MainBanner bannerIndex={bannerIndex} setBannerIndex={setBannerIndex} />
       {/* 🎈⏱🌎🎨🥇🎲📢🔔🥇 */}
       <div className="py-32 px-2 bg-blue-400 overflow-x-hidden">
         <div

@@ -3,12 +3,15 @@ import MainBanner1 from "./1.png";
 import MainBanner2 from "./2.png";
 import MainBanner3 from "./3.png";
 
-export default function MainBanner() {
+interface Props {
+  bannerIndex: number;
+  setBannerIndex: (index: number) => void;
+}
+export default function MainBanner({bannerIndex, setBannerIndex}: Props) {
   const bannerList = [MainBanner1, MainBanner2, MainBanner3];
   const ref = useRef<HTMLDivElement>(null);
 
   const [bannerScreenWidth, setBannerScreenWidth] = useState(0);
-  const [bannerIndex, setBannerIndex] = useState(0);
 
   useEffect(() => {
     const resetBannerWidth = () => {
@@ -47,7 +50,7 @@ export default function MainBanner() {
           alt="메인"
           key={index}
           style={{
-            transform: `translateX(-${bannerScreenWidth * bannerIndex + 1}px)`,
+            transform: `translateX(-${bannerScreenWidth * bannerIndex}px)`,
             transition: "transform 0.5s ease",
           }}
         />
