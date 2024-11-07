@@ -30,7 +30,7 @@ export default function MainPage({ state = "main" }: Props) {
   const [listTab, setListTab] = useState<MainListTab>(MainListTab.recruiting);
   const [bannerIndex, setBannerIndex] = useState(0);
   const ref = useRef(null);
-  const bannerRef = useRef<any>(null);
+
   const bannerRef2 = useRef<any>(null);
 
   useEffect(() => {
@@ -53,31 +53,12 @@ export default function MainPage({ state = "main" }: Props) {
     }
   }, []);
 
-  const resizeBanner = useCallback(() => {
-    const h = window.innerHeight;
-    const MIN_HEADER_HEIGHT = 100;
-
-    if (bannerRef.current)
-      bannerRef.current.style.height = h - MIN_HEADER_HEIGHT + "px";
-    if (bannerRef2.current)
-      bannerRef2.current.style.height = h - MIN_HEADER_HEIGHT + "px";
-  }, []);
-
-  useEffect(() => {
-    resizeBanner();
-    window.addEventListener("resize", resizeBanner);
-
-    return () => {
-      window.removeEventListener("resize", resizeBanner);
-    };
-  }, [resizeBanner]);
-
   const bannerBackgrounds: {
     [key: number] : string;
   } = {
-    0: "bg-[#333bb0]",
-    1: "bg-[#057e59]",
-    2: "bg-[#95e1fd]"
+    0: "bg-[#333bb0]/95",
+    1: "bg-[#057e59]/95",
+    2: "bg-[#95e1fd]/95"
   };
 
   return (
