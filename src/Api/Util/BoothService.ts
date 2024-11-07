@@ -26,7 +26,7 @@ export const fetchBooths = async (
 ): Promise<BoothResponse> => {
   let query = `http://52.79.91.214:8080/booths?page=${sliceNumber}&sort=openTime%2C${
     sortOrder === "최신순" ? "DESC" : "ASC"
-  }&progress=ongoing`;
+  }&progress=ongoing&size=10`;
   if (event) {
     query += `&event=${event}`;
   }
