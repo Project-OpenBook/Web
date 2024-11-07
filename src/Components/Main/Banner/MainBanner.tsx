@@ -60,7 +60,6 @@ export default function MainBanner({ bannerIndex, setBannerIndex }: Props) {
     };
   }, [resizeBanner]);
 
-  //
   return (
     <div className="relative flex w-full overflow-hidden" ref={ref}>
       {bannerList.map((banner, index) => (
@@ -74,16 +73,18 @@ export default function MainBanner({ bannerIndex, setBannerIndex }: Props) {
             transform: `translateX(-${bannerScreenWidth * bannerIndex}px)`,
             transition: "transform 0.5s ease",
             left: index * bannerScreenWidth,
-            height: ref.current
-              ? ref.current.style.height > imgref.current!.style.height
-                ? ref.current.style.height
-                : "auto"
-              : "auto",
-            width: ref.current
-              ? ref.current.style.width > imgref.current!.style.width
-                ? ref.current.style.width
-                : "auto"
-              : "auto",
+            height:
+              ref.current && imgref.current
+                ? ref.current.offsetHeight > imgref.current.offsetHeight
+                  ? ref.current.offsetHeight
+                  : "auto"
+                : "auto",
+            width:
+              ref.current && imgref.current
+                ? ref.current.offsetWidth > imgref.current.offsetWidth
+                  ? ref.current.offsetWidth
+                  : "auto"
+                : "auto",
           }}
         />
       ))}
