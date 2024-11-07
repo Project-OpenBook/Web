@@ -3,6 +3,7 @@ import { Modal_State } from "../BoothRegistPage";
 import { useParams } from "react-router-dom";
 import { useGetServiceList } from "../../../../Hooks/Booth/Detail/useGetServices";
 import { useGetServiceAdmin } from "../../../../Hooks/Booth/Detail/useGetReserveAdmin";
+
 interface Props {
   setModalState: (state: string) => void;
   isManager: boolean;
@@ -19,11 +20,11 @@ export default function ServiceManagementPage({
     isLoading,
   } = useGetServiceList(boothId ?? "");
   const { data: adminServiceList } = useGetServiceAdmin(boothId ?? "");
-  console.log(adminServiceList);
 
   if (isLoading) return <div>로딩중입니다...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
 
+  if (!adminServiceList) return <div>로딩중입니다...</div>;
   if (!userServiceList) return <div>로딩중입니다...</div>;
 
   const handleConfirm = () => {
@@ -48,13 +49,21 @@ export default function ServiceManagementPage({
 
       {/* 스크롤 영역 */}
       <div className="flex flex-col gap-1 w-full overflow-y-auto max-h-96">
-        {userServiceList.map((service, index) => (
-          <ServiceInfoCard
-            serviceData={service}
-            key={index}
-            isManager={isManager}
-          />
-        ))}
+        {isManager
+          ? userServiceList.map((service, index) => (
+              <ServiceInfoCard
+                serviceData={service}
+                key={index}
+                isManager={isManager}
+              />
+            ))
+          : adminServiceList.map((service, index) => (
+              <ServiceInfoCard
+                serviceData={service}
+                key={index}
+                isManager={isManager}
+              />
+            ))}
       </div>
 
       <div className="flex justify-center gap-4 mt-4 w-full">

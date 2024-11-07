@@ -6,6 +6,7 @@ const fetchApplyData = (detail_id: string, approve: string): Promise<void> => {
   const token = getAccessToken();
   let formData = new FormData();
   formData.append("status", approve);
+  console.log(token);
 
   const response = fetch(
     `http://52.79.91.214:8080/manage/booths/reserve/${detail_id}`,
@@ -25,7 +26,7 @@ const fetchApplyData = (detail_id: string, approve: string): Promise<void> => {
 };
 
 export const useManageApply = () => {
-  const [approve, setApprove] = useState("");
+  const [approve, setApprove] = useState<"COMPLETE" | "EMPTY" | "">("");
   const { mutate } = useMutation({
     mutationFn: (detail_id: string) => fetchApplyData(detail_id, approve),
     onSuccess: () => {

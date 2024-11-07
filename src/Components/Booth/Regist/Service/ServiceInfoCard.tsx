@@ -86,6 +86,7 @@ export default function ServiceInfoCard({ serviceData, isManager }: Props) {
       </div>
       {isTableModalOpen && (
         <ReserveTable
+          isManager={isManager}
           reserveInfo={serviceData.reservations.reverse()}
           onClose={() => setTableModalOpen(false)}
         />

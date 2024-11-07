@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { info } from "console";
 import { useApplyReserve } from "../../../../Hooks/Booth/Detail/useApplyReserve";
+import { useManageApply } from "../../../../Hooks/Booth/Detail/useManageApply";
 
 interface CategoryModalProps {
   reserveInfo: { date: string; times: ReservationTime[] }[];
-
+  isManager: boolean;
   onClose: () => void;
 }
 
@@ -18,16 +19,18 @@ interface ApplyUser {
 interface ReservationTime {
   id: number;
   times: string;
-  status: "EMPTY" | "RESERVED" | string;
+  status: "EMPTY" | "RESERVED" | "WAITING" | "COMPLETE" | string;
   applyUser?: ApplyUser;
 }
 
 export default function ReserveTable({
   onClose,
   reserveInfo: initialReserveInfo,
+  isManager,
 }: CategoryModalProps) {
   const [reserveInfo, setReserveInfo] = useState(initialReserveInfo);
   const { mutate } = useApplyReserve();
+  const { mutate: changeApply, setApprove } = useManageApply();
 
   useEffect(() => {
     setReserveInfo(initialReserveInfo);
@@ -36,7 +39,6 @@ export default function ReserveTable({
   const handleReserve = (id: string) => {
     mutate(id, {
       onSuccess: (updatedInfo) => {
-        // 성공 후 reserveInfo 업데이트
         setReserveInfo((prev) =>
           prev.map((info) => ({
             ...info,
@@ -74,29 +76,55 @@ export default function ReserveTable({
                   >
                     <span>{timeSlot.times}</span>
                     {timeSlot.status === "EMPTY" && (
-                      <>
-                        <button
-                          onClick={() => handleReserve(timeSlot.id.toString())}
-                          className="px-2 py-1 rounded text-white bg-green-400"
-                        >
-                          예약 신청
-                        </button>
-                      </>
-                    )}
-                    {(timeSlot.status === "COMPLETE" ||
-                      timeSlot.status === "WAITING") && (
                       <button
-                        disabled
-                        className="px-2 py-1 rounded text-white bg-red-500"
+                        onClick={() => handleReserve(timeSlot.id.toString())}
+                        className="px-2 py-1 rounded text-white bg-green-400"
                       >
-                        예약 불가
+                        예약 신청
                       </button>
                     )}
-                    {timeSlot.applyUser && (
+                    {timeSlot.status === "WAITING" && (
                       <>
-                        <button> 승인 </button>
-                        <button> 거절 </button>
+                        <button
+                          disabled
+                          className="px-2 py-1 rounded text-white bg-yellow-500"
+                        >
+                          {isManager ? "승인 대기" : "예약 불가"}
+                        </button>
+                        {isManager && (
+                          <>
+                            <span>-</span>
+                            <button
+                              onClick={() => {
+                                setApprove("COMPLETE");
+                                changeApply(timeSlot.id.toString());
+                              }}
+                              className="px-2 py-1 rounded text-white bg-blue-400"
+                            >
+                              승인
+                            </button>
+                            <button
+                              onClick={() => {
+                                setApprove("EMPTY");
+                                changeApply(timeSlot.id.toString());
+                              }}
+                              className="px-2 py-1 rounded text-white bg-red-500"
+                            >
+                              거절
+                            </button>
+                          </>
+                        )}
                       </>
+                    )}
+                    {timeSlot.status === "COMPLETE" && (
+                      <button
+                        disabled
+                        className={`px-2 py-1 rounded text-white ${
+                          isManager ? "bg-blue-500" : "bg-red-500"
+                        }`}
+                      >
+                        {isManager ? "승인됨" : "예약 불가"}
+                      </button>
                     )}
                   </div>
                 ))}
