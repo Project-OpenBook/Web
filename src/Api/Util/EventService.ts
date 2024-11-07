@@ -29,7 +29,7 @@ export const fetchEvents = async (
   const response = await fetch(
     `http://52.79.91.214:8080/events?page=${sliceNumber}&sort=openDate%2C${
       sortOrder === "최신순" ? "DESC" : "ASC"
-    }&progress=${progress}`,
+    }&progress=${progress}&size=10`,
     {
       method: "GET",
       // headers: {
