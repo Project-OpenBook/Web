@@ -8,6 +8,7 @@ export interface Booth {
   closeDate: string;
   mainImageUrl: string;
   tags?: string[];
+  event?: any;
 }
 
 export interface BoothResponse {
