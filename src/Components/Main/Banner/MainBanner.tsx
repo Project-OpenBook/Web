@@ -2,13 +2,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import MainBanner1 from "./1.png";
 import MainBanner2 from "./2.png";
 import MainBanner3 from "./3.png";
-import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight } from "react-icons/fa";
+import {
+  FaRegArrowAltCircleLeft,
+  FaRegArrowAltCircleRight,
+} from "react-icons/fa";
 
 interface Props {
   bannerIndex: number;
   setBannerIndex: (index: number) => void;
 }
-export default function MainBanner({bannerIndex, setBannerIndex}: Props) {
+export default function MainBanner({ bannerIndex, setBannerIndex }: Props) {
   const bannerList = [MainBanner1, MainBanner2, MainBanner3];
   const ref = useRef<HTMLDivElement>(null);
   const imgref = useRef<HTMLImageElement>(null);
@@ -45,8 +48,7 @@ export default function MainBanner({bannerIndex, setBannerIndex}: Props) {
     const h = window.innerHeight;
     const MIN_HEADER_HEIGHT = 100;
 
-    if (ref.current)
-      ref.current.style.height = h - MIN_HEADER_HEIGHT + "px";
+    if (ref.current) ref.current.style.height = h - MIN_HEADER_HEIGHT + "px";
   }, []);
 
   useEffect(() => {
@@ -58,11 +60,9 @@ export default function MainBanner({bannerIndex, setBannerIndex}: Props) {
     };
   }, [resizeBanner]);
 
+  //
   return (
-    <div
-      className="relative flex w-full overflow-hidden"
-      ref={ref}
-    >
+    <div className="relative flex w-full overflow-hidden" ref={ref}>
       {bannerList.map((banner, index) => (
         <img
           ref={imgref}
@@ -74,8 +74,16 @@ export default function MainBanner({bannerIndex, setBannerIndex}: Props) {
             transform: `translateX(-${bannerScreenWidth * bannerIndex}px)`,
             transition: "transform 0.5s ease",
             left: index * bannerScreenWidth,
-            height: ref.current ? ref.current.style.height > imgref.current!.style.height ? ref.current.style.height : 'auto' : 'auto',
-            width: ref.current ? ref.current.style.width > imgref.current!.style.width ? ref.current.style.width : 'auto' : 'auto',
+            height: ref.current
+              ? ref.current.style.height > imgref.current!.style.height
+                ? ref.current.style.height
+                : "auto"
+              : "auto",
+            width: ref.current
+              ? ref.current.style.width > imgref.current!.style.width
+                ? ref.current.style.width
+                : "auto"
+              : "auto",
           }}
         />
       ))}
