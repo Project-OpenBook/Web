@@ -33,11 +33,24 @@ export default function MainBanner({ bannerIndex, setBannerIndex }: Props) {
     };
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const nextIndex = (bannerIndex + 1) % 3;
+  const BANNER_LENGTH = 3;
+  const changeBanner = useCallback(
+    (i: 1 | -1) => {
+      const sumIndex = bannerIndex + i;
+
+      if (sumIndex === -1) {
+        return setBannerIndex(BANNER_LENGTH - 1);
+      }
+
+      const nextIndex = sumIndex % BANNER_LENGTH;
+
       setBannerIndex(nextIndex);
-    }, 3000);
+    },
+    [bannerIndex, setBannerIndex]
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => changeBanner(1), 3000);
 
     return () => {
       clearInterval(interval);
@@ -80,11 +93,23 @@ export default function MainBanner({ bannerIndex, setBannerIndex }: Props) {
       ))}
 
       <button className="absolute right-5 top-1/2">
-        <FaRegArrowAltCircleRight size={60} color="white" />
+        <FaRegArrowAltCircleRight
+          size={60}
+          color="white"
+          onClick={() => {
+            changeBanner(1);
+          }}
+        />
       </button>
 
       <button className="absolute left-5 top-1/2">
-        <FaRegArrowAltCircleLeft size={60} color="white" />
+        <FaRegArrowAltCircleLeft
+          size={60}
+          color="white"
+          onClick={() => {
+            changeBanner(-1);
+          }}
+        />
       </button>
     </div>
   );
