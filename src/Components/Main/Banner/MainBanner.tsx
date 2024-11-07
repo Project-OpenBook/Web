@@ -68,7 +68,7 @@ export default function MainBanner({ bannerIndex, setBannerIndex }: Props) {
           src={banner}
           alt="메인"
           key={index}
-          className="absolute flex-1 object-cover"
+          className="absolute flex-1 object-cover lg:object-contain"
           style={{
             transform: `translateX(-${bannerScreenWidth * bannerIndex}px)`,
             transition: "transform 0.5s ease",
