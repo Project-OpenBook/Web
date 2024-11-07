@@ -73,18 +73,8 @@ export default function MainBanner({ bannerIndex, setBannerIndex }: Props) {
             transform: `translateX(-${bannerScreenWidth * bannerIndex}px)`,
             transition: "transform 0.5s ease",
             left: index * bannerScreenWidth,
-            height:
-              ref.current && imgref.current
-                ? ref.current.offsetHeight > imgref.current.offsetHeight
-                  ? ref.current.offsetHeight
-                  : "auto"
-                : "auto",
-            width:
-              ref.current && imgref.current
-                ? ref.current.offsetWidth > imgref.current.offsetWidth
-                  ? ref.current.offsetWidth
-                  : "auto"
-                : "auto",
+            height: ref.current?.offsetHeight,
+            width: ref.current?.offsetWidth,
           }}
         />
       ))}
