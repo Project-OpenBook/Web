@@ -182,7 +182,7 @@ export default function RegistLocationPage({
           <div className="text-3xl font-bold">행사장 구조도</div>
           <div className="flex justify-center items-center w-full h-3/4">
             <img
-              src={data.imageUrl}
+              src={JSON.parse(data.imageUrl)[0]}
               alt="Event Venue"
               className="w-full h-full object-contain px-5 pb-10 rounded mt-3"
             />
