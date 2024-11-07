@@ -17,12 +17,18 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false); // 카테고리 모달 상태 관리
   const [selectedOption, setSelectedOption] = useState<number>(0); // select 태그 상태 관리
   let { boothId } = useParams();
-  const { isError, data, isLoading } = useGetGoodsList(boothId ?? "");
+  const {
+    isError,
+    data,
+    isLoading,
+    refetch: totalRefetch,
+  } = useGetGoodsList(boothId ?? "");
   const {
     data: categoryGoodsList,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
   } = useCategoryGoodsInfinite(selectedOption.toString());
   const { data: categoryList } = useCategoryList(boothId ?? "");
 
@@ -145,6 +151,7 @@ export default function ManageProducts({ setModalState, isManager }: Props) {
                             <GoodsInfoCard
                               product={product}
                               setModalState={setModalState}
+                              category={category.category.id}
                             />
                           </div>
                         ))

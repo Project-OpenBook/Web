@@ -53,11 +53,7 @@ export default function BoothDetailPage() {
   if (isError) return <div>에러가 발생했습니다.</div>;
 
   const isUserHaveAuth = () => {
-    if (
-      userData?.role === "ADMIN" ||
-      (userData && userData.id === data?.manager.id)
-    )
-      return true;
+    if (userData && userData.id === data?.manager.id) return true;
     return false;
   };
 
@@ -195,7 +191,7 @@ export default function BoothDetailPage() {
               <BoothNotice boothId={+(boothId ?? 0)} />
             </div>
             <div className="flex flex-col items-start w-full gap-2">
-              <div className="flex gap-2 items-center w-full">
+              <div className="flex gap-2 items-center w-full pt-2">
                 <BsBasketFill size={25} color="#0064FF" />
                 <div className="font-bold">판매 상품</div>
                 <div className="flex ml-auto gap-2">

@@ -39,9 +39,6 @@ const fetchGoodsData = (boothId: string): Promise<GoodsData[]> => {
     `http://52.79.91.214:8080/booths/${boothId}/products`,
     {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     }
   ).then((response) => {
     if (!response.ok) throw new Error("err");
@@ -51,9 +48,9 @@ const fetchGoodsData = (boothId: string): Promise<GoodsData[]> => {
 };
 
 export function useGetGoodsList(boothId: string) {
-  const { isLoading, isError, data } = useQuery<GoodsData[]>({
+  const { isLoading, isError, data, refetch } = useQuery<GoodsData[]>({
     queryKey: ["getGoodsList", boothId],
     queryFn: () => fetchGoodsData(boothId),
   });
-  return { isLoading, isError, data };
+  return { isLoading, isError, data, refetch };
 }

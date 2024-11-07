@@ -2,6 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { getAccessToken } from "../../../Api/Util/token";
 import { useState } from "react";
 import noImage from "../../../images/noimage.png";
+import { useCategoryGoodsInfinite } from "./useGetGoodsCategory";
+import { useGetGoodsList } from "./useGetGoods";
 
 interface Product {
   id: string;
@@ -37,8 +39,7 @@ const fetchPatchData = (
   const token = getAccessToken();
   let formData = new FormData();
   formData.append("name", patchData.name);
-  //formData.append("categoryId", patchData.categoryId);
-  formData.append("categoryId", "37");
+  formData.append("categoryId", categoryId);
   formData.append("description", patchData.description);
   if (isFileArray(patchData.images)) {
     patchData.images.forEach((image) => {
@@ -64,8 +65,8 @@ const fetchPatchData = (
   return response;
 };
 
-export const usePatchProduct = (product: Product, categoryId2: string) => {
-  const [categoryId, setCategoryId] = useState("none");
+export const usePatchProduct = (product: Product, categoryId: string) => {
+  const [categoryId2, setCategoryId2] = useState(categoryId);
   const [name, setName] = useState(product.name);
   const [description, setDescription] = useState(product.description);
   const [stock, setStock] = useState(product.stock);
@@ -74,6 +75,8 @@ export const usePatchProduct = (product: Product, categoryId2: string) => {
     product.images[0]?.url || noImage
   );
   const id = product.id;
+  const { refetch } = useCategoryGoodsInfinite(categoryId2);
+  const { refetch: total } = useGetGoodsList("98");
   const { mutate } = useMutation({
     mutationFn: () =>
       fetchPatchData(
@@ -82,6 +85,8 @@ export const usePatchProduct = (product: Product, categoryId2: string) => {
       ),
     onSuccess: () => {
       alert("물품이 성공적으로 수정되었습니다.");
+      refetch();
+      total();
     },
     onError: () => {
       alert("물품 수정에 실패했습니다.");
@@ -90,13 +95,12 @@ export const usePatchProduct = (product: Product, categoryId2: string) => {
 
   return {
     mutate,
-    categoryId,
     description,
     images,
     name,
     stock,
     price,
-    setCategoryId,
+    setCategoryId2,
     setDescription,
     setImages,
     setName,

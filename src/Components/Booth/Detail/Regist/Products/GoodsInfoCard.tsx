@@ -13,6 +13,9 @@ interface Props {
     images: Image[] | [];
   };
   setModalState: (state: string) => void;
+  category?: string;
+  totalRefetch?: () => void;
+  refetch?: () => void;
 }
 
 interface Image {
@@ -20,7 +23,13 @@ interface Image {
   url: string;
 }
 
-export default function GoodsInfoCard({ product, setModalState }: Props) {
+export default function GoodsInfoCard({
+  product,
+  setModalState,
+  category,
+  refetch,
+  totalRefetch,
+}: Props) {
   const { mutate } = useDeleteProduct(product.id);
   const [patchModal, setPatchModal] = useState<boolean>(false);
 
@@ -81,11 +90,13 @@ export default function GoodsInfoCard({ product, setModalState }: Props) {
           삭제
         </button>
       </div>
-      <Modal width="w-3/4" isOpen={patchModal}>
+      <Modal width="w-2 /4" isOpen={patchModal}>
         <ProductPatchInputPage
           setModalState={setModalState}
           product={product}
           setPatchModal={setPatchModal}
+          category={category}
+          totalRefech={totalRefetch}
         />
       </Modal>
     </div>

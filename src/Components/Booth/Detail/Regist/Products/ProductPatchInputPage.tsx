@@ -12,6 +12,7 @@ import { BiSolidCategory } from "react-icons/bi";
 import { useParams } from "react-router-dom";
 import { useCategoryList } from "../../../../../Hooks/Booth/Detail/useGetCategory";
 import { usePatchProduct } from "../../../../../Hooks/Booth/Detail/usePatchProduct";
+import { useCategoryGoodsInfinite } from "../../../../../Hooks/Booth/Detail/useGetGoodsCategory";
 
 interface Props {
   setModalState: (state: string) => void;
@@ -24,6 +25,8 @@ interface Props {
     price: number;
     images: Image[];
   };
+  category?: string;
+  totalRefech?: () => void;
 }
 
 interface Image {
@@ -35,23 +38,25 @@ export default function ProductPatchInputPage({
   setModalState,
   product,
   setPatchModal,
+  category,
+  totalRefech,
 }: Props) {
   const {
     mutate,
-    setCategoryId,
+    setCategoryId2,
     setDescription,
     setImages,
     setName,
     setPrice,
     setStock,
     name,
-    categoryId,
     categoryId2,
     description,
     images,
     price,
     stock,
-  } = usePatchProduct(product, "37");
+  } = usePatchProduct(product, category || "");
+
   let { boothId } = useParams();
   const setBoothImage = useSetRecoilState(boothImageState);
   const [imageName, setImageName] = useState("X");
@@ -70,6 +75,7 @@ export default function ProductPatchInputPage({
 
   const handleConfirm = () => {
     mutate();
+    setModalState(Modal_State.goodsManage);
   };
 
   const handleCancel = () => {
@@ -78,8 +84,6 @@ export default function ProductPatchInputPage({
       setModalState(Modal_State.goodsManage);
     }
   };
-
-  console.log(name, description);
 
   return (
     <>
@@ -96,10 +100,11 @@ export default function ProductPatchInputPage({
         <GoodsInfoInput
           Icon={BiSolidCategory}
           label="카테고리"
-          placeholder="물품의 카테고리를 선택해주세요"
-          setValue={setCategoryId}
+          placeholder="우측에서 물품의 카테고리를 선택해주세요"
+          setValue={setCategoryId2}
           type="select"
           categoryData={categoryList}
+          value={categoryId2}
         />
         <GoodsInfoInput
           Icon={MdOutlineDescription}
