@@ -3,6 +3,7 @@ import { useGetLocation } from "../../../../Hooks/Event/useGetLocation";
 import LocationStateInfo from "./LocationStateInfo";
 import { useState, useEffect } from "react";
 import { Modal_State } from "../BoothRegistPage";
+import Carousel from "../../../Util/Carousel";
 
 interface Props {
   eventId: string;
@@ -177,14 +178,21 @@ export default function RegistLocationPage({
 
   return data ? (
     <>
-      <div className="flex w-full gap-4 h-full">
+      <div className="flex w-full gap-4 h-full pt-5">
         <div className="w-1/2 gap-4 py-5 flex flex-col h-[500px] items-center bg-blue-100 rounded-lg ">
           <div className="text-3xl font-bold">행사장 구조도</div>
-          <div className="flex justify-center items-center w-full h-3/4">
-            <img
-              src={JSON.parse(data.imageUrl)[0]}
-              alt="Event Venue"
-              className="w-full h-full object-contain px-5 pb-10 rounded mt-3"
+          <div className="flex flex-col justify-center items-center w-full h-3/4">
+            <Carousel
+              className="h-[350px]"
+              list={JSON.parse(data.imageUrl).map((url: string) => (
+                <img
+                  className="w-full h-full object-contain px-5 pb-10 rounded mt-5"
+                  src={url}
+                  alt="layout"
+                />
+              ))}
+              dot={JSON.parse(data.imageUrl).length !== 1}
+              button={false}
             />
           </div>
         </div>
