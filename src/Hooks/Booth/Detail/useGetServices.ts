@@ -28,9 +28,6 @@ const fetchServiceData = (boothId: string): Promise<ServiceData[]> => {
     //`http://52.79.91.214:8080/booths/68/reservations`,
     {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     }
   ).then((response) => {
     if (!response.ok) throw new Error("err");

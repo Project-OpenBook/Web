@@ -39,9 +39,6 @@ const fetchGoodsData = (boothId: string): Promise<GoodsData[]> => {
     `http://52.79.91.214:8080/booths/${boothId}/products`,
     {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     }
   ).then((response) => {
     if (!response.ok) throw new Error("err");

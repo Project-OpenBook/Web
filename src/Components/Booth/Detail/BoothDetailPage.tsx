@@ -53,11 +53,7 @@ export default function BoothDetailPage() {
   if (isError) return <div>에러가 발생했습니다.</div>;
 
   const isUserHaveAuth = () => {
-    if (
-      userData?.role === "ADMIN" ||
-      (userData && userData.id === data?.manager.id)
-    )
-      return true;
+    if (userData && userData.id === data?.manager.id) return true;
     return false;
   };
 

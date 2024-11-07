@@ -4,18 +4,17 @@ import { useState } from "react";
 
 const fetchApplyData = (detail_id: string, approve: string): Promise<void> => {
   const token = getAccessToken();
-  let formData = new FormData();
-  formData.append("status", approve);
-  console.log(token);
+  const data = { status: approve };
 
   const response = fetch(
     `http://52.79.91.214:8080/manage/booths/reserve/${detail_id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
       method: "PATCH",
-      body: formData,
+      body: JSON.stringify(data),
     }
   ).then((response) => {
     if (!response.ok) throw new Error("err");

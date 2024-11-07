@@ -1,5 +1,5 @@
 import noImage from "../../../../images/noimage.png";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import ReserveTable from "./ReserveTable";
 
 interface Props {
@@ -33,6 +33,12 @@ interface ReservationTime {
 
 export default function ServiceInfoCard({ serviceData, isManager }: Props) {
   const [isTableModalOpen, setTableModalOpen] = useState(false);
+
+  const reversedReservations = useMemo(
+    () => [...serviceData.reservations].reverse(),
+    [serviceData.reservations]
+  );
+
   return (
     <>
       <div className="w-full border p-2 rounded-lg flex relative bg-white hover:shadow-sm">
@@ -48,22 +54,15 @@ export default function ServiceInfoCard({ serviceData, isManager }: Props) {
                 {serviceData.name}
               </h3>
               <p className="text-sm text-gray-500 mb-2">
-                {
-                  serviceData.reservations[serviceData.reservations.length - 1]
-                    .date
-                }
-
+                {reversedReservations[reversedReservations.length - 1].date}
                 {" ~ "}
-                {serviceData.reservations[0].date}
+                {reversedReservations[0].date}
               </p>
               <p className="text-xl font-semibold text-gray-800">
                 {serviceData.price.toLocaleString()}원
               </p>
             </div>
             <div className="flex gap-2">
-              {/* <button className="px-3 py-1 text-sm font-medium text-blue-600 border border-blue-500 rounded-md hover:bg-blue-50">
-              수정
-            </button> */}
               <button
                 onClick={() => {
                   setTableModalOpen(true);
@@ -87,7 +86,7 @@ export default function ServiceInfoCard({ serviceData, isManager }: Props) {
       {isTableModalOpen && (
         <ReserveTable
           isManager={isManager}
-          reserveInfo={serviceData.reservations.reverse()}
+          reserveInfo={reversedReservations}
           onClose={() => setTableModalOpen(false)}
         />
       )}
