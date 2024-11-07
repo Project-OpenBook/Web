@@ -93,8 +93,8 @@ export default function MyBooth() {
               image={booth.mainImageUrl}
               name={booth.name}
               key={booth.id}
-              eventName={booth.eventName}
-              // tags={booth.tags} TODO: 부스 tags 브랜치 머지 후 주석 해제
+              eventName={booth.event.name}
+              tags={booth.tags}
             />
           ))
         )}
