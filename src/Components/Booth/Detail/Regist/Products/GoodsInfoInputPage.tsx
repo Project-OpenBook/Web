@@ -25,6 +25,7 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
     setName,
     setPrice,
     setStock,
+    categoryId,
   } = useGoodsInput(setModalState);
   let { boothId } = useParams();
   const setBoothImage = useSetRecoilState(boothImageState);
@@ -70,6 +71,7 @@ export default function GoodsInfoInputPage({ setModalState }: Props) {
           setValue={setCategoryId}
           type="select"
           categoryData={categoryList}
+          value={categoryId}
         />
         <GoodsInfoInput
           Icon={MdOutlineDescription}

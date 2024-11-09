@@ -56,9 +56,8 @@ export default function GoodsInfoInput({
             className="flex w-3/4 border-b-2 py-2 pl-1"
           />
           <select
-            value={value || "none"} // 초기 값이 없을 때 "none"을 사용
+            value={value || "none"}
             onChange={(e) => {
-              console.log(e.target.value);
               setValue(e.target.value);
             }} // 문자열로 전달
             className="border-2 border-black h-8 w-1/4 hover:cursor-pointer rounded-md bg-white"
